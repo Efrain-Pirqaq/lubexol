@@ -7,7 +7,7 @@ describe('CreateLeadPayloadSchema', () => {
       productId: 'mobil-super-20w50',
       productName: 'Mobil Super 20W-50',
       fuelCompatibility: ['Gasolina'],
-      containerSize: '1L / Cuarto',
+      containerSize: '1L',
       boxUnits: 15,
       boxCount: 2,
       totalUnits: 30,

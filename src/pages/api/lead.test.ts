@@ -6,7 +6,7 @@ describe('POST /api/lead', () => {
     productId: 'lubexol-optimus-premium-20w50',
     productName: 'Lubexol Optimus Premium SAE 20W-50',
     fuelCompatibility: ['Gasolina', 'GNV'],
-    containerSize: '1L / Cuarto',
+    containerSize: '1L',
     boxUnits: 15,
     boxCount: 2,
     totalUnits: 30,
