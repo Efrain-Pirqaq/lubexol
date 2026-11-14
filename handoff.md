@@ -1235,6 +1235,28 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
 - **Despliegue a Producción:** Exitoso vía Wrangler.
 - **Verificación en Vivo:** Comprobado con `node fetch` en `https://aceitedemotorlima.com/` confirmando el retiro de "Beneficios" en desktop y móvil.
 
+---
+
+## 📌 43. CIERRE DE SESIÓN Y REGISTRO DE MEMORIA — PRÓXIMO PASO: DIRECCIÓN OCULTA EN GOOGLE (LOCAL SEO / SAB)
+
+> **Fecha:** 14/11/2026 13:46  
+> **Estado de la Sesión:** Guardado y sincronizado. PO (Efraín) en pausa temporal.  
+> **URL Oficial en Producción:** [https://aceitedemotorlima.com](https://aceitedemotorlima.com) (HTTP 200 OK con SSL).  
+> **Repositorio Oficial:** Rama `main` al día en GitHub (`origin/main`).
+
+### 43.1. Estado Actual del Proyecto
+1. **Dominio Propio y Activo:** `aceitedemotorlima.com` configurado en Cloudflare Pages, con DNS y SSL automático vía Namecheap.
+2. **Catálogo y Cotizaciones:** 6 lubricantes con clasificación Monogrado/Multigrado, empaques exclusivos de 15u y 20u de 1L, modal two-step y despacho directo a WhatsApp (`51962952354`).
+3. **Blog & Podcast Maquetados:** Rutas `/blog` y `/podcast` con identidad unificada, metadatos y esquemas JSON-LD listos para recibir los primeros contenidos técnicos.
+4. **Navegación Limpia:** Menú en desktop y móvil con `Catálogo`, `Blog`, `Podcast` y `Preguntas Frecuentes`.
+
+### 43.2. Próximo Paso Comprometido para el Regreso del PO
+- **Objetivo:** Registrar la presencia local en Google (Google Business Profile / Ficha de Google Maps) y en los datos estructurados Schema del sitio, **ocultando la dirección física exacta para los usuarios finales**.
+- **Estrategia Técnica:**
+  * **Google Business Profile en modalidad SAB (Service Area Business):** Permite verificar la empresa ante Google con una dirección real para validar la cuenta, pero configurando la opción de *"No mostrar mi dirección comercial a los clientes"*. De este modo, en Google y Maps solo figurará el área de cobertura: **Lima Metropolitana y Callao**, protegiendo la privacidad del vendedor o domicilio.
+  * **Schema JSON-LD LocalBusiness / AutoPartsStore:** Inyectar en el código los datos de la entidad comercial con `areaServed: ["Lima", "Callao"]` y tipo de servicio a domicilio/taller, sin exponer la calle ni número exacto en el frontend.
+
+
 
 
 
