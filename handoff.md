@@ -1201,6 +1201,25 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
   * `https://aceitedemotorlima.com/blog` -> 200 OK (*Blog Aceite de Motor Lima — Guías Técnicas y Mantenimiento de Motor*).
   * `https://aceitedemotorlima.com/podcast` -> 200 OK (*Podcast Aceite de Motor Lima — Consejos de Taller y Ahorro por Caja*).
 
+---
+
+## 📌 41. INCORPORACIÓN DE PESTAÑAS BLOG Y PODCAST EN EL HEADER (DESKTOP Y MÓVIL)
+
+> **Fecha:** 14/11/2026 13:21  
+> **Solicitud del PO:** Incorporar las pestañas / accesos directos de "Blog" y "Podcast" en la barra superior de navegación de la portada, sin añadir sección corporal masiva.
+
+### 41.1. Cambios Físicos Implementados
+- **`src/pages/index.astro`:**
+  * En navegación de escritorio (`<nav md:flex>`): se añadieron `<a href="/blog">Blog</a>` y `<a href="/podcast">Podcast</a>`.
+  * En navegación móvil (`<div md:hidden>`): se habilitó una sub-barra rápida de enlaces para que los usuarios desde celular (taxistas y conductores) tengan acceso inmediato a: `Catálogo`, `Beneficios`, `Blog`, `Podcast` y `FAQ`.
+
+### 41.2. Verificación Factual y Despliegue
+- `npm run lint` (`astro check`): **0 errores, 0 advertencias**.
+- `npm run build`: **Exit code 0**.
+- **Despliegue a Producción:** Exitoso vía Wrangler a Cloudflare Pages.
+- **Verificación en Vivo:** DOM auditado en `https://aceitedemotorlima.com/` (3 accesos a blog y 3 a podcast en desktop, móvil y footer).
+
+
 
 
 
