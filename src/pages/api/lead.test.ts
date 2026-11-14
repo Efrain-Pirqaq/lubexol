@@ -7,9 +7,9 @@ describe('POST /api/lead', () => {
     productName: 'Lubexol Optimus Premium SAE 20W-50',
     fuelCompatibility: ['Gasolina', 'GNV'],
     containerSize: '1L / Cuarto',
-    boxUnits: 12,
+    boxUnits: 15,
     boxCount: 2,
-    totalUnits: 24,
+    totalUnits: 30,
     source: 'product_card_modal',
     timestamp: new Date().toISOString(),
     renderTimestamp: Date.now() - 3000, // 3 segundos atrás
