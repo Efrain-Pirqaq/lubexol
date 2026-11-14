@@ -17,6 +17,7 @@ export const ProductSchema = z.object({
   brand: z.string(),
   description: z.string(),
   imageUrl: z.string().optional(),
+  gradeType: z.enum(['Monogrado', 'Multigrado']).optional(),
   fuelCompatibility: z.array(z.enum(['GNV', 'GLP', 'Gasolina', 'Diesel'])).min(1),
   variants: z.array(ProductVariantSchema).min(1),
   status: z.enum(['draft', 'published', 'archived']),

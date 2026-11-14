@@ -190,6 +190,7 @@ const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
             const summary = document.getElementById('modal-summary');
             summary.innerHTML = `
               <p><strong>Producto:</strong> ${card.dataset.productName}</p>
+              ${card.dataset.grade ? `<p><strong>Tipo:</strong> ${card.dataset.grade}</p>` : ''}
               <p><strong>Combustible:</strong> ${card.dataset.fuel}</p>
               <p><strong>Envase:</strong> ${s.variantId ? card.querySelector(`[data-variant="${s.variantId}"]`)?.dataset.volume : ''}</p>
               <p><strong>Empaque:</strong> Caja x ${s.boxUnits} unidades</p>
@@ -277,7 +278,8 @@ const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
           keepalive: true,
         }).catch(() => console.warn('Registro asíncrono en proceso'));
 
-        const message = `Hola Lubexol, quisiera cotizar lo siguiente con su asesor:\n- Producto: ${payload.productName}\n- Combustible: ${payload.fuelCompatibility.join(', ')}\n- Envase: ${payload.containerSize}\n- Empaque: Caja x ${payload.boxUnits} unidades\n- Cantidad: ${payload.boxCount} caja(s) (Total: ${payload.totalUnits} unidades)\n\n¿Podrían confirmarme precio por caja, disponibilidad y condiciones de entrega?`;
+        const gradeInfo = (card as HTMLElement).dataset.grade ? ` [${(card as HTMLElement).dataset.grade}]` : '';
+        const message = `Hola Lubexol, quisiera cotizar lo siguiente con su asesor:\n- Producto: ${payload.productName}${gradeInfo}\n- Combustible: ${payload.fuelCompatibility.join(', ')}\n- Envase: ${payload.containerSize}\n- Empaque: Caja x ${payload.boxUnits} unidades\n- Cantidad: ${payload.boxCount} caja(s) (Total: ${payload.totalUnits} unidades)\n\n¿Podrían confirmarme precio por caja, disponibilidad y condiciones de entrega?`;
         const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

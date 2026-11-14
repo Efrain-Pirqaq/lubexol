@@ -1114,6 +1114,44 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
 - `npm run build`: **Exit code 0** (Server built en 2.10s).
 - Despliegue en producción completado con éxito vía Wrangler a `https://lubexol.pages.dev/`.
 
+---
+
+## 📌 38. IMPLEMENTACIÓN DE CLASIFICACIÓN TÉCNICA (MONOGRADO / MULTIGRADO) Y DOMINIO DEFINITIVO
+
+> **Fecha:** 14/11/2026 11:10  
+> **Solicitud del PO:**  
+> 1. Añadir visualmente en la tarjeta, descripción y modal si el lubricante es Monogrado o Multigrado.  
+> 2. Decisión sobre dominio: Descartar "lubexol" por ser revendedor sin titularidad de marca (evitar litigios ante INDECOPI) y adoptar `aceitedemotorlima.com`.
+
+### 38.1. Cambios Físicos Implementados
+1. **Contrato de Catálogo (`src/lib/contracts/catalog.ts`):**  
+   - Se añadió campo tipado `gradeType: z.enum(['Monogrado', 'Multigrado']).optional()`.
+2. **Catálogo de Productos (`src/data/catalog.ts`):**  
+   - Clasificación explícita de los 6 productos:
+     * `lubexol-optimus-premium-20w50`: **Multigrado** (API-SN).
+     * `lubexol-ultra-oil-15w40`: **Multigrado** (API CI-4 PLUS).
+     * `lubexol-hd50-gnv-glp`: **Monogrado** (SAE 50 API-SL-CD).
+     * `lubexol-turbo-vis-25w60`: **Multigrado** (API CH-4/SF).
+     * `lubexol-hd40-ultra-oil`: **Monogrado** (SAE 40 API-SL-CD).
+     * `lubexol-moto-4t-25w60`: **Multigrado** (4T JASO MA2).
+3. **Componente Visual (`src/components/ProductCard.astro`):**  
+   - Badge flotante en la esquina superior izquierda de la foto:
+     * `⚡ Multigrado` con fondo azul (`bg-blue-600 text-white`).
+     * `⚙️ Monogrado` con fondo ámbar (`bg-amber-500 text-slate-950`).
+   - Descripción técnica destacada al inicio de cada producto en tipografía legible.
+4. **Resumen de Modal y Mensaje de WhatsApp (`src/pages/index.astro` y `src/pages/catalogo.astro`):**  
+   - El modal de confirmación ahora incluye la línea `Tipo: Monogrado / Multigrado`.
+   - El mensaje pre-armado hacia WhatsApp adjunta `[Multigrado]` o `[Monogrado]` junto al nombre del producto.
+5. **Decisión de Dominio:**  
+   - Aprobado: `aceitedemotorlima.com`. No vulnera propiedad intelectual, posiciona keywords locales de alta intención transaccional y permite incorporar más marcas en el futuro.
+
+### 38.2. Verificación Factual y Despliegue
+- `npm run test`: **13/13 pasados** (Vitest).
+- `npm run lint` (`astro check`): **0 errores, 0 advertencias, 0 hints**.
+- `npm run build`: **Exit code 0** (Server built en 2.35s).
+- **Despliegue Cloudflare Pages:** Exitoso a `https://lubexol.pages.dev/`. Verificado con `node fetch` (8 ocurrencias Multigrado, 4 ocurrencias Monogrado).
+
+
 
 
 

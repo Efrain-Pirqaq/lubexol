@@ -5,7 +5,8 @@ export const catalog: Product[] = [
     id: 'lubexol-optimus-premium-20w50',
     name: 'Lubexol Optimus Premium SAE 20W-50',
     brand: 'Lubexol',
-    description: 'Aceite multigrado API-SN para máxima protección en motores a gasolina y conversión a gas (GNV/GLP).',
+    gradeType: 'Multigrado',
+    description: 'MULTIGRADO API-SN: Máxima protección térmica para motores a gasolina y conversión a gas (GNV/GLP).',
     imageUrl: '/images/products/lubexol-optimus-premium-20w50.jpeg',
     fuelCompatibility: ['GNV', 'GLP', 'Gasolina'],
     variants: [
@@ -26,7 +27,8 @@ export const catalog: Product[] = [
     id: 'lubexol-ultra-oil-15w40',
     name: 'Lubexol Ultra Oil SAE 15W-40',
     brand: 'Lubexol',
-    description: 'Aceite multigrado API CI-4 PLUS para motores diésel de servicio pesado, camiones y flotas comerciales.',
+    gradeType: 'Multigrado',
+    description: 'MULTIGRADO API CI-4 PLUS: Para flotas, camiones y motores diésel de servicio pesado y continuo.',
     imageUrl: '/images/products/lubexol-ultra-oil-15w40.jpeg',
     fuelCompatibility: ['Diesel', 'Gasolina'],
     variants: [
@@ -47,7 +49,8 @@ export const catalog: Product[] = [
     id: 'lubexol-hd50-gnv-glp',
     name: 'Lubexol HD 50 Ultra Oil GNV/GLP',
     brand: 'Lubexol',
-    description: 'Aceite monogrado API-SL-CD de alta viscosidad formulado especialmente para vehículos a gas GNV y GLP.',
+    gradeType: 'Monogrado',
+    description: 'MONOGRADO API-SL-CD: Alta viscosidad SAE 50 formulado especialmente para vehículos de trabajo a gas GNV y GLP.',
     imageUrl: '/images/products/lubexol-hd50-gnv-glp.jpeg',
     fuelCompatibility: ['GNV', 'GLP'],
     variants: [
@@ -68,7 +71,8 @@ export const catalog: Product[] = [
     id: 'lubexol-turbo-vis-25w60',
     name: 'Lubexol Turbo Vis SAE 25W-60',
     brand: 'Lubexol',
-    description: 'Aceite multigrado API CH-4/SF de alta viscosidad para motores con alto kilometraje o alto desgaste.',
+    gradeType: 'Multigrado',
+    description: 'MULTIGRADO API CH-4/SF: Alta viscosidad 25W-60 sellador para motores con alto kilometraje o desgaste.',
     imageUrl: '/images/products/lubexol-turbo-vis-25w60.jpeg',
     fuelCompatibility: ['Diesel', 'Gasolina'],
     variants: [
@@ -89,7 +93,8 @@ export const catalog: Product[] = [
     id: 'lubexol-hd40-ultra-oil',
     name: 'Lubexol HD 40 Ultra Oil',
     brand: 'Lubexol',
-    description: 'Aceite monogrado API-SL-CD para motores diésel y gasolina con protección confiable contra el desgaste.',
+    gradeType: 'Monogrado',
+    description: 'MONOGRADO API-SL-CD: Viscosidad SAE 40 para motores diésel y gasolina con protección continua y confiable.',
     imageUrl: '/images/products/lubexol-hd40-ultra-oil.jpeg',
     fuelCompatibility: ['Diesel', 'Gasolina'],
     variants: [
@@ -110,7 +115,8 @@ export const catalog: Product[] = [
     id: 'lubexol-moto-4t-25w60',
     name: 'Lubexol 4 Tiempos Moto SAE 25W-60',
     brand: 'Lubexol',
-    description: 'Tecnología sintética API-SL-CD, norma JASO MA2 para motocicletas y mototaxis de trabajo pesado.',
+    gradeType: 'Multigrado',
+    description: 'MULTIGRADO 4T (JASO MA2): Tecnología sintética API-SL-CD para motocicletas y mototaxis de alto rendimiento.',
     imageUrl: '/images/products/lubexol-moto-4t-25w60.jpeg',
     fuelCompatibility: ['Gasolina'],
     variants: [
