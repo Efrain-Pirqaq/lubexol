@@ -16,40 +16,172 @@ const { Content } = await post.render();
 const related = post.data.relatedProducts
   .map((id) => catalog.find((p) => p.id === id))
   .filter(Boolean);
+
+const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
+const canonicalUrl = `https://aceitedemotorlima.com/blog/${post.slug}`;
+
+const schemaArticle = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  author: {
+    '@type': 'Person',
+    name: post.data.author,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Aceite de Motor Lima',
+    url: 'https://aceitedemotorlima.com',
+  },
+  datePublished: post.data.publishedAt.toISOString(),
+  dateModified: (post.data.updatedAt || post.data.publishedAt).toISOString(),
+  mainEntityOfPage: canonicalUrl,
+};
 ---
-<html lang="es">
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{post.data.title} — Lubexol</title>
+    <title>{post.data.title} — Blog Aceite de Motor Lima</title>
+    <meta name="description" content={post.data.description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={`${post.data.title} — Blog Aceite de Motor Lima`} />
+    <meta property="og:description" content={post.data.description} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0f172a" />
     {post.data.seo?.noindex && <meta name="robots" content="noindex" />}
+    <script type="application/ld+json" set:html={JSON.stringify(schemaArticle)} />
   </head>
-  <body class="bg-slate-50 text-slate-900">
-    <main class="mx-auto max-w-3xl p-8">
-      <a href="/blog" class="text-sm text-slate-600 hover:underline">← Volver al blog</a>
-      <article class="mt-4">
-        <h1 class="text-3xl font-bold text-slate-900">{post.data.title}</h1>
-        <p class="mt-2 text-slate-600">{post.data.description}</p>
-        <div class="mt-2 text-xs text-slate-500">
-          <span>{post.data.author}</span> · <time datetime={post.data.publishedAt.toISOString()}>{post.data.publishedAt.toLocaleDateString('es-PE')}</time>
-        </div>
-        <div class="prose mt-6 max-w-none">
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md">
+      <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
+            ACEITE DE MOTOR <span class="text-amber-500">LIMA</span>
+          </span>
+          <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+            Blog
+          </span>
+        </a>
+        <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
+          <a href="/" class="transition-colors hover:text-slate-900">Inicio</a>
+          <a href="/catalogo" class="transition-colors hover:text-slate-900">Catálogo</a>
+          <a href="/blog" class="text-slate-900">Blog</a>
+          <a href="/podcast" class="transition-colors hover:text-slate-900">Podcast</a>
+        </nav>
+        {whatsappNumber && (
+          <a
+            href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hola, leí el artículo "${post.data.title}" en su blog y quisiera cotizar lubricantes por caja.`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-500"
+          >
+            <span>💬 Cotizar</span>
+          </a>
+        )}
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+      <!-- Breadcrumb -->
+      <nav class="mb-6 flex items-center gap-2 text-xs text-slate-500">
+        <a href="/" class="hover:underline">Inicio</a>
+        <span>›</span>
+        <a href="/blog" class="hover:underline">Blog</a>
+        <span>›</span>
+        <span class="truncate font-semibold text-slate-900">{post.data.title}</span>
+      </nav>
+
+      <article>
+        <!-- Metadatos de Cabecera -->
+        <header class="border-b border-slate-200 pb-8">
+          <div class="mb-3 flex flex-wrap items-center gap-2">
+            <span class="rounded border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-amber-900">
+              Guía Técnica de Motor
+            </span>
+            {post.data.tags?.map((tag) => (
+              <span class="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600">
+                #{tag}
+              </span>
+            ))}
+          </div>
+
+          <h1 class="text-2xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+            {post.data.title}
+          </h1>
+
+          <p class="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg">
+            {post.data.description}
+          </p>
+
+          <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-500">
+            <span class="font-semibold text-slate-700">✍️ Por {post.data.author}</span>
+            <span>·</span>
+            <time datetime={post.data.publishedAt.toISOString()}>
+              📅 Publicado: {post.data.publishedAt.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' })}
+            </time>
+          </div>
+        </header>
+
+        <!-- Cuerpo del Artículo -->
+        <div class="prose prose-slate mt-8 max-w-none text-slate-800 prose-headings:font-bold prose-headings:text-slate-950 prose-a:text-amber-600 hover:prose-a:underline">
           <Content />
         </div>
 
+        <!-- Productos Recomendados Relacionados -->
         {related.length > 0 && (
-          <aside class="mt-8 rounded-lg border border-slate-200 bg-white p-4">
-            <h3 class="text-sm font-semibold text-slate-900">Productos relacionados</h3>
-            <ul class="mt-2 space-y-1 text-sm">
-              {related.map((p) => (
-                <li>
-                  <a href={`/catalogo`} class="text-slate-700 hover:underline">{p?.name}</a>
-                </li>
+          <aside class="mt-12 rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">📦</span>
+              <h3 class="text-base font-bold text-slate-900">Lubricantes recomendados para este caso</h3>
+            </div>
+            <p class="mt-1 text-xs text-slate-600">
+              Disponibles por caja cerrada de 15 o 20 unidades con entrega coordinada en Lima y Callao:
+            </p>
+
+            <div class="mt-4 grid gap-3 sm:grid-cols-2">
+              {related.map((prod) => (
+                <div class="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-4">
+                  <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-700">
+                      {prod?.gradeType ? `• ${prod.gradeType}` : '• LUBRICANTE'}
+                    </span>
+                    <h4 class="mt-1 text-sm font-bold text-slate-900">{prod?.name}</h4>
+                    <p class="mt-1 text-xs text-slate-500 line-clamp-2">{prod?.description}</p>
+                  </div>
+                  <div class="mt-4">
+                    <a
+                      href={whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hola, quisiera cotizar una caja de ${prod?.name} que vi en su artículo de blog.`)}` : '/catalogo'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white transition hover:bg-slate-800"
+                    >
+                      <span>Cotizar por WhatsApp</span>
+                    </a>
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </aside>
         )}
       </article>
+
+      <div class="mt-10 border-t border-slate-200 pt-6">
+        <a href="/blog" class="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-amber-600">
+          ← Volver a todas las guías del blog
+        </a>
+      </div>
     </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-slate-50 px-4 py-8 text-center text-xs text-slate-500">
+      © 2026 aceitedemotorlima.com · Consultas técnicas y cotizaciones directas por WhatsApp.
+    </footer>
   </body>
 </html>

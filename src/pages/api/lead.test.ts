@@ -124,7 +124,7 @@ describe('POST /api/lead', () => {
       clientAddress: '127.0.0.6',
       locals: {
         runtime: {
-          env: { PUBLIC_SITE_URL: 'https://lubexol.pe' },
+          env: { PUBLIC_SITE_URL: 'https://aceitedemotorlima.com' },
         },
       },
     } as any);

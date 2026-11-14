@@ -5,22 +5,92 @@ import PodcastCard from '@/components/PodcastCard.astro';
 
 const episodes = await getCollection('podcast', ({ data }) => data.status === 'published');
 const hasEpisodes = episodes.length > 0;
+const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
+const defaultWaUrl = whatsappNumber
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola Aceite de Motor Lima, quisiera información y asesoría sobre lubricantes por caja.')}`
+  : '#';
 ---
-<html lang="es">
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Podcast — Lubexol</title>
+    <title>Podcast Aceite de Motor Lima — Consejos de Taller y Ahorro por Caja</title>
+    <meta
+      name="description"
+      content="Episodios breves y prácticos con especialistas en lubricación automotriz en Lima y Callao. Mitos del cambio de aceite, GNV/GLP y cómo evitar aceites adulterados."
+    />
+    <link rel="canonical" href="https://aceitedemotorlima.com/podcast" />
+    <meta property="og:title" content="Podcast Aceite de Motor Lima — Consejos de Mantenimiento" />
+    <meta
+      property="og:description"
+      content="Escucha audios breves con respuestas técnicas directas de nuestros asesores de lubricantes."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://aceitedemotorlima.com/podcast" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0f172a" />
   </head>
-  <body class="bg-slate-50 text-slate-900">
-    <main class="mx-auto max-w-5xl p-8">
-      <header class="mb-6 flex items-center justify-between">
-        <h1 class="text-2xl font-bold">Podcast</h1>
-        <a href="/" class="text-sm text-slate-600 hover:underline">Inicio</a>
-      </header>
+  <body class="bg-slate-50 text-slate-900 antialiased">
+    <!-- Top Bar -->
+    <div class="bg-slate-900 px-4 py-2 text-center text-xs font-medium text-slate-200">
+      🎙️ Podcast Oficial de aceitedemotorlima.com · Consejos en audio y respuestas directas de taller
+    </div>
 
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-xl font-black tracking-tight text-slate-900 sm:text-2xl">
+            ACEITE DE MOTOR <span class="text-amber-500">LIMA</span>
+          </span>
+          <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+            Podcast
+          </span>
+        </a>
+        <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
+          <a href="/" class="transition-colors hover:text-slate-900">Inicio</a>
+          <a href="/catalogo" class="transition-colors hover:text-slate-900">Catálogo</a>
+          <a href="/blog" class="transition-colors hover:text-slate-900">Blog</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a
+            href={defaultWaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-500 sm:text-sm"
+          >
+            <span>💬 Asesor WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+      <!-- Breadcrumb -->
+      <nav class="mb-6 flex items-center gap-2 text-xs text-slate-500">
+        <a href="/" class="hover:underline">Inicio</a>
+        <span>›</span>
+        <span class="font-semibold text-slate-900">Podcast</span>
+      </nav>
+
+      <!-- Hero Podcast -->
+      <div class="mb-12 max-w-3xl">
+        <span class="inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-900">
+          🎧 Episodios de Audio y Charlas Prácticas
+        </span>
+        <h1 class="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-4xl">
+          Podcast Aceite de Motor Lima
+        </h1>
+        <p class="mt-3 text-sm text-slate-600 sm:text-base">
+          Respuestas rápidas y sin rodeos de nuestro equipo comercial y técnico. Aprende a calcular los intervalos de cambio reales para tu taxi o camioneta de trabajo, identificar falsificaciones y maximizar la vida útil de tu motor comprando por caja cerrada.
+        </p>
+      </div>
+
+      <!-- Listado de Episodios -->
       {hasEpisodes ? (
-        <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <section class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {episodes.map((ep) => (
             <PodcastCard
               title={ep.data.title}
@@ -32,13 +102,59 @@ const hasEpisodes = episodes.length > 0;
           ))}
         </section>
       ) : (
-        <div class="rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
-          <p class="text-lg font-medium text-slate-700">Podcast en preparación</p>
-          <p class="mt-2 text-sm text-slate-500">
-            Los episodios se publicarán tras revisión humana. No se muestran contenidos de ejemplo.
+        <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center shadow-sm">
+          <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-2xl">
+            🎙️
+          </div>
+          <h3 class="mt-4 text-base font-bold text-slate-900">Primeros episodios en grabación y edición</h3>
+          <p class="mx-auto mt-2 max-w-md text-xs leading-relaxed text-slate-500">
+            Estamos grabando los primeros audios con nuestros asesores de campo para responder las dudas más urgentes de taxistas y talleres de Lima y Callao.
           </p>
+          <div class="mt-6 flex justify-center gap-3">
+            <a
+              href="/catalogo"
+              class="rounded-lg bg-slate-900 px-4 py-2 text-xs font-bold text-white transition hover:bg-slate-800"
+            >
+              Ver Catálogo por Caja
+            </a>
+            <a
+              href={defaultWaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="rounded-lg border border-slate-300 bg-white px-4 py-2 text-xs font-bold text-slate-700 transition hover:bg-slate-50"
+            >
+              Consultar con un Asesor
+            </a>
+          </div>
         </div>
       )}
     </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-slate-50 px-4 py-12 text-slate-600 sm:px-6">
+      <div class="mx-auto max-w-6xl">
+        <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <div>
+            <span class="text-xl font-black text-slate-900">
+              ACEITE DE MOTOR <span class="text-amber-500">LIMA</span>
+            </span>
+            <p class="mt-1 text-xs text-slate-500">
+              Venta mayorista de lubricantes por caja y educación técnica automotriz en Lima y Callao.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-600">
+            <a href="/" class="hover:text-slate-950">Inicio</a>
+            <a href="/catalogo" class="hover:text-slate-950">Catálogo de Productos</a>
+            <a href="/blog" class="hover:text-slate-950">Blog</a>
+            <a href={defaultWaUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-700 hover:text-emerald-900">
+              WhatsApp Asesor
+            </a>
+          </div>
+        </div>
+        <div class="mt-8 border-t border-slate-200 pt-6 text-center text-[11px] text-slate-400">
+          © 2026 aceitedemotorlima.com. Todos los derechos reservados. Lima, Perú.
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

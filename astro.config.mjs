@@ -4,7 +4,7 @@ import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://lubexol.pe',
+  site: 'https://aceitedemotorlima.com',
   output: 'server',
   adapter: cloudflare(),
   integrations: [tailwind(), sitemap()],

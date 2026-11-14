@@ -1166,6 +1166,42 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
 - `npm run build`: **Exit code 0**.
 - **Despliegue Cloudflare Pages:** Exitoso a `https://lubexol.pages.dev/`. Verificado con `node fetch` confirmando la eliminación del enlace en el DOM del header.
 
+---
+
+## 📌 40. SINCRONIZACIÓN DE DOMINIO OFICIAL (ACEITEDEMOTORLIMA.COM) Y MAQUETACIÓN BLOG/PODCAST
+
+> **Fecha:** 14/11/2026 13:12  
+> **Solicitud del PO:**  
+> 1. Sincronizar el nuevo dominio `https://aceitedemotorlima.com` en todo el proyecto (Astro config, sitemap, variables y meta tags).  
+> 2. Alinear la identidad del Blog y Podcast bajo el nombre del dominio (`Aceite de Motor Lima`) para potenciar el SEO semántico y posicionamiento en IAs.  
+> 3. Maquetar las plantillas completas de Blog y Podcast (`index` y `[slug]`) con datos estructurados JSON-LD (`BlogPosting` y `PodcastEpisode`).
+
+### 40.1. Cambios Físicos Implementados
+1. **Configuración de Dominio Canónico:**
+   - `astro.config.mjs`: `site: 'https://aceitedemotorlima.com'`.
+   - `dist/sitemap-0.xml`: Regenerado apuntando a `https://aceitedemotorlima.com/` (`/blog/`, `/catalogo/`, `/podcast/`).
+   - `.env.example`: `PUBLIC_SITE_URL="https://aceitedemotorlima.com"`.
+   - `src/pages/index.astro` y `src/pages/catalogo.astro`: Canónicas y fallbacks actualizados.
+2. **Plantillas del Blog (`src/pages/blog/`):**
+   - `src/pages/blog/index.astro`: Título *Blog Aceite de Motor Lima*, cabecera oficial, breadcrumbs, grid de artículos y degradación elegante.
+   - `src/pages/blog/[slug].astro`: Esquema JSON-LD `BlogPosting` enriquecido, tipografía optimizada, breadcrumbs, tiempo de lectura y caja de lubricantes relacionados con botón directo de cotización por caja a WhatsApp.
+   - `src/components/ArticleCard.astro`: Tarjeta estilizada con badge *Guía Técnica*, hashtags, fecha formateada y transición hover.
+3. **Plantillas del Podcast (`src/pages/podcast/`):**
+   - `src/pages/podcast/index.astro`: Título *Podcast Aceite de Motor Lima*, presentación de audios breves para taxistas y talleres de Lima y Callao.
+   - `src/pages/podcast/[slug].astro`: Esquema JSON-LD `PodcastEpisode`, reproductor HTML5 accesible bajo demanda (`preload="none"`), soporte para embebido de video YouTube (`youtubeUrl`), contenedor de transcripción indexable para motores de IA y recomendación de productos tratados en el audio.
+   - `src/components/PodcastCard.astro`: Tarjeta con badge *🎙️ Episodio*, duración estimada y CTA de escucha.
+   - `src/content/config.ts`: Esquema de podcast ampliado con `youtubeUrl: z.string().url().optional()`.
+
+### 40.2. Verificación Factual en Consola y Producción
+- `npm run test`: **13/13 pasados** (Vitest).
+- `npm run lint` (`astro check`): **0 errores, 0 advertencias, 0 hints** en 24 archivos.
+- `npm run build`: **Exit code 0** (Server built en 2.61s).
+- **Despliegue a Producción:** Exitoso vía Wrangler.
+- **Verificación en Vivo (HTTP 200):**
+  * `https://aceitedemotorlima.com/blog` -> 200 OK (*Blog Aceite de Motor Lima — Guías Técnicas y Mantenimiento de Motor*).
+  * `https://aceitedemotorlima.com/podcast` -> 200 OK (*Podcast Aceite de Motor Lima — Consejos de Taller y Ahorro por Caja*).
+
+
 
 
 

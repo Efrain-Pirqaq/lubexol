@@ -28,6 +28,7 @@ const podcast = defineCollection({
     host: z.string().min(1),
     publishedAt: z.coerce.date(),
     audioUrl: z.string().url(),
+    youtubeUrl: z.string().url().optional(),
     duration: z.string().optional(),
     cover: z.string().optional(),
     transcript: z.string().optional(),
