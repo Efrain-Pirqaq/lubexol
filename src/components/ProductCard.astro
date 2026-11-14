@@ -1,0 +1,82 @@
+---
+import type { Product } from '@/lib/contracts/catalog';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const defaultVariant = product.variants[0];
+---
+
+<article
+  class="rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
+  data-product-id={product.id}
+  data-product-name={product.name}
+  data-fuel={product.fuelCompatibility.join(',')}
+>
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="text-lg font-semibold text-slate-900">{product.name}</h3>
+    <span class="rounded bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700">
+      {product.fuelCompatibility.join(', ')}
+    </span>
+  </div>
+  <p class="mt-1 text-sm text-slate-600">{product.brand} — {product.description}</p>
+
+  <div class="mt-3">
+    <p class="text-xs font-medium text-slate-500">Envase</p>
+    <div class="mt-1 flex flex-wrap gap-2" data-role="variants">
+      {product.variants.map((v, i) => (
+        <button
+          type="button"
+          class={`rounded border px-3 py-1 text-sm ${i === 0 ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 hover:border-slate-500'}`}
+          data-variant={v.id}
+          data-allowed={JSON.stringify(v.allowedBoxUnits)}
+          data-volume={v.volume}
+        >
+          {v.volume}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-3">
+    <p class="text-xs font-medium text-slate-500">Cajas (según envase)</p>
+    <div class="mt-1 flex flex-wrap gap-2" data-role="boxes">
+      {defaultVariant.allowedBoxUnits.map((u, i) => (
+        <button
+          type="button"
+          class={`rounded border px-3 py-1 text-sm ${i === 0 ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 hover:border-slate-500'}`}
+          data-box={u}
+        >
+          {u}u
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-3 flex items-center gap-3">
+    <span class="text-xs font-medium text-slate-500">Cantidad de cajas</span>
+    <div class="flex items-center gap-2">
+      <button type="button" class="rounded border border-slate-300 px-2 py-1 text-sm" data-dec>-</button>
+      <input
+        type="number"
+        min="1"
+        max="999"
+        value="1"
+        class="w-16 rounded border border-slate-300 px-2 py-1 text-center text-sm"
+        data-count
+      />
+      <button type="button" class="rounded border border-slate-300 px-2 py-1 text-sm" data-inc>+</button>
+    </div>
+  </div>
+
+  <button
+    type="button"
+    class="mt-4 w-full rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700 disabled:opacity-50"
+    data-quote
+  >
+    Cotizar por WhatsApp
+    <span class="block text-xs font-normal text-slate-300">Cotizar con nuestro asesor de Lubexol</span>
+  </button>
+</article>

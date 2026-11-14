@@ -1,0 +1,12 @@
+{
+  "name": "Lubexol",
+  "short_name": "Lubexol",
+  "description": "Catálogo y cotización de lubricantes por caja para particulares y taxistas en Lima y Callao.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

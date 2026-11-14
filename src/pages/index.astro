@@ -1,0 +1,39 @@
+---
+import '../styles/global.css';
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lubexol — Lubricantes por caja en Lima y Callao</title>
+    <meta name="description" content="Catálogo y cotización de lubricantes de motor por caja para particulares y taxistas en Lima y Callao." />
+    <link rel="canonical" href="https://lubexol.pe/" />
+    <meta property="og:title" content="Lubexol — Lubricantes por caja" />
+    <meta property="og:description" content="Catálogo y cotización de lubricantes de motor por caja para particulares y taxistas en Lima y Callao." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lubexol.pe/" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#0f172a" />
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <main class="mx-auto max-w-4xl p-8">
+      <h1 class="text-3xl font-bold">Lubexol</h1>
+      <p class="mt-2 text-slate-600">Catálogo y cotización por WhatsApp — en construcción.</p>
+      <a href="/catalogo" class="mt-4 inline-block rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
+        Ver catálogo
+      </a>
+      <a href="/blog" class="mt-4 ml-2 inline-block rounded border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+        Blog
+      </a>
+      <a href="/podcast" class="mt-4 ml-2 inline-block rounded border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+        Podcast
+      </a>
+    </main>
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      }
+    </script>
+  </body>
+</html>

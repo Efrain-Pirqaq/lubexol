@@ -1,0 +1,46 @@
+---
+import '@/styles/global.css';
+import { getCollection } from 'astro:content';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const episodes = await getCollection('podcast', ({ data }) => data.status === 'published');
+  return episodes.map((ep) => ({ params: { slug: ep.slug }, props: { ep } }));
+}
+
+const { ep } = Astro.props;
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{ep.data.title} — Lubexol Podcast</title>
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <main class="mx-auto max-w-3xl p-8">
+      <a href="/podcast" class="text-sm text-slate-600 hover:underline">← Volver al podcast</a>
+      <article class="mt-4">
+        <h1 class="text-3xl font-bold text-slate-900">{ep.data.title}</h1>
+        <p class="mt-2 text-slate-600">{ep.data.description}</p>
+        <div class="mt-2 text-xs text-slate-500">
+          <span>{ep.data.host}</span> · <time datetime={ep.data.publishedAt.toISOString()}>{ep.data.publishedAt.toLocaleDateString('es-PE')}</time>
+          {ep.data.duration && <span> · {ep.data.duration}</span>}
+        </div>
+
+        <div class="mt-6">
+          <audio controls preload="none" class="w-full" src={ep.data.audioUrl}>
+            Tu navegador no soporta audio HTML5.
+          </audio>
+        </div>
+
+        {ep.data.transcript && (
+          <section class="mt-6">
+            <h2 class="text-lg font-semibold text-slate-900">Transcripción</h2>
+            <p class="mt-2 whitespace-pre-line text-sm text-slate-700">{ep.data.transcript}</p>
+          </section>
+        )}
+      </article>
+    </main>
+  </body>
+</html>

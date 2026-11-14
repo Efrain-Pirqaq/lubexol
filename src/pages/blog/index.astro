@@ -1,0 +1,44 @@
+---
+import '@/styles/global.css';
+import { getCollection } from 'astro:content';
+import ArticleCard from '@/components/ArticleCard.astro';
+
+const posts = await getCollection('blog', ({ data }) => data.status === 'published');
+const hasPosts = posts.length > 0;
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog — Lubexol</title>
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <main class="mx-auto max-w-5xl p-8">
+      <header class="mb-6 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">Blog</h1>
+        <a href="/" class="text-sm text-slate-600 hover:underline">Inicio</a>
+      </header>
+
+      {hasPosts ? (
+        <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <ArticleCard
+              title={post.data.title}
+              description={post.data.description}
+              slug={post.slug}
+              publishedAt={post.data.publishedAt}
+              tags={post.data.tags}
+            />
+          ))}
+        </section>
+      ) : (
+        <div class="rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+          <p class="text-lg font-medium text-slate-700">Blog en preparación</p>
+          <p class="mt-2 text-sm text-slate-500">
+            Los artículos se publicarán tras revisión humana. No se muestran contenidos de ejemplo.
+          </p>
+        </div>
+      )}
+    </main>
+  </body>
+</html>

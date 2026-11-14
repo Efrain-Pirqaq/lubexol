@@ -1,0 +1,55 @@
+---
+import '@/styles/global.css';
+import { getCollection } from 'astro:content';
+import { catalog } from '@/data/catalog';
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.status === 'published');
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const related = post.data.relatedProducts
+  .map((id) => catalog.find((p) => p.id === id))
+  .filter(Boolean);
+---
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{post.data.title} — Lubexol</title>
+    {post.data.seo?.noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body class="bg-slate-50 text-slate-900">
+    <main class="mx-auto max-w-3xl p-8">
+      <a href="/blog" class="text-sm text-slate-600 hover:underline">← Volver al blog</a>
+      <article class="mt-4">
+        <h1 class="text-3xl font-bold text-slate-900">{post.data.title}</h1>
+        <p class="mt-2 text-slate-600">{post.data.description}</p>
+        <div class="mt-2 text-xs text-slate-500">
+          <span>{post.data.author}</span> · <time datetime={post.data.publishedAt.toISOString()}>{post.data.publishedAt.toLocaleDateString('es-PE')}</time>
+        </div>
+        <div class="prose mt-6 max-w-none">
+          <Content />
+        </div>
+
+        {related.length > 0 && (
+          <aside class="mt-8 rounded-lg border border-slate-200 bg-white p-4">
+            <h3 class="text-sm font-semibold text-slate-900">Productos relacionados</h3>
+            <ul class="mt-2 space-y-1 text-sm">
+              {related.map((p) => (
+                <li>
+                  <a href={`/catalogo`} class="text-slate-700 hover:underline">{p?.name}</a>
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )}
+      </article>
+    </main>
+  </body>
+</html>
