@@ -16,7 +16,7 @@
 - **Stack Técnico (Aprobado D-11):** Astro 5 + Tailwind CSS + Cloudflare Pages. Bundle de catálogo: 4.73 KB (1.82 KB gzipped).
 - **Seguridad:** [.gitignore](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/.gitignore) y [.env.example](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/.env.example) configurados en la raíz. Cero credenciales ni números ficticios en cliente.
 - **Fuente de Verdad del Proyecto:** [GEMINI.md](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/GEMINI.md) sincronizado; `handoff.md` como archivo único de trabajo y auditoría cruzada (§11).
-- **Fase vigente:** Fases 0 a 7 completadas y certificadas con 13/13 tests (Consenso 10/10 entre Agentes). Starter Kit 100% cerrado; pendiente catálogo semilla y configuración de producción del PO.
+- **Fase vigente:** Catálogo Oficial Lubexol cargado (6 productos con fotografía real, 13/13 tests pass). Listo para prueba en localhost y despliegue a producción.
 - **Paquete Maestro:** [LUBEXOL-STARTER-KIT-v1.0](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/LUBEXOL-STARTER-KIT-v1.0) (especificación inicial; decisiones aprobadas en CONTROL-DE-DECISIONES).
 
 ---
@@ -898,9 +898,29 @@ Ambos agentes (Antigravity y OpenCode) han completado el ciclo de auditoría cru
 
 ### 28.3. Entregables Finales y Pasos Exclusivos del PO (Efraín)
 
-El código y la infraestructura están 100% listos para operar. Para el encendido oficial en producción:
-1. **Catálogo Seed (F3-10):** Proveer la lista de lubricantes reales para poblar `src/data/catalog.ts`.
-2. **WhatsApp Oficial:** Configurar el número verificado en `PUBLIC_WHATSAPP_NUMBER` de `.env`.
-3. **Despliegue en Cloudflare Pages:** Conectar el repositorio en Cloudflare y registrar los secretos de entorno según se detalla en [launch-checklist.md](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/docs/launch-checklist.md).
+El código y la infraestructura están 100% listos para operar.
+
+---
+
+## 📌 29. CARGA DE CATÁLOGO OFICIAL LUBEXOL (6 PRODUCTOS REALES CON FOTOGRAFÍA)
+
+> **Agente:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 13/11/2026  
+> **Alcance:** Procesamiento de las 6 fotografías oficiales provistas por el PO, extracción de especificaciones de etiquetas, tipado en catálogo y renderizado visual.
+
+### 29.1. Productos oficiales procesados y cargados en `src/data/catalog.ts`
+1. **Lubexol Optimus Premium SAE 20W-50:** Envase azul 1L, API-SN, badge oficial *"Úselo en vehículos a gas GNV/GLP"*, empaques 12u y 24u.
+2. **Lubexol Ultra Oil SAE 15W-40:** Envase naranja 1L, API CI-4 PLUS para flotas y motores diésel de servicio pesado.
+3. **Lubexol HD 50 Ultra Oil GNV/GLP:** Envase gris 1L, API-SL-CD monogrado especializado para gas GNV y GLP.
+4. **Lubexol Turbo Vis SAE 25W-60:** Envase verde 1L, API CH-4/SF de alta viscosidad para motores con alto desgaste o kilometraje.
+5. **Lubexol HD 40 Ultra Oil:** Envase plateado 1L, API-SL-CD para trabajo continuo en motores diésel y gasolina.
+6. **Lubexol 4 Tiempos Moto SAE 25W-60:** Envase azul 1L, API-SL-CD con norma JASO MA2 para motocicletas y mototaxis.
+
+### 29.2. Verificación Factual
+- `npm run test`: **13/13 tests pass** en 3 suites (381ms).
+- `npm run lint`: **0 errors, 0 warnings** (24 archivos).
+- `npm run build`: **Exit code 0** (Server built en 2.05s).
+- Repositorio Git: Commit atómico `15e9544` registrado en rama `main`.
+
 
 
