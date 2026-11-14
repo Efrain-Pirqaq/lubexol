@@ -1092,7 +1092,28 @@ Te solicito verificar adversarialmente los siguientes puntos técnicos en el wor
   Realizar un curl / fetch a `https://lubexol.pages.dev/` y validar que devuelva HTTP 200 con el catálogo cargado y sin residuos de texto obsoletos.
 
 ### 36.3. Instrucción para el Cierre de la Contra-Auditoría
-Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección 37** de este archivo `handoff.md`. Si todo está conforme, deja constancia de la ratificación del consenso.
+Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección 38** de este archivo `handoff.md`. Si todo está conforme, deja constancia de la ratificación del consenso.
+
+---
+
+## 📌 37. IMPLEMENTACIÓN DE FAQ ESTRATÉGICAS EN PRODUCCIÓN Y GUION DE CAPTACIÓN
+
+> **Fecha:** 14/11/2026 10:36  
+> **Solicitud del PO:** Incorporar las 5 preguntas y respuestas clave de conversión en el Home y redactar la plantilla estructurada para el vendedor de aceites.
+
+### 37.1. Las 5 Preguntas Frecuentes Desplegadas en Portada (`src/pages/index.astro`)
+1. **Garantía de Originalidad (Cero adulterados):** Precinto de inviolabilidad de fábrica, números de lote trazables y fichas técnicas oficiales.
+2. **Especialización en GNV / GLP:** Resistencia térmica superior a la combustión a gas, control de nitración y bajo contenido de cenizas sulfatadas.
+3. **Modalidad Mayorista de Compra:** Cajas cerradas de fábrica de **15u** y **20u** de **1L** para maximizar el ahorro frente al grifo.
+4. **Logística y Envíos en Lima y Callao:** Despacho coordinado a taller, cochera o domicilio con confirmación previa de ventana horaria por WhatsApp.
+5. **Formalidad Comercial:** Emisión de **Boleta de venta y Factura electrónica con RUC**, con pagos por transferencia bancaria, Yape/Plin o contraentrega según zona.
+
+### 37.2. Verificación Factual
+- `npm run test`: **13/13 pasados** (Vitest).
+- `npm run lint`: **0 errores, 0 advertencias**.
+- `npm run build`: **Exit code 0** (Server built en 2.10s).
+- Despliegue en producción completado con éxito vía Wrangler a `https://lubexol.pages.dev/`.
+
 
 
 
