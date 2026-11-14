@@ -1013,6 +1013,32 @@ El código y la infraestructura están 100% listos para operar.
    - `GET https://lubexol.pages.dev/catalogo`: HTTP 200. Catálogo extendido con selectores de caja y cotización por WhatsApp.
    - Teléfono oficial parametrizado en producción: `51962952354`.
 
+---
+
+## 📌 34. AJUSTE DE REGLA COMERCIAL: CAJAS DE 15 Y 20 UNIDADES
+
+> **Fecha:** 14/11/2026 09:20  
+> **Solicitud del PO:** Modificación mandatoria de empaque de fábrica: las cajas de lubricantes vienen exclusivamente en presentaciones de **15 unidades** y **20 unidades** (reemplazando la presunción anterior de 12u/24u).
+
+### 34.1. Archivos y Puntos Modificados Exhaustivamente
+1. **`src/data/catalog.ts`:**
+   - Actualizados los 6 productos oficiales (`unitsPerBox: 15`, `allowedBoxUnits: [15, 20]`).
+2. **`src/pages/index.astro`:**
+   - Hero banner: *"Ahorra en cada mantenimiento comprando directo por caja de 15 o 20 unidades"*.
+   - Badge de sellos de confianza: *"15 y 20u Cajas Cerradas"*.
+   - Sección de Proceso (Paso 2): *"Escoge la presentación (cajas de 15 o 20 unidades)"*.
+   - Preguntas Frecuentes (FAQ 1): *"Nos especializamos en venta por caja cerrada (15 o 20 unidades)"*.
+3. **`ProductCard.astro` y Modal de Cotización:**
+   - Los chips de empaque ahora renderizan automáticamente `15u` y `20u` de forma reactiva.
+   - El modal de cotización y el mensaje pre-armado hacia WhatsApp calculan la matemática exacta de unidades (ej. 1 caja x 15u = 15 unidades; 2 cajas x 20u = 40 unidades).
+4. **Pruebas y Verificación Factual:**
+   - `src/lib/contracts/lead.test.ts` y `src/pages/api/lead.test.ts` actualizados con payloads de 15u y 20u.
+   - `npm run test`: **13/13 pasados** (Vitest).
+   - `npm run lint`: **0 errores, 0 advertencias**.
+   - `npm run build`: **Exit code 0** (Server built en 2.11s).
+   - Despliegue a Cloudflare Pages ejecutado y verificado en vivo con HTTP 200.
+
+
 
 
 
