@@ -1038,6 +1038,24 @@ El código y la infraestructura están 100% listos para operar.
    - `npm run build`: **Exit code 0** (Server built en 2.11s).
    - Despliegue a Cloudflare Pages ejecutado y verificado en vivo con HTTP 200.
 
+---
+
+## 📌 35. ESTANDARIZACIÓN DE ENVASES A "1L" (ELIMINACIÓN DEL TÉRMINO "CUARTO")
+
+> **Fecha:** 14/11/2026 09:30  
+> **Solicitud del PO:** Homologar todos los envases de los 6 productos únicamente como **`1L`**, suprimiendo de manera estricta la palabra *"cuarto"* de las etiquetas, selectores y mensajes.
+
+### 35.1. Acciones Realizadas
+1. **`src/data/catalog.ts`:** Los 6 lubricantes actualizados a `volume: '1L'`.
+2. **`ProductCard.astro` & Modal WhatsApp:** Los chips de envase y el resumen de cotización ahora muestran limpiamente `1L`.
+3. **Contratos y Pruebas Unitarias:** Actualizados `src/lib/contracts/lead.test.ts` y `src/pages/api/lead.test.ts` con `containerSize: '1L'`.
+4. **Validación Factual:**
+   - Vitest: **13/13 pruebas exitosas**.
+   - Astro check: **0 errores, 0 advertencias**.
+   - Build: **Exit code 0** (Server built en 2.37s).
+   - Despliegue en producción con Wrangler completado y verificado en vivo (`https://lubexol.pages.dev`).
+
+
 
 
 
