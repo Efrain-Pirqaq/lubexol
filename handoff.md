@@ -940,6 +940,30 @@ El código y la infraestructura están 100% listos para operar.
   - `d3c9af4 feat: Starter kit oficial Lubexol v1.0 (Astro 5 + Tailwind + Cloudflare)`
 - **Seguridad en Remoto:** `.env` verificado e ignorado por Git; cero credenciales ni secretos expuestos en GitHub.
 
+---
+
+## 📌 31. IMPLEMENTACIÓN DE PÁGINA PRINCIPAL OFICIAL (HOME / LANDING)
+
+> **Agente:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 13/11/2026  
+> **Autorización del PO:** Aprobación explícita recibida para implementar la Página Principal completa.
+
+### 31.1. Componentes y Arquitectura de `src/pages/index.astro`
+1. **Top Bar y Header:** Branding `LUBEXOL Por Mayor`, menú con navegación de anclas (`#catalogo`, `#beneficios`, `#como-funciona`, `#faq`) y CTA verde de WhatsApp.
+2. **Hero Section:** Titular enfocado en particulares, taxistas y flotas en Lima y Callao con sellos de garantía (100% Sellado de fábrica, GNV/GLP, Cajas 12u/24u, Lima & Callao).
+3. **Propuesta de Valor (4 Beneficios):** Ahorro por caja (hasta 30%), Especialistas en GNV/GLP, Cotización inmediata en 1 clic y Entregas en Lima Metropolitana.
+4. **Catálogo Oficial Integrado:** Grid interactivo con los 6 lubricantes Lubexol, selectores de envase y caja cerrada en cascada, y modal de preselección accesible (two-step).
+5. **Proceso de Compra (3 Pasos):** 1. Elige producto -> 2. Selecciona cajas -> 3. Coordina en WhatsApp.
+6. **Preguntas Frecuentes (FAQ):** Venta exclusiva por caja cerrada, fórmulas reforzadas para gas y métodos de pago coordinados por WhatsApp.
+7. **Footer Oficial:** Datos de contacto, accesos rápidos y copyright {año} Lubexol.
+
+### 31.2. Verificación Factual
+- `npm run test`: **13/13 tests pass** en 3 suites (383ms).
+- `npm run lint`: **0 errors, 0 warnings, 0 hints** (24 archivos).
+- `npm run build`: **Exit code 0** (Server built en 2.15s; bundle cliente gzip: 2.03 KB).
+- Endpoint local: `http://localhost:4321/` verificado con HTTP 200.
+
+
 
 
 

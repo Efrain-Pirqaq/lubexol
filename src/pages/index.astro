@@ -1,36 +1,568 @@
 ---
 import '../styles/global.css';
+import { catalog } from '@/data/catalog';
+import ProductCard from '@/components/ProductCard.astro';
+
+const hasProducts = catalog.length > 0;
+const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://lubexol.pe';
+const defaultWaUrl = whatsappNumber
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola Lubexol, quisiera información y cotización sobre lubricantes por caja.')}`
+  : '#';
 ---
-<html lang="es">
+<!doctype html>
+<html lang="es" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lubexol — Lubricantes por caja en Lima y Callao</title>
-    <meta name="description" content="Catálogo y cotización de lubricantes de motor por caja para particulares y taxistas en Lima y Callao." />
-    <link rel="canonical" href="https://lubexol.pe/" />
-    <meta property="og:title" content="Lubexol — Lubricantes por caja" />
-    <meta property="og:description" content="Catálogo y cotización de lubricantes de motor por caja para particulares y taxistas en Lima y Callao." />
+    <title>Lubexol — Lubricantes de Motor por Caja en Lima y Callao</title>
+    <meta
+      name="description"
+      content="Venta y cotización de lubricantes de motor por caja para particulares, taxistas y flotas en Lima y Callao. Fórmulas para Gasolina, GNV/GLP y Diésel."
+    />
+    <link rel="canonical" href={siteUrl} />
+    <meta property="og:title" content="Lubexol — Lubricantes por caja en Lima y Callao" />
+    <meta
+      property="og:description"
+      content="Ahorra comprando directo por caja. Cotización inmediata por WhatsApp con asesor verificado."
+    />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://lubexol.pe/" />
+    <meta property="og:url" content={siteUrl} />
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#0f172a" />
   </head>
-  <body class="bg-slate-50 text-slate-900">
-    <main class="mx-auto max-w-4xl p-8">
-      <h1 class="text-3xl font-bold">Lubexol</h1>
-      <p class="mt-2 text-slate-600">Catálogo y cotización por WhatsApp — en construcción.</p>
-      <a href="/catalogo" class="mt-4 inline-block rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
-        Ver catálogo
-      </a>
-      <a href="/blog" class="mt-4 ml-2 inline-block rounded border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-        Blog
-      </a>
-      <a href="/podcast" class="mt-4 ml-2 inline-block rounded border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-        Podcast
-      </a>
+  <body class="bg-slate-50 text-slate-900 antialiased" data-whatsapp={whatsappNumber}>
+    <!-- Top Bar de Anuncio -->
+    <div class="bg-slate-900 px-4 py-2 text-center text-xs font-medium text-slate-200">
+      📍 Venta exclusiva por caja cerrada · Envíos y coordinación rápida en Lima Metropolitana y Callao
+    </div>
+
+    <!-- Navegación Principal -->
+    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+        <a href="/" class="flex items-center gap-2">
+          <span class="text-2xl font-black tracking-tight text-slate-900">
+            LUBEX<span class="text-amber-500">OL</span>
+          </span>
+          <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
+            Por Mayor
+          </span>
+        </a>
+        <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
+          <a href="#catalogo" class="transition-colors hover:text-slate-900">Catálogo</a>
+          <a href="#beneficios" class="transition-colors hover:text-slate-900">Beneficios</a>
+          <a href="#como-funciona" class="transition-colors hover:text-slate-900">Cómo Funciona</a>
+          <a href="#faq" class="transition-colors hover:text-slate-900">Preguntas Frecuentes</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a
+            href={defaultWaUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-500 sm:text-sm"
+          >
+            <span>💬 Cotizar por WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100 px-4 py-16 sm:px-6 lg:py-24">
+        <div class="mx-auto max-w-5xl text-center">
+          <div class="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">
+            <span>⭐ Precios Directos por Caja Cerrada</span>
+          </div>
+          <h1 class="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+            Lubricantes de Motor por Caja al <span class="text-amber-600">Mejor Precio</span> en Lima y Callao
+          </h1>
+          <p class="mx-auto mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
+            Ahorra en cada mantenimiento comprando directo por caja de 12 o 24 unidades. Especialistas en aceites
+            certificados para <strong>Gasolina, GNV/GLP y Diésel de trabajo pesado</strong>. Cotización directa e inmediata por WhatsApp.
+          </p>
+
+          <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+            <a
+              href="#catalogo"
+              class="inline-flex items-center justify-center rounded-lg bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:bg-slate-800"
+            >
+              Explorar Catálogo de Productos ↓
+            </a>
+            <a
+              href={defaultWaUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 shadow-sm transition hover:bg-slate-50"
+            >
+              Hablar con un Asesor de Ventas
+            </a>
+          </div>
+
+          <!-- Sellos de Confianza -->
+          <div class="mt-12 grid grid-cols-2 gap-4 border-t border-slate-200/80 pt-8 sm:grid-cols-4">
+            <div class="text-center">
+              <p class="text-xl font-black text-slate-900">100%</p>
+              <p class="text-xs text-slate-500">Sellado de Fábrica</p>
+            </div>
+            <div class="text-center">
+              <p class="text-xl font-black text-slate-900">GNV / GLP</p>
+              <p class="text-xs text-slate-500">Alta Protección Térmica</p>
+            </div>
+            <div class="text-center">
+              <p class="text-xl font-black text-slate-900">12 y 24u</p>
+              <p class="text-xs text-slate-500">Cajas Cerradas</p>
+            </div>
+            <div class="text-center">
+              <p class="text-xl font-black text-slate-900">Lima & Callao</p>
+              <p class="text-xs text-slate-500">Entrega Rápida</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Propuesta de Valor / Beneficios -->
+      <section id="beneficios" class="border-y border-slate-200 bg-white px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-5xl">
+          <div class="text-center">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-amber-600">¿Por qué comprar con nosotros?</h2>
+            <p class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              Diseñado para Taxistas, Talleres y Dueños de Vehículos
+            </p>
+          </div>
+
+          <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="rounded-xl border border-slate-200 bg-slate-50/50 p-6 shadow-sm">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-amber-500 text-lg font-bold text-white">
+                📦
+              </div>
+              <h3 class="mt-4 text-base font-bold text-slate-900">Ahorro por Caja</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-600">
+                Olvídate de pagar sobreprecio por litro en grifos. Compra la caja cerrada y reduce hasta 30% tu costo anual de lubricación.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-slate-50/50 p-6 shadow-sm">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 text-lg font-bold text-white">
+                🚕
+              </div>
+              <h3 class="mt-4 text-base font-bold text-slate-900">Especialistas en GNV/GLP</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-600">
+                Los motores a gas operan a mayor temperatura. Nuestras fórmulas resisten la nitración y previenen el desgaste de válvulas.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-slate-50/50 p-6 shadow-sm">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-600 text-lg font-bold text-white">
+                ⚡
+              </div>
+              <h3 class="mt-4 text-base font-bold text-slate-900">Cotización Inmediata</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-600">
+                Sin pasarelas lentas ni formularios engorrosos. Elige tu pedido y habla directamente con un asesor por WhatsApp en 1 clic.
+              </p>
+            </div>
+
+            <div class="rounded-xl border border-slate-200 bg-slate-50/50 p-6 shadow-sm">
+              <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900 text-lg font-bold text-white">
+                🚚
+              </div>
+              <h3 class="mt-4 text-base font-bold text-slate-900">Lima Metropolitana</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-600">
+                Coordinamos entregas directas a tu taller mecánico, cochera o punto convenido con seguridad y rapidez.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Catálogo de Productos Oficiales -->
+      <section id="catalogo" class="px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-5xl">
+          <div class="flex flex-col items-start justify-between gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Catálogo Oficial</span>
+              <h2 class="mt-1 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                Línea de Lubricantes Lubexol
+              </h2>
+              <p class="mt-1 text-xs text-slate-500">
+                Selecciona la presentación y cantidad de cajas para solicitar tu cotización al instante.
+              </p>
+            </div>
+            <a
+              href="/catalogo"
+              class="inline-flex items-center gap-1 text-xs font-semibold text-slate-700 underline hover:text-slate-950"
+            >
+              Ver vista de catálogo extendida →
+            </a>
+          </div>
+
+          {!whatsappNumber && (
+            <div class="mt-6 rounded border border-amber-300 bg-amber-50 p-3 text-xs text-amber-800">
+              Configura <code>PUBLIC_WHATSAPP_NUMBER</code> en <code>.env</code> para habilitar la cotización.
+            </div>
+          )}
+
+          {hasProducts ? (
+            <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" id="catalog-grid">
+              {catalog.map((product) => <ProductCard product={product} />)}
+            </div>
+          ) : (
+            <div class="mt-8 rounded-lg border border-dashed border-slate-300 bg-white p-12 text-center">
+              <p class="text-base font-medium text-slate-700">Catálogo en preparación</p>
+              <p class="mt-2 text-xs text-slate-500">
+                Los productos se sincronizarán en la siguiente actualización.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <!-- Cómo Funciona -->
+      <section id="como-funciona" class="border-t border-slate-200 bg-slate-900 px-4 py-16 text-white sm:px-6">
+        <div class="mx-auto max-w-5xl">
+          <div class="text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Proceso Rápido</span>
+            <h2 class="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">¿Cómo pedir tu lote de lubricantes?</h2>
+            <p class="mt-2 text-xs text-slate-400">En solo 3 pasos coordinas tu compra sin complicaciones</p>
+          </div>
+
+          <div class="mt-12 grid gap-8 sm:grid-cols-3">
+            <div class="text-center sm:text-left">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-800 text-lg font-black text-amber-400">
+                1
+              </div>
+              <h3 class="mt-4 text-base font-bold text-white">Elige tu Producto</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-400">
+                Explora el catálogo y elige el aceite ideal según la viscosidad que requiere tu motor (20W-50, 15W-40, HD50, 25W-60).
+              </p>
+            </div>
+
+            <div class="text-center sm:text-left">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-800 text-lg font-black text-amber-400">
+                2
+              </div>
+              <h3 class="mt-4 text-base font-bold text-white">Selecciona las Cajas</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-400">
+                Escoge la presentación (cajas de 12 o 24 unidades) y pulsa en "Cotizar por WhatsApp".
+              </p>
+            </div>
+
+            <div class="text-center sm:text-left">
+              <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-slate-800 text-lg font-black text-amber-400">
+                3
+              </div>
+              <h3 class="mt-4 text-base font-bold text-white">Coordina en WhatsApp</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-400">
+                Nuestro asesor te responderá inmediatamente con el precio exacto, método de pago y fecha de entrega.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="border-t border-slate-200 bg-white px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-3xl">
+          <div class="text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Dudas Frecuentes</span>
+            <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Preguntas Frecuentes</h2>
+          </div>
+
+          <div class="mt-8 space-y-4">
+            <div class="rounded-lg border border-slate-200 p-4">
+              <h3 class="text-sm font-bold text-slate-900">¿Venden por unidad o botella suelta?</h3>
+              <p class="mt-1 text-xs text-slate-600">
+                Nos especializamos en venta por <strong>caja cerrada</strong> (12 o 24 unidades). Esto nos permite ofrecerte el precio más competitivo del mercado para particulares, taxistas y talleres.
+              </p>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 p-4">
+              <h3 class="text-sm font-bold text-slate-900">¿Tienen aceites para autos a gas (GNV / GLP)?</h3>
+              <p class="mt-1 text-xs text-slate-600">
+                Sí. Contamos con <strong>Lubexol Optimus Premium 20W-50</strong> y <strong>Lubexol HD 50 Especial GNV/GLP</strong>, formulados específicamente con aditivos detergentes que resisten las altas temperaturas de la combustión a gas.
+              </p>
+            </div>
+
+            <div class="rounded-lg border border-slate-200 p-4">
+              <h3 class="text-sm font-bold text-slate-900">¿Cómo se realiza el pago y la entrega?</h3>
+              <p class="mt-1 text-xs text-slate-600">
+                Todo se coordina de manera transparente directamente en WhatsApp con nuestro asesor: coordinamos transferencias bancarias, Yape/Plin o contraentrega según la zona de Lima y Callao.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-slate-50 px-4 py-12 text-slate-600 sm:px-6">
+      <div class="mx-auto max-w-5xl">
+        <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+          <div>
+            <span class="text-xl font-black text-slate-900">
+              LUBEX<span class="text-amber-500">OL</span>
+            </span>
+            <p class="mt-1 text-xs text-slate-500">
+              Venta mayorista de lubricantes de motor por caja en Lima y Callao.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-600">
+            <a href="/catalogo" class="hover:text-slate-950">Catálogo Completo</a>
+            <a href="/blog" class="hover:text-slate-950">Blog</a>
+            <a href="/podcast" class="hover:text-slate-950">Podcast</a>
+            <a href={defaultWaUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-emerald-700 hover:text-emerald-900">
+              WhatsApp Asesor
+            </a>
+          </div>
+        </div>
+        <div class="mt-8 border-t border-slate-200 pt-6 text-center text-[11px] text-slate-400">
+          © {new Date().getFullYear()} Lubexol. Todos los derechos reservados. Lima, Perú.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de preselección para cotizaciones -->
+    <div
+      id="modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      tabindex="-1"
+    >
+      <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+        <h2 id="modal-title" class="text-lg font-bold text-slate-900">Confirmar cotización</h2>
+        <div id="modal-summary" class="mt-4 space-y-1 text-sm text-slate-700"></div>
+        <input
+          type="text"
+          id="modal-hp"
+          name="website_hp"
+          style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
+        <p class="mt-4 rounded bg-amber-50 p-3 text-xs text-amber-800">
+          Al confirmar con el siguiente clic, serás redirigido al chat de WhatsApp para comunicarte
+          directamente con nuestro asesor de Lubexol y coordinar precio, disponibilidad y entrega.
+        </p>
+        <div class="mt-4 flex gap-2">
+          <button id="modal-cancel" type="button" class="flex-1 rounded border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
+            Cancelar
+          </button>
+          <button id="modal-confirm" type="button" class="flex-1 rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
+            Confirmar y abrir WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Script Interactivo del Catálogo y Modal -->
     <script>
+      // @ts-nocheck
+      const whatsappNumber = document.body.dataset.whatsapp || '';
+      const state = new Map(); // productId -> { variantId, boxUnits, boxCount, allowed }
+
+      function setState(card, partial) {
+        const pid = card.dataset.productId;
+        const prev = state.get(pid) || {};
+        const next = { ...prev, ...partial };
+        state.set(pid, next);
+        return next;
+      }
+
+      function initCard(card) {
+        const pid = card.dataset.productId;
+        const firstVariantBtn = card.querySelector('[data-variant]');
+        const variantId = firstVariantBtn?.dataset.variant;
+        const allowed = JSON.parse(firstVariantBtn?.dataset.allowed || '[]');
+        const boxUnits = allowed[0] ?? 1;
+        setState(card, { variantId, boxUnits, boxCount: 1, allowed });
+        setActive(card, '[data-variant]', variantId, 'data-variant');
+        setActive(card, '[data-box]', String(boxUnits), 'data-box');
+      }
+
+      function setActive(card, selector, value, attr) {
+        card.querySelectorAll(selector).forEach((btn) => {
+          const isActive = btn.getAttribute(attr) === String(value);
+          btn.classList.toggle('border-slate-900', isActive);
+          btn.classList.toggle('bg-slate-900', isActive);
+          btn.classList.toggle('text-white', isActive);
+          btn.classList.toggle('border-slate-300', !isActive);
+        });
+      }
+
+      function renderBoxes(card, allowed) {
+        const container = card.querySelector('[data-role="boxes"]');
+        if (!container) return;
+        container.innerHTML = '';
+        allowed.forEach((u, i) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = `rounded border px-3 py-1 text-sm ${i === 0 ? 'border-slate-900 bg-slate-900 text-white' : 'border-slate-300 hover:border-slate-500'}`;
+          btn.dataset.box = String(u);
+          btn.textContent = `${u}u`;
+          container.appendChild(btn);
+        });
+      }
+
+      document.querySelectorAll('[data-product-id]').forEach((card) => {
+        initCard(card);
+
+        card.addEventListener('click', (e) => {
+          const target = e.target;
+          if (!(target instanceof HTMLElement)) return;
+
+          const variantBtn = target.closest('[data-variant]');
+          if (variantBtn && card.contains(variantBtn)) {
+            const variantId = variantBtn.dataset.variant;
+            const allowed = JSON.parse(variantBtn.dataset.allowed || '[]');
+            const boxUnits = allowed[0] ?? 1;
+            setState(card, { variantId, allowed, boxUnits });
+            setActive(card, '[data-variant]', variantId, 'data-variant');
+            renderBoxes(card, allowed);
+            setActive(card, '[data-box]', String(boxUnits), 'data-box');
+            return;
+          }
+
+          const boxBtn = target.closest('[data-box]');
+          if (boxBtn && card.contains(boxBtn)) {
+            const boxUnits = Number(boxBtn.dataset.box);
+            setState(card, { boxUnits });
+            setActive(card, '[data-box]', String(boxUnits), 'data-box');
+            return;
+          }
+
+          if (target.closest('[data-dec]')) {
+            const input = card.querySelector('[data-count]');
+            const next = Math.max(1, Number(input.value) - 1);
+            input.value = String(next);
+            setState(card, { boxCount: next });
+            return;
+          }
+
+          if (target.closest('[data-inc]')) {
+            const input = card.querySelector('[data-count]');
+            const next = Math.min(999, Number(input.value) + 1);
+            input.value = String(next);
+            setState(card, { boxCount: next });
+            return;
+          }
+
+          if (target.closest('[data-count]')) {
+            const input = target;
+            const val = Math.max(1, Math.min(999, Number(input.value) || 1));
+            input.value = String(val);
+            setState(card, { boxCount: val });
+            return;
+          }
+
+          if (target.closest('[data-quote]')) {
+            if (!whatsappNumber) {
+              alert('Configura PUBLIC_WHATSAPP_NUMBER en .env para habilitar la cotización.');
+              return;
+            }
+            const s = state.get(card.dataset.productId);
+            const modal = document.getElementById('modal');
+            const summary = document.getElementById('modal-summary');
+            summary.innerHTML = `
+              <p><strong>Producto:</strong> ${card.dataset.productName}</p>
+              <p><strong>Combustible:</strong> ${card.dataset.fuel}</p>
+              <p><strong>Envase:</strong> ${s.variantId ? card.querySelector(`[data-variant="${s.variantId}"]`)?.dataset.volume : ''}</p>
+              <p><strong>Empaque:</strong> Caja x ${s.boxUnits} unidades</p>
+              <p><strong>Cantidad:</strong> ${s.boxCount} caja(s)</p>
+              <p><strong>Total unidades:</strong> ${s.boxUnits * s.boxCount}</p>
+            `;
+            modal.dataset.productId = card.dataset.productId;
+            modal.dataset.modalOpenedAt = String(Date.now());
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.getElementById('modal-confirm')?.focus();
+          }
+        });
+      });
+
+      const modal = document.getElementById('modal');
+      const cancelBtn = document.getElementById('modal-cancel');
+      const confirmBtn = document.getElementById('modal-confirm');
+
+      cancelBtn?.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+
+      modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+
+      // Focus trap accesible
+      modal?.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab' || modal.classList.contains('hidden')) return;
+        const focusable = modal.querySelectorAll(
+          'button:not([disabled]), [href], input:not([tabindex="-1"]):not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+
+      confirmBtn?.addEventListener('click', async () => {
+        const pid = modal.dataset.productId;
+        const card = document.querySelector(`[data-product-id="${pid}"]`);
+        const s = state.get(pid);
+        const variantBtn = card.querySelector(`[data-variant="${s.variantId}"]`);
+        const volume = variantBtn?.dataset.volume || '';
+
+        const payload = {
+          productId: pid,
+          productName: card.dataset.productName,
+          fuelCompatibility: card.dataset.fuel.split(',').filter(Boolean),
+          containerSize: volume,
+          boxUnits: s.boxUnits,
+          boxCount: s.boxCount,
+          totalUnits: s.boxUnits * s.boxCount,
+          source: 'landing_hero_modal',
+          timestamp: new Date().toISOString(),
+          renderTimestamp: Number(modal.dataset.modalOpenedAt) || Date.now(),
+          website_hp: document.getElementById('modal-hp')?.value || '',
+        };
+
+        fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          keepalive: true,
+        }).catch(() => console.warn('Registro asíncrono en proceso'));
+
+        const message = `Hola Lubexol, quisiera cotizar lo siguiente con su asesor:\n- Producto: ${payload.productName}\n- Combustible: ${payload.fuelCompatibility.join(', ')}\n- Envase: ${payload.containerSize}\n- Empaque: Caja x ${payload.boxUnits} unidades\n- Cantidad: ${payload.boxCount} caja(s) (Total: ${payload.totalUnits} unidades)\n\n¿Podrían confirmarme precio por caja, disponibilidad y condiciones de entrega?`;
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+          window.location.href = whatsappUrl;
+        } else {
+          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+        }
+      });
+
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(() => {});
       }
