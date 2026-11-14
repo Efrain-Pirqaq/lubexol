@@ -1219,6 +1219,23 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
 - **Despliegue a Producción:** Exitoso vía Wrangler a Cloudflare Pages.
 - **Verificación en Vivo:** DOM auditado en `https://aceitedemotorlima.com/` (3 accesos a blog y 3 a podcast en desktop, móvil y footer).
 
+---
+
+## 📌 42. RETIRO DE ENLACE "BENEFICIOS" DE LA BARRA DE NAVEGACIÓN
+
+> **Fecha:** 14/11/2026 13:25  
+> **Solicitud del PO:** Retirar el enlace "Beneficios" de la barra de navegación superior tanto en escritorio como en móvil para mantener el menú limpio.
+
+### 42.1. Cambios Físicos Implementados
+- **`src/pages/index.astro`:** Se eliminó `<a href="#beneficios">Beneficios</a>` de la barra de navegación de escritorio (`<nav md:flex>`) y de la sub-barra móvil (`<div md:hidden>`). El menú ahora solo muestra: `Catálogo`, `Blog`, `Podcast` y `Preguntas Frecuentes`.
+
+### 42.2. Verificación Factual y Despliegue
+- `npm run lint` (`astro check`): **0 errores, 0 advertencias**.
+- `npm run build`: **Exit code 0**.
+- **Despliegue a Producción:** Exitoso vía Wrangler.
+- **Verificación en Vivo:** Comprobado con `node fetch` en `https://aceitedemotorlima.com/` confirmando el retiro de "Beneficios" en desktop y móvil.
+
+
 
 
 
