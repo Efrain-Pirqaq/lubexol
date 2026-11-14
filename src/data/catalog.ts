@@ -1,6 +1,130 @@
 import type { Product } from '@/lib/contracts/catalog';
 
-// Catálogo estático tipado para MVP.
-// IMPORTANTE: no inventar productos. Completar con datos verificados por el PO.
-// Array vacío => la UI mostrará estado vacío sin exponer placeholders.
-export const catalog: Product[] = [];
+export const catalog: Product[] = [
+  {
+    id: 'lubexol-optimus-premium-20w50',
+    name: 'Lubexol Optimus Premium SAE 20W-50',
+    brand: 'Lubexol',
+    description: 'Aceite multigrado API-SN para máxima protección en motores a gasolina y conversión a gas (GNV/GLP).',
+    imageUrl: '/images/products/lubexol-optimus-premium-20w50.jpeg',
+    fuelCompatibility: ['GNV', 'GLP', 'Gasolina'],
+    variants: [
+      {
+        id: 'opt-20w50-1l',
+        productId: 'lubexol-optimus-premium-20w50',
+        viscosity: '20W-50',
+        volume: '1L / Cuarto',
+        unitsPerBox: 12,
+        allowedBoxUnits: [12, 24],
+        unit: 'botella',
+        sku: 'LBX-OPT-20W50-1L',
+      },
+    ],
+    status: 'published',
+  },
+  {
+    id: 'lubexol-ultra-oil-15w40',
+    name: 'Lubexol Ultra Oil SAE 15W-40',
+    brand: 'Lubexol',
+    description: 'Aceite multigrado API CI-4 PLUS para motores diésel de servicio pesado, camiones y flotas comerciales.',
+    imageUrl: '/images/products/lubexol-ultra-oil-15w40.jpeg',
+    fuelCompatibility: ['Diesel', 'Gasolina'],
+    variants: [
+      {
+        id: 'ult-15w40-1l',
+        productId: 'lubexol-ultra-oil-15w40',
+        viscosity: '15W-40',
+        volume: '1L / Cuarto',
+        unitsPerBox: 12,
+        allowedBoxUnits: [12, 24],
+        unit: 'botella',
+        sku: 'LBX-ULT-15W40-1L',
+      },
+    ],
+    status: 'published',
+  },
+  {
+    id: 'lubexol-hd50-gnv-glp',
+    name: 'Lubexol HD 50 Ultra Oil GNV/GLP',
+    brand: 'Lubexol',
+    description: 'Aceite monogrado API-SL-CD de alta viscosidad formulado especialmente para vehículos a gas GNV y GLP.',
+    imageUrl: '/images/products/lubexol-hd50-gnv-glp.jpeg',
+    fuelCompatibility: ['GNV', 'GLP'],
+    variants: [
+      {
+        id: 'hd50-gnv-1l',
+        productId: 'lubexol-hd50-gnv-glp',
+        viscosity: 'SAE 50',
+        volume: '1L / Cuarto',
+        unitsPerBox: 12,
+        allowedBoxUnits: [12, 24],
+        unit: 'botella',
+        sku: 'LBX-HD50-GAS-1L',
+      },
+    ],
+    status: 'published',
+  },
+  {
+    id: 'lubexol-turbo-vis-25w60',
+    name: 'Lubexol Turbo Vis SAE 25W-60',
+    brand: 'Lubexol',
+    description: 'Aceite multigrado API CH-4/SF de alta viscosidad para motores con alto kilometraje o alto desgaste.',
+    imageUrl: '/images/products/lubexol-turbo-vis-25w60.jpeg',
+    fuelCompatibility: ['Diesel', 'Gasolina'],
+    variants: [
+      {
+        id: 'turbovis-25w60-1l',
+        productId: 'lubexol-turbo-vis-25w60',
+        viscosity: '25W-60',
+        volume: '1L / Cuarto',
+        unitsPerBox: 12,
+        allowedBoxUnits: [12, 24],
+        unit: 'botella',
+        sku: 'LBX-TUR-25W60-1L',
+      },
+    ],
+    status: 'published',
+  },
+  {
+    id: 'lubexol-hd40-ultra-oil',
+    name: 'Lubexol HD 40 Ultra Oil',
+    brand: 'Lubexol',
+    description: 'Aceite monogrado API-SL-CD para motores diésel y gasolina con protección confiable contra el desgaste.',
+    imageUrl: '/images/products/lubexol-hd40-ultra-oil.jpeg',
+    fuelCompatibility: ['Diesel', 'Gasolina'],
+    variants: [
+      {
+        id: 'hd40-1l',
+        productId: 'lubexol-hd40-ultra-oil',
+        viscosity: 'SAE 40',
+        volume: '1L / Cuarto',
+        unitsPerBox: 12,
+        allowedBoxUnits: [12, 24],
+        unit: 'botella',
+        sku: 'LBX-HD40-1L',
+      },
+    ],
+    status: 'published',
+  },
+  {
+    id: 'lubexol-moto-4t-25w60',
+    name: 'Lubexol 4 Tiempos Moto SAE 25W-60',
+    brand: 'Lubexol',
+    description: 'Tecnología sintética API-SL-CD, norma JASO MA2 para motocicletas y mototaxis de trabajo pesado.',
+    imageUrl: '/images/products/lubexol-moto-4t-25w60.jpeg',
+    fuelCompatibility: ['Gasolina'],
+    variants: [
+      {
+        id: 'moto4t-25w60-1l',
+        productId: 'lubexol-moto-4t-25w60',
+        viscosity: '25W-60',
+        volume: '1L / Cuarto',
+        unitsPerBox: 12,
+        allowedBoxUnits: [12, 24],
+        unit: 'botella',
+        sku: 'LBX-MOTO-25W60-1L',
+      },
+    ],
+    status: 'published',
+  },
+];

@@ -3,10 +3,10 @@ import { POST } from './lead';
 
 describe('POST /api/lead', () => {
   const validPayload = {
-    productId: 'test-oil',
-    productName: 'Aceite de Prueba 20W-50',
+    productId: 'lubexol-optimus-premium-20w50',
+    productName: 'Lubexol Optimus Premium SAE 20W-50',
     fuelCompatibility: ['Gasolina', 'GNV'],
-    containerSize: '1L',
+    containerSize: '1L / Cuarto',
     boxUnits: 12,
     boxCount: 2,
     totalUnits: 24,
