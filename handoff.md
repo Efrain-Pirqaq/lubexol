@@ -1151,6 +1151,22 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
 - `npm run build`: **Exit code 0** (Server built en 2.35s).
 - **Despliegue Cloudflare Pages:** Exitoso a `https://lubexol.pages.dev/`. Verificado con `node fetch` (8 ocurrencias Multigrado, 4 ocurrencias Monogrado).
 
+---
+
+## 📌 39. RETIRO DE ENLACE "CÓMO FUNCIONA" DE LA BARRA DE NAVEGACIÓN
+
+> **Fecha:** 14/11/2026 11:13  
+> **Solicitud del PO:** Retirar el enlace / ventana de "Cómo Funciona" de la barra superior de Lubexol para simplificar el menú de navegación.
+
+### 39.1. Cambios Físicos
+- **`src/pages/index.astro`:** Se eliminó `<a href="#como-funciona">Cómo Funciona</a>` de `<nav>`. La barra conserva de forma minimalista los enlaces clave: `Catálogo`, `Beneficios` y `Preguntas Frecuentes`.
+
+### 39.2. Verificación Factual y Despliegue
+- `npm run lint` (`astro check`): **0 errores, 0 advertencias, 0 hints**.
+- `npm run build`: **Exit code 0**.
+- **Despliegue Cloudflare Pages:** Exitoso a `https://lubexol.pages.dev/`. Verificado con `node fetch` confirmando la eliminación del enlace en el DOM del header.
+
+
 
 
 
