@@ -16,8 +16,8 @@
 - **Stack Técnico (Aprobado D-11):** Astro 5 + Tailwind CSS + Cloudflare Pages. Bundle de catálogo: 4.73 KB (1.82 KB gzipped).
 - **Seguridad:** [.gitignore](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/.gitignore) y [.env.example](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/.env.example) configurados en la raíz. Cero credenciales ni números ficticios en cliente.
 - **Fuente de Verdad del Proyecto:** [GEMINI.md](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/GEMINI.md) sincronizado; `handoff.md` como archivo único de trabajo y auditoría cruzada (§11).
-- **Fase vigente:** Catálogo Oficial Lubexol cargado (6 productos con fotografía real, 13/13 tests pass). Listo para prueba en localhost y despliegue a producción.
-- **Paquete Maestro:** [LUBEXOL-STARTER-KIT-v1.0](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/LUBEXOL-STARTER-KIT-v1.0) (especificación inicial; decisiones aprobadas en CONTROL-DE-DECISIONES).
+- **Fase vigente:** **PRODUCCIÓN EN VIVO** en Cloudflare Pages ([https://lubexol.pages.dev](https://lubexol.pages.dev)). Portada oficial completa y catálogo de 6 productos Lubexol con fotografías reales, cajas oficiales de 15u y 20u en envases de 1L (13/13 tests pass, exit code 0).
+- **Paquete Maestro:** [LUBEXOL-STARTER-KIT-v1.0](file:///c:/Users/USUARIO/Desktop/Efrain\Autonomiza\Trabajos\Lubricantes\LUBEXOL-STARTER-KIT-v1.0) (especificación inicial; decisiones aprobadas en CONTROL-DE-DECISIONES).
 
 ---
 
@@ -29,7 +29,7 @@
 | **D-02** | Público Objetivo | **APROBADO** | Particulares y taxistas que buscan optimizar costos de mantenimiento comprando aceite por caja. |
 | **D-03** | Modelo Comercial | **APROBADO** | Catálogo con selección por caja y cotización directa por WhatsApp; sin checkout ni pasarela. |
 | **D-04** | Pago Online | **APROBADO** | No contemplado en Fase 1 (cero fricción transaccional en web). |
-| **D-06** | Venta por caja | **APROBADO** | Unidad comercial obligatoria: caja cerrada (6u, 12u, 24u según empaque de fábrica). |
+| **D-06** | Venta por caja | **ACTUALIZADO PO** | Unidad comercial obligatoria: caja cerrada de **15u** y **20u** exclusivamente, en envases de **1L** (término *"cuarto"* eliminado). |
 | **D-07** | Vendedores | **APROBADO** | Línea centralizada de Lubexol con asesor verificado en WhatsApp; sin directorio de terceros. |
 | **D-09** | Monetización | **APROBADO** | Margen comercial directo por venta de cajas. Cuotas a terceros diferidas a fase marketplace. |
 | **D-11** | Infraestructura | **APROBADO** | Astro 5 + Tailwind CSS + Cloudflare Pages (Edge SSR). |
@@ -44,8 +44,8 @@
 ### 3.1. Anatomía de la Tarjeta de Producto (`ProductCard`)
 1. **Imagen Oficial:** Fotografía del envase con optimización WebP/AVIF y badge de tipo de motor (GNV/GLP/Gasolina/Diésel).
 2. **Descripción Breve:** Marca, línea comercial, viscosidad y homologaciones técnicas básicas.
-3. **Selector de Presentación (Envase):** Chips táctiles (`250ml`, `500ml`, `1L / Cuarto`, `Galón 4L`).
-4. **Selector de Empaque (Caja cerrada):** Chips reactivos en cascada según el envase seleccionado (`6u`, `12u`, `24u`) + selector de cantidad de cajas `[ - ] [ N ] [ + ]`.
+3. **Selector de Presentación (Envase):** Envase oficial estandarizado en `1L` (homologado por PO, sin mención a *"cuarto"*).
+4. **Selector de Empaque (Caja cerrada):** Chips reactivos de `15u` y `20u` + selector de cantidad de cajas `[ - ] [ N ] [ + ]`.
 5. **Botón Principal:**
    - Label: `Cotizar por WhatsApp`
    - Subtexto / Microcopy: `Cotizar con nuestro asesor de Lubexol`
@@ -1054,6 +1054,46 @@ El código y la infraestructura están 100% listos para operar.
    - Astro check: **0 errores, 0 advertencias**.
    - Build: **Exit code 0** (Server built en 2.37s).
    - Despliegue en producción con Wrangler completado y verificado en vivo (`https://lubexol.pages.dev`).
+
+---
+
+## 📌 36. EXPEDIENTE Y GUÍA DE AUDITORÍA CRUZADA (PARA EL COLEGA AUDITOR / SEGUNDO AGENTE)
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Rol Receptor:** Colega Auditor (OpenCode / Segundo Agente de Gobernanza)  
+> **Fecha de Emisión:** 14/11/2026 09:40  
+> **URL Pública en Producción:** [https://lubexol.pages.dev](https://lubexol.pages.dev)  
+> **Repositorio Oficial:** [https://github.com/Efrain-Pirqaq/lubexol](https://github.com/Efrain-Pirqaq/lubexol) (Rama `main`)
+
+### 36.1. Resumen Ejecutivo para el Auditor
+Estimado colega auditor, el proyecto **Lubexol** ha culminado su transición de Fase de Diseño a **Producción en Vivo**. Durante la sesión del 13-14 de noviembre de 2026, el Product Owner (Efraín) aprobó directamente en producción la arquitectura unificada y ordenó dos correcciones mandatorias de dominio comercial que ya se encuentran reflejadas en el código y desplegadas en la nube:
+
+1. **Despliegue a Producción Operativo:** Publicado en Cloudflare Pages mediante Cloudflare Workers SSR (`_worker.js`) con bundle cliente ultra-ligero (2.03 KB gzipped).
+2. **Página Principal Unificada (`src/pages/index.astro`):** Toda la experiencia de compra y cotización se consolidó en la portada (Hero, beneficios, catálogo interactivo con fotos de 6 productos, modal two-step, FAQ y footer).
+3. **Regla Comercial D-06 Actualizada (Cajas de 15u y 20u):** Las cajas cerradas vienen exclusivamente de **15 unidades** y **20 unidades** (reemplazando cualquier especificación previa de 12u/24u).
+4. **Regla de Producto (Envases de 1L):** Todos los lubricantes son exclusivamente de **1L**; se erradicó de manera estricta el término *"cuarto"* de todo el código, selectores y mensajes hacia WhatsApp.
+5. **Canal WhatsApp Oficial Temporal:** Parametrizado como `51962952354` (número provisto por el PO para validación en campo).
+
+### 36.2. Checklist Mandatorio de Verificación Cruzada (Audit Checklist)
+Te solicito verificar adversarialmente los siguientes puntos técnicos en el workspace:
+
+- [ ] **Consistencia en Catálogo (`src/data/catalog.ts`):**  
+  Verificar que los 6 productos tengan `volume: '1L'`, `unitsPerBox: 15` y `allowedBoxUnits: [15, 20]`. Confirmar que no exista ninguna referencia a `12` o `24` en unidades de caja ni a `Cuarto`.
+- [ ] **Integridad en Frontend (`src/pages/index.astro` y `src/components/ProductCard.astro`):**  
+  Verificar que los chips reactivos de empaque rendericen `15u` y `20u`, que el cálculo de `totalUnits = boxUnits * boxCount` sea matemáticamente exacto, y que el texto comercial mencione exclusivamente cajas de 15 o 20 unidades.
+- [ ] **Accesibilidad y Seguridad en Modal:**  
+  Confirmar que el modal de cotización mantenga el Focus Trap restringido a `input:not([tabindex="-1"])`, impidiendo que el Honeypot anti-bot `#modal-hp` reciba foco accidental.
+- [ ] **Pruebas Automatizadas de Consola (Reproducibilidad Física):**  
+  Ejecutar y corroborar los siguientes comandos en tu terminal:
+  - `npm run test` (Debe reportar 13/13 tests pasados).
+  - `npm run lint` (`astro check` - Debe reportar 0 errores, 0 advertencias en 24 archivos).
+  - `npm run build` (Debe compilar con Exit code 0 en ~2-3s).
+- [ ] **Verificación de Producción Externa:**  
+  Realizar un curl / fetch a `https://lubexol.pages.dev/` y validar que devuelva HTTP 200 con el catálogo cargado y sin residuos de texto obsoletos.
+
+### 36.3. Instrucción para el Cierre de la Contra-Auditoría
+Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección 37** de este archivo `handoff.md`. Si todo está conforme, deja constancia de la ratificación del consenso.
+
 
 
 
