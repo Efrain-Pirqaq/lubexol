@@ -1275,6 +1275,59 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
 - **Despliegue Cloudflare Pages:** Exitoso a `https://aceitedemotorlima.com/`.
 - **Verificación en Vivo:** Comprobada la presencia física de `AutoPartsStore` y `FAQPage` en el DOM de producción mediante `node fetch`.
 
+---
+
+## 📌 45. EXPEDIENTE DE AUDITORÍA CRUZADA: SEO LOCAL, SCHEMA Y DOMINIO DEFINITIVO (PARA EL COLEGA AUDITOR)
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Rol Receptor:** OpenCode (Colega Auditor / Segundo Agente de Gobernanza)  
+> **Fecha:** 14/11/2026 20:45  
+> **URL Oficial en Producción:** [https://aceitedemotorlima.com](https://aceitedemotorlima.com)  
+> **Repositorio Oficial:** [https://github.com/Efrain-Pirqaq/lubexol](https://github.com/Efrain-Pirqaq/lubexol) (Rama `main`)
+
+### 45.1. Resumen Ejecutivo para el Auditor
+Estimado colega auditor, durante la jornada del 14/11/2026 se completaron cuatro hitos estratégicos de dominio, SEO técnico y posicionamiento local aprobados por el Product Owner (Efraín):
+
+1. **Dominio Definitivo (`aceitedemotorlima.com`):**  
+   - Se adquirió el dominio en Namecheap y se delegaron los Nameservers a Cloudflare (`thea.ns.cloudflare.com` y `trace.ns.cloudflare.com`).
+   - Se conectó en Cloudflare Pages respondiendo con HTTP 200 y SSL activo.
+   - Se actualizó la configuración canónica en [astro.config.mjs](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/astro.config.mjs), [.env.example](file:///c:/Users/USUARIO/Desktop/Efrain/Autonomiza/Trabajos/Lubricantes/.env.example) y en el sitemap XML (`dist/sitemap-0.xml`).
+2. **Pestañas de Navegación Depuradas (`src/pages/index.astro`):**  
+   - Se retiraron los enlaces obsoletos "Cómo Funciona" y "Beneficios".
+   - La barra de navegación (desktop y móvil) ahora enlaza exclusivamente a: `Catálogo`, `Blog`, `Podcast` y `Preguntas Frecuentes`.
+3. **Maquetación Unificada de Blog y Podcast:**  
+   - Rutas `/blog` y `/podcast` con sus vistas individuales `[slug].astro` alineadas bajo la marca unificada **Aceite de Motor Lima**.
+   - Esquemas JSON-LD `BlogPosting` y `PodcastEpisode` con soporte de reproductor HTML5, video YouTube y transcripción completa indexable.
+4. **Marcado de Datos Estructurados de Negocio Local (Opción 4):**  
+   - **Schema `AutoPartsStore`:** Inyectado en `src/pages/index.astro` declarando cobertura en Lima Metropolitana y Callao (`areaServed`), métodos de pago, horarios y catálogo de ofertas.
+   - **Privacidad y Cumplimiento Fail-Closed:** La dirección física está estrictamente protegida a nivel de ciudad y país (`addressLocality: "Lima"`, `addressCountry: "PE"`), sin exponer calle ni número residencial para cumplir con las directrices de Google para *Service Area Businesses* (SAB).
+   - **Schema `FAQPage`:** Inyectado con las 5 preguntas y respuestas clave de conversión para activar rich snippets en Google.
+
+---
+
+### 45.2. Checklist Mandatorio de Verificación Cruzada (Audit Checklist)
+Te solicito auditar adversarialmente los siguientes puntos en el workspace:
+
+- [ ] **Validación de Schema JSON-LD en `src/pages/index.astro`:**  
+  Verificar que `localBusinessSchema` y `faqPageSchema` tengan sintaxis válida según Schema.org / Google Search Console, con tipos correctos (`AutoPartsStore`, `FAQPage`, `OfferCatalog`, `PostalAddress`).
+- [ ] **Cumplimiento de Privacidad y Cero Fuga de Datos:**  
+  Confirmar que en ninguna parte del HTML visible ni en los datos estructurados se expongan direcciones residenciales ni datos sensibles no autorizados.
+- [ ] **Consistencia Canónica y Sitemap:**  
+  Verificar que `site: 'https://aceitedemotorlima.com'` en `astro.config.mjs` genere sitemaps limpios sin residuos de `lubexol.pe` ni `localhost`.
+- [ ] **Pruebas Automatizadas de Consola (Reproducibilidad Factual):**  
+  Ejecutar y validar:
+  * `npm run test` (Debe pasar 13/13 tests de Vitest).
+  * `npm run lint` (`astro check` - Debe arrojar 0 errores, 0 advertencias en 24 archivos).
+  * `npm run build` (Debe compilar con Exit code 0 en ~2-3s).
+- [ ] **Inspección de Producción en Vivo:**  
+  Realizar un fetch a `https://aceitedemotorlima.com/` y comprobar HTTP 200, certificado SSL activo y presencia de `AutoPartsStore` y `FAQPage` en el `<head>`.
+
+---
+
+### 45.3. Instrucción para el Cierre de la Contra-Auditoría
+Por favor, registra tus hallazgos, observaciones y veredicto formal de contra-auditoría en la **Sección 46** de este archivo `handoff.md`.
+
+
 
 
 
