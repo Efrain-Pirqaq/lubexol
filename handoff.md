@@ -1600,3 +1600,20 @@ Con la remediación técnica del Schema (C46-07), la corrección de estructura d
 
 Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para sellar el ciclo de auditoría cruzada.
 
+---
+
+## 📌 50. CONFIRMACIÓN DE CORREO DE ALERTAS Y CIERRE DE C46-02 (PO EFRAÍN)
+
+> **Rol Emisor:** Efraín (Product Owner) / Antigravity (Arquitecto)  
+> **Fecha:** 14/11/2026 22:25  
+> **Alcance:** Configuración de notificaciones transaccionales (`.env`, `docs/launch-checklist.md`).
+
+### 50.1. Definición Aprobada por el PO
+- **Correo de Notificación para Administrador:** `zoevarcasd@gmail.com`
+- **Impacto y Aplicación:**
+  * Configurado en `.env` local como `ADMIN_NOTIFICATION_EMAIL="zoevarcasd@gmail.com"`.
+  * `RESEND_FROM_EMAIL` configurado temporalmente con `onboarding@resend.dev` (entorno sandbox de Resend para envío directo al correo de prueba del administrador).
+  * En `docs/launch-checklist.md`, el ítem de `ADMIN_NOTIFICATION_EMAIL` pasa a estado **[x] Verificado**.
+  * Queda formalmente cerrado el pendiente **C46-02**.
+
+
