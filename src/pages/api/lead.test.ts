@@ -135,6 +135,32 @@ describe('POST /api/lead', () => {
     expect(body.error).toBe('Origen no permitido');
   });
 
+  it('permite solicitudes con Origin legítimo de producción (https://aceitedemotorlima.com)', async () => {
+    const request = new Request('http://localhost/api/lead', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Origin: 'https://aceitedemotorlima.com',
+      },
+      body: JSON.stringify(validPayload),
+    });
+
+    const response = await POST({
+      request,
+      clientAddress: '127.0.0.7',
+      locals: {
+        runtime: {
+          env: { PUBLIC_SITE_URL: 'https://aceitedemotorlima.com' },
+        },
+      },
+    } as any);
+
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body.success).toBe(true);
+    expect(body.leadId).toBeDefined();
+  });
+
   it('bloquea por rate limit tras exceder 3 solicitudes en la ventana de tiempo', async () => {
     const ip = '192.168.1.100';
 

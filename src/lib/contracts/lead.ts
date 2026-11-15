@@ -10,7 +10,7 @@ export const CreateLeadPayloadSchema = z.object({
   boxUnits: z.number().int().positive(),
   boxCount: z.number().int().min(1).max(999),
   totalUnits: z.number().int().positive(),
-  source: z.literal('product_card_modal'),
+  source: z.enum(['product_card_modal', 'landing_hero_modal']),
   timestamp: z.string().datetime(),
   renderTimestamp: z.number().int().optional(),
   website_hp: z.string().optional(),

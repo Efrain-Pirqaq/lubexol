@@ -15,7 +15,7 @@ function getEnv(locals: any) {
     resendKey: runtimeEnv.RESEND_API_KEY || import.meta.env.RESEND_API_KEY,
     resendFrom: runtimeEnv.RESEND_FROM_EMAIL || import.meta.env.RESEND_FROM_EMAIL,
     adminEmail: runtimeEnv.ADMIN_NOTIFICATION_EMAIL || import.meta.env.ADMIN_NOTIFICATION_EMAIL,
-    siteUrl: runtimeEnv.PUBLIC_SITE_URL || import.meta.env.PUBLIC_SITE_URL,
+    siteUrl: runtimeEnv.PUBLIC_SITE_URL || import.meta.env.PUBLIC_SITE_URL || 'https://aceitedemotorlima.com',
   };
 }
 
@@ -25,8 +25,16 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
   // Validación de Origin (producción)
   const origin = request.headers.get('origin');
   const env = getEnv(locals);
-  if (env.siteUrl && origin && origin !== env.siteUrl) {
-    return new Response(JSON.stringify({ success: false, error: 'Origen no permitido' }), { status: 403 });
+  if (origin) {
+    const cleanOrigin = origin.replace(/\/$/, '');
+    const cleanSiteUrl = (env.siteUrl || 'https://aceitedemotorlima.com').replace(/\/$/, '');
+    const allowed = [cleanSiteUrl, 'https://aceitedemotorlima.com', 'https://www.aceitedemotorlima.com'];
+    if (import.meta.env.DEV || cleanSiteUrl.includes('localhost')) {
+      allowed.push('http://localhost:4321', 'http://127.0.0.1:4321');
+    }
+    if (!allowed.includes(cleanOrigin)) {
+      return new Response(JSON.stringify({ success: false, error: 'Origen no permitido' }), { status: 403 });
+    }
   }
 
   let body: unknown;

@@ -453,7 +453,7 @@ const faqPageSchema = {
     >
       <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
         <h2 id="modal-title" class="text-lg font-bold text-slate-900">Confirmar cotización</h2>
-        <div id="modal-summary" class="mt-4 space-y-1 text-sm text-slate-700"></div>
+        <div id="modal-summary" class="mt-4 space-y-1 text-sm text-slate-700" aria-live="polite"></div>
         <input
           type="text"
           id="modal-hp"
@@ -583,6 +583,7 @@ const faqPageSchema = {
               alert('Configura PUBLIC_WHATSAPP_NUMBER en .env para habilitar la cotización.');
               return;
             }
+            lastTriggerElement = target.closest('[data-quote]');
             const s = state.get(card.dataset.productId);
             const modal = document.getElementById('modal');
             const summary = document.getElementById('modal-summary');
@@ -607,23 +608,25 @@ const faqPageSchema = {
       const modal = document.getElementById('modal');
       const cancelBtn = document.getElementById('modal-cancel');
       const confirmBtn = document.getElementById('modal-confirm');
+      let lastTriggerElement = null;
 
-      cancelBtn?.addEventListener('click', () => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      });
+      function closeModal() {
+        modal?.classList.add('hidden');
+        modal?.classList.remove('flex');
+        lastTriggerElement?.focus();
+      }
+
+      cancelBtn?.addEventListener('click', closeModal);
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
-          modal.classList.add('hidden');
-          modal.classList.remove('flex');
+          closeModal();
         }
       });
 
       modal?.addEventListener('click', (e) => {
         if (e.target === modal) {
-          modal.classList.add('hidden');
-          modal.classList.remove('flex');
+          closeModal();
         }
       });
 
