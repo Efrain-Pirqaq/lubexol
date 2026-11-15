@@ -1616,4 +1616,30 @@ Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para 
   * En `docs/launch-checklist.md`, el ítem de `ADMIN_NOTIFICATION_EMAIL` pasa a estado **[x] Verificado**.
   * Queda formalmente cerrado el pendiente **C46-02**.
 
+---
+
+## 📌 51. INTEGRACIÓN DE RESEND API Y PRUEBA EN VIVO DE PRODUCCIÓN
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 14/11/2026 22:34  
+> **Alcance:** Integración segura de credenciales Resend en Cloudflare Pages y prueba E2E de despacho de leads.
+
+### 51.1. Configuración de Secretos
+- **`RESEND_API_KEY`:** Cargada en `.env` local (ignorado en git) y subida como secreto cifrado a Cloudflare Pages mediante `wrangler pages secret put RESEND_API_KEY`.
+- **`RESEND_FROM_EMAIL`:** Configurado como secreto en Cloudflare Pages (`onboarding@resend.dev`).
+- **`ADMIN_NOTIFICATION_EMAIL`:** Subido a Cloudflare Pages.
+
+### 51.2. Prueba Factual y Diagnóstico de la API de Resend
+1. **Intento de Envío a `zoevarcasd@gmail.com` con `onboarding@resend.dev`:**
+   - La API de Resend respondió HTTP 403: *"You can only send testing emails to your own email address (diaz@autonomiza.com). To send emails to other recipients, please verify a domain at resend.com/domains..."*.
+2. **Envío Exitoso a Correo Registrado (`diaz@autonomiza.com`):**
+   - Resend despachó exitosamente el correo de prueba con ID `01a1dd44-bfc7-7b7c-8047-f895a04de6c6`.
+3. **Prueba en Vivo en Producción (`https://aceitedemotorlima.com/api/lead`):**
+   - POST con `Origin: https://aceitedemotorlima.com` retornó **HTTP 200 OK**:
+     ```json
+     { "success": true, "leadId": "lead_1794713682782_1asf", "message": "Lead registrado" }
+     ```
+   - La alerta por correo se despachó y entregó físicamente a la cuenta de Resend.
+
+
 
