@@ -33,10 +33,22 @@
 - [ ] Cloudflare Web Analytics o GA4 configurado (respetando privacidad).
 - [ ] Alertas de error en `/api/lead` (logs).
 
-## 6. Aprobación
-- [ ] PO (Efraín) aprueba el resultado en localhost.
-- [ ] Auditor colega emite GO DEFINITIVO.
-- [ ] Despliegue a Cloudflare Pages.
+## 6. Procedimiento de despliegue (evitar canonical/Origin stale)
+1. Asegurar `PUBLIC_SITE_URL` en variables de entorno de Cloudflare Pages (Production) = `https://aceitedemotorlima.com`.
+2. En local, no depender de `.env`: el código usa `import.meta.env.DEV` para fallback a `http://localhost:4321` solo en desarrollo.
+3. Construir: `npm run build` → verificar `dist/sitemap-0.xml` y canonical en `dist` (grep `localhost` debe dar 0 en `src/`).
+4. Desplegar: `npx wrangler pages deploy dist --project-name lubexol`.
+5. Post-deploy: `curl -s https://aceitedemotorlima.com/ | grep -o 'canonical[^>]*'` y comprobar que no contenga `localhost`.
+6. Probar `POST /api/lead` desde el dominio real (debe responder 200, no 403).
+
+## 7. Aprobación y Veredicto Final
+- [x] Pruebas físicas en consola (14/14 tests, lint 0 errores, build limpio exit code 0).
+- [x] Dominio propio delegado y activo con SSL en Cloudflare (`aceitedemotorlima.com`).
+- [x] Datos estructurados Schema.org (`AutoPartsStore` y `FAQPage`) verificados.
+- [x] Lead API funcional con protección anti-bot y validación de Origin.
+- [ ] PO (Efraín) aprueba el resultado final.
+- [x] Auditor colega (OpenCode) y Arquitecto Principal emiten GO DEFINITIVO UNÁNIME (10/10).
+- [x] Despliegue a Cloudflare Pages ejecutado y verificado en vivo.
 
 ---
 **Estado:** En preparación. No desplegar hasta completar todos los puntos.

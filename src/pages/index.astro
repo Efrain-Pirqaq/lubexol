@@ -5,7 +5,9 @@ import ProductCard from '@/components/ProductCard.astro';
 
 const hasProducts = catalog.length > 0;
 const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
-const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://aceitedemotorlima.com';
+const siteUrl =
+  import.meta.env.PUBLIC_SITE_URL ||
+  (import.meta.env.DEV ? 'http://localhost:4321' : 'https://aceitedemotorlima.com');
 const defaultWaUrl = whatsappNumber
   ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola Lubexol, quisiera información y cotización sobre lubricantes por caja.')}`
   : '#';
@@ -14,7 +16,7 @@ const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'AutoPartsStore',
   name: 'Aceite de Motor Lima',
-  alternateName: 'Lubexol Lima — Venta Mayorista de Lubricantes por Caja',
+  alternateName: 'Distribuidor Mayorista Lubexol Lima',
   url: siteUrl,
   logo: `${siteUrl}/favicon.svg`,
   image: `${siteUrl}/images/products/lubexol-optimus-premium-20w50.jpeg`,
