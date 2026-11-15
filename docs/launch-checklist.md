@@ -13,9 +13,9 @@
 - [x] Catálogo seed cargado en `src/data/catalog.ts` (3 productos verificados).
 - [x] `PUBLIC_WHATSAPP_NUMBER` configurado con número real (`51962952354`).
 - [x] `ADMIN_NOTIFICATION_EMAIL` definido por el PO (`zoevarcasd@gmail.com`).
-- [ ] Secretos configurados en Cloudflare Pages: `RESEND_API_KEY`, `GOOGLE_SHEETS_WEBHOOK_URL`, `GOOGLE_SHEETS_WEBHOOK_SECRET`, `ADMIN_NOTIFICATION_EMAIL`, `RESEND_FROM_EMAIL`.
+- [x] Secretos de correo configurados en Cloudflare Pages: `RESEND_API_KEY`, `ADMIN_NOTIFICATION_EMAIL` (`zoevarcasd@gmail.com`), `RESEND_FROM_EMAIL` (`notificaciones@aceitedemotorlima.com`).
 - [ ] Google Apps Script desplegado y probado (zona `America/Lima`).
-- [ ] Dominio verificado en Resend (o uso de `onboarding@resend.dev` para pruebas iniciales).
+- [x] Dominio verificado en Resend (`aceitedemotorlima.com` verificado y activo con envío autorizado).
 
 ## 3. Seguridad
 - [ ] Cabeceras de seguridad activas (`_headers`).

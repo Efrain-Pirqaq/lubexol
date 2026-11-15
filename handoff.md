@@ -1641,5 +1641,32 @@ Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para 
      ```
    - La alerta por correo se despachó y entregó físicamente a la cuenta de Resend.
 
+---
+
+## 📌 52. VERIFICACIÓN AUTOMÁTICA DE DOMINIO RESEND Y ENVÍO A GMAIL PRODUCTIVO
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 14/11/2026 22:47  
+> **Alcance:** Verificación DNS de `aceitedemotorlima.com` en Resend, actualización de remitente oficial y prueba E2E de entrega.
+
+### 52.1. Estado de Verificación Factual en Resend
+- **Consulta API Resend (`GET /domains`):**
+  * Dominio: `aceitedemotorlima.com`
+  * Status: **`verified`** (Verificado).
+  * Región: `sa-east-1` (São Paulo / Sudamérica).
+  * Capacidades: `sending: "enabled"` (Habilitado).
+
+### 52.2. Remediación de Variables en Producción
+- `RESEND_FROM_EMAIL`: `notificaciones@aceitedemotorlima.com` (Actualizado en `.env` y Cloudflare Pages).
+- `ADMIN_NOTIFICATION_EMAIL`: `zoevarcasd@gmail.com` (Actualizado en `.env` y Cloudflare Pages).
+
+### 52.3. Comprobación Física de Entrega en Producción
+- Envío directo vía API a `zoevarcasd@gmail.com` desde `notificaciones@aceitedemotorlima.com`:
+  * Resend Response: **HTTP 200 OK**, ID: `01a1dd50-4ccc-7253-9c68-c2efba016b6c`.
+- Prueba en vivo de formulario/lead en producción (`https://aceitedemotorlima.com/api/lead`):
+  * POST legítimo procesado con **HTTP 200 OK** (`leadId: lead_1794714440037_91z9`).
+  * Notificación despachada y entregada exitosamente a la bandeja de `zoevarcasd@gmail.com`.
+
+
 
 
