@@ -1256,6 +1256,26 @@ Por favor, registra tus hallazgos, dictamen y contra-auditoría en la **Sección
   * **Google Business Profile en modalidad SAB (Service Area Business):** Permite verificar la empresa ante Google con una dirección real para validar la cuenta, pero configurando la opción de *"No mostrar mi dirección comercial a los clientes"*. De este modo, en Google y Maps solo figurará el área de cobertura: **Lima Metropolitana y Callao**, protegiendo la privacidad del vendedor o domicilio.
   * **Schema JSON-LD LocalBusiness / AutoPartsStore:** Inyectar en el código los datos de la entidad comercial con `areaServed: ["Lima", "Callao"]` y tipo de servicio a domicilio/taller, sin exponer la calle ni número exacto en el frontend.
 
+---
+
+## 📌 44. INYECCIÓN DE DATOS ESTRUCTURADOS SCHEMA (AUTOPARTSSTORE + FAQPAGE) EN PRODUCCIÓN
+
+> **Fecha:** 14/11/2026 20:42  
+> **Solicitud del PO:** Opción 4 ejecutada: inyectar el marcado de datos estructurados Schema en la web con dirección protegida/oculta y cobertura en Lima y Callao.
+
+### 44.1. Cambios Físicos Implementados
+- **`src/pages/index.astro`:**
+  * **Schema `AutoPartsStore` (LocalBusiness):** Entidad `Aceite de Motor Lima`, cobertura `areaServed: [Lima, Callao, Lima Metropolitana]`, dirección genérica en Lima, Perú (sin calle ni número privado), catálogo de 6 ofertas y métodos de pago (`Efectivo, Transferencia, Yape, Plin`).
+  * **Schema `FAQPage`:** Inyección de las 5 preguntas y respuestas clave para habilitar rich snippets (acordeones enriquecidos) en los resultados de búsqueda de Google.
+
+### 44.2. Verificación Factual y Despliegue
+- `npm run test`: **13/13 pasados**.
+- `npm run lint` (`astro check`): **0 errores, 0 advertencias**.
+- `npm run build`: **Exit code 0**.
+- **Despliegue Cloudflare Pages:** Exitoso a `https://aceitedemotorlima.com/`.
+- **Verificación en Vivo:** Comprobada la presencia física de `AutoPartsStore` y `FAQPage` en el DOM de producción mediante `node fetch`.
+
+
 
 
 

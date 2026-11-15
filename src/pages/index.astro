@@ -9,6 +9,102 @@ const siteUrl = import.meta.env.PUBLIC_SITE_URL || 'https://aceitedemotorlima.co
 const defaultWaUrl = whatsappNumber
   ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola Lubexol, quisiera información y cotización sobre lubricantes por caja.')}`
   : '#';
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AutoPartsStore',
+  name: 'Aceite de Motor Lima',
+  alternateName: 'Lubexol Lima — Venta Mayorista de Lubricantes por Caja',
+  url: siteUrl,
+  logo: `${siteUrl}/favicon.svg`,
+  image: `${siteUrl}/images/products/lubexol-optimus-premium-20w50.jpeg`,
+  description:
+    'Venta y distribución de lubricantes de motor por caja cerrada de 15 y 20 unidades para taxistas, particulares y flotas comerciales en Lima Metropolitana y Callao.',
+  telephone: whatsappNumber ? `+${whatsappNumber}` : undefined,
+  priceRange: '$$',
+  currenciesAccepted: 'PEN',
+  paymentAccepted: 'Efectivo, Transferencia Bancaria, Yape, Plin',
+  areaServed: [
+    { '@type': 'City', name: 'Lima' },
+    { '@type': 'City', name: 'Callao' },
+    { '@type': 'AdministrativeArea', name: 'Lima Metropolitana' },
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Lima',
+    addressRegion: 'Lima',
+    addressCountry: 'PE',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '08:00',
+      closes: '19:00',
+    },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Catálogo de Lubricantes por Caja',
+    itemListElement: catalog.map((p, index) => ({
+      '@type': 'Offer',
+      itemOffered: {
+        '@type': 'Product',
+        name: p.name,
+        description: p.description,
+        brand: { '@type': 'Brand', name: p.brand },
+      },
+      position: index + 1,
+    })),
+  },
+};
+
+const faqPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Cómo garantizan que el aceite es 100% original y sellado de fábrica?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Todos los lubricantes Lubexol provienen directamente de planta con precinto de inviolabilidad de fábrica, números de lote trazables y fichas técnicas oficiales. Garantizamos cero riesgo de aceites reciclados o adulterados, protegiendo al 100% la vida útil de tu motor.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Por qué los motores a gas (GNV / GLP) necesitan un aceite especializado?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'La combustión a gas opera a temperaturas notablemente superiores a la gasolina, acelerando la nitración y degradación de los aceites comunes. Fórmulas como Lubexol Optimus Premium 20W-50 y Lubexol HD 50 Especial Gas cuentan con aditivos detergentes de alta estabilidad térmica y bajo contenido de cenizas que protegen las válvulas y previenen el desgaste de culata.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Venden por unidad suelta o cuál es la presentación de compra?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nos especializamos exclusivamente en venta mayorista por caja cerrada de 15 o 20 unidades de 1L. Este formato de fábrica elimina intermediarios y reduce significativamente el costo por litro para taxistas, particulares y talleres mecánicos frente a la compra minorista en grifos.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cómo se coordinan los envíos en Lima Metropolitana y Callao?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Coordinamos despachos directos y seguros a tu taller, cochera o domicilio en todo Lima y Callao. Al presionar "Cotizar por WhatsApp", nuestro asesor te confirma disponibilidad de stock inmediato, costo preferencial de envío y ventana de entrega para tu pedido.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué medios de pago aceptan y si entregan Boleta o Factura?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí, emitimos Boleta de venta y Factura electrónica con RUC para personas naturales con negocio o flotas comerciales que deseen deducir costos. Los pagos se coordinan de forma transparente por transferencia bancaria oficial, Yape/Plin o contraentrega según la zona acordada.',
+      },
+    },
+  ],
+};
 ---
 <!doctype html>
 <html lang="es" class="scroll-smooth">
@@ -31,6 +127,8 @@ const defaultWaUrl = whatsappNumber
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#0f172a" />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(faqPageSchema)} />
   </head>
   <body class="bg-slate-50 text-slate-900 antialiased" data-whatsapp={whatsappNumber}>
     <!-- Top Bar de Anuncio -->
