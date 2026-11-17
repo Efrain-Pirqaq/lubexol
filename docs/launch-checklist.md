@@ -11,7 +11,7 @@
 
 ## 2. Datos y configuración
 - [x] Catálogo seed cargado en `src/data/catalog.ts` (3 productos verificados).
-- [x] `PUBLIC_WHATSAPP_NUMBER` configurado con número real (`51962952354`).
+- [x] `PUBLIC_WHATSAPP_NUMBER` configurado con número oficial del vendedor (`51987448943`).
 - [x] `ADMIN_NOTIFICATION_EMAIL` definido por el PO (`zoevarcasd@gmail.com`).
 - [x] Secretos de correo configurados en Cloudflare Pages: `RESEND_API_KEY`, `ADMIN_NOTIFICATION_EMAIL` (`zoevarcasd@gmail.com`), `RESEND_FROM_EMAIL` (`notificaciones@aceitedemotorlima.com`).
 - [ ] Google Apps Script desplegado y probado (zona `America/Lima`).

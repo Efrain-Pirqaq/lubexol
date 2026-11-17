@@ -1700,6 +1700,34 @@ Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para 
   * `Ask for reviews` (Enlace corto oficial para recolección de reseñas de 5 estrellas).
 - **Protección de Privacidad:** Dirección física estrictamente oculta; mapa centrado en Lima Metropolitana y Callao.
 
+---
+
+## 📌 55. NÚMERO OFICIAL DE VENTAS, SITEMAP EN ROBOTS.TXT Y AUDITORÍA DE RASTREO POR IA
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 16/11/2026 21:35  
+> **Alcance:** Actualización a número de vendedor oficial, corrección de sitemap en `robots.txt` y dictamen sobre visibilidad ante motores de búsqueda basados en IA.
+
+### 55.1. Actualización de Contacto Oficial de Ventas
+- **Número anterior (pruebas):** `51962952354`
+- **Nuevo número del vendedor:** `51987448943` (`987 448 943`)
+- **Acciones físicas aplicadas y verificadas en vivo:**
+  * Actualizado en `.env` local (`PUBLIC_WHATSAPP_NUMBER="51987448943"`).
+  * Subido como secreto a Cloudflare Pages (`wrangler pages secret put PUBLIC_WHATSAPP_NUMBER`).
+  * Compilado y desplegado en producción: Verificado que `https://aceitedemotorlima.com` ahora sirve `telephone: "+51987448943"` en Schema JSON-LD y en todos los enlaces de WhatsApp directos.
+  * Actualizado `docs/launch-checklist.md`.
+
+### 55.2. Corrección Canónica de `public/robots.txt`
+- Se corrigió la directiva `Sitemap`: antes apuntaba a `https://lubexol.pe/sitemap-index.xml` (dominio previo).
+- Ahora apunta físicamente a `https://aceitedemotorlima.com/sitemap-index.xml`.
+- `robots.txt` mantiene `User-agent: *` y `Allow: /`, permitiendo explícitamente el 100% del rastreo a todos los motores de búsqueda tradicionales e IAs generativas (Googlebot, GPTBot, ClaudeBot, PerplexityBot, Applebot).
+
+### 55.3. Dictamen Técnico y Financiero sobre Anti-Bot y Rastreo de IA
+- **Hallazgo:** El sistema anti-bot opera exclusivamente en el método `POST /api/lead` (procesamiento interno del formulario de cotizaciones).
+- **Impacto en IAs y SEO:** **Cero impacto negativo**. Las IAs realizan exclusivamente solicitudes `HTTP GET` para leer contenido público, metadatos y schemas. Ningún motor de IA envía solicitudes POST a formularios.
+- **Beneficio Financiero:** El anti-bot en `/api/lead` previene ataques de denegación de servicio (DoS) y spam masivo que consumirían la cuota gratuita de Resend y saturarían las notificaciones.
+
+
 
 
 
