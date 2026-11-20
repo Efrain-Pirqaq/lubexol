@@ -1,4 +1,4 @@
-# Contexto y Reglas de Proyecto — Lubexol
+# Contexto y Reglas de Proyecto — Aceite de Motor Lima
 
 > Fuente Única de Verdad para este espacio de trabajo (Antigravity AI + Protocolo EGM).
 > Estándar de gobernanza mandatoria y desarrollo seguro.
@@ -26,18 +26,20 @@
 
 ## 2. Identidad y Dominio del Proyecto
 
-- **Nombre del Proyecto:** Lubexol (Venta y cotización de lubricantes por caja/mayor para particulares y taxistas).
-- **Estado de Definición:** Marca aprobada (Lubexol). Modelo de cotización ágil vía WhatsApp con destino a vendedor verificado.
-- **Canal de Ventas / Contacto:** Por parametrizar en `.env`.
-- **Archivo de trabajo para auditoría entre agentes:** `handoff.md` (bitácora viva). `CONTROL-DE-DECISIONES.md` y `GEMINI.md` son referencias; cambios se registran en `handoff.md`.
+- **Nombre del Proyecto:** Aceite de Motor Lima (Distribuidor Mayorista Lubexol).
+- **Dominio Oficial:** `https://aceitedemotorlima.com` (producción activa en Cloudflare Pages).
+- **Modelo Comercial:** Venta mayorista por caja cerrada de 15 o 20 unidades (1L) para taxistas, particulares y talleres mecánicos en Lima y Callao.
+- **Marca y Fórmulas:** Marca comercial del distribuidor: "Aceite de Motor Lima". Catálogo oficial: 6 fórmulas homologadas Lubexol con precinto de inviolabilidad y trazabilidad de fábrica.
+- **Canal de Ventas / Contacto:** WhatsApp oficial del vendedor parametrizado en `.env` (`PUBLIC_WHATSAPP_NUMBER="51987448943"`).
+- **Archivo de trabajo para auditoría entre agentes:** `handoff.md` (bitácora viva). `CONTROL-DE-DECISIONES.md` y `GEMINI.md` son referencias sincrónicas obligatorias.
 
 ---
 
-## 3. Stack Tecnológico (Propuesto — pendiente aprobación formal D-11)
+## 3. Stack Tecnológico (Aprobado D-11)
 
-- **Arquitectura Base (Aprobado D-11):** Astro 5 + Tailwind CSS + Cloudflare Pages. Alternativa Next.js solo si el PO la aprueba explícitamente.
-- **Backend / Integraciones:** Endpoint serverless `/api/lead` + Google Apps Script Webhook (Leads en Google Sheets) + Resend SDK (Alertas email a Admin).
-- **Canal de Ventas:** WhatsApp directo (`wa.me`) con mensaje pre-armado y flujo modal en 2 pasos sin selector de ubicación.
+- **Arquitectura Base:** Astro 5 + Tailwind CSS + Cloudflare Pages (Edge SSR / SSG).
+- **Backend / Integraciones:** Endpoint serverless `/api/lead` + Resend SDK (Alertas email a Admin `zoevarcasd@gmail.com`). Integración con Google Sheets Webhook preparada en código (Fase 1: alertas por email operativas; enlace de webhook pendiente de URL en producción).
+- **Canal de Ventas:** WhatsApp directo (`wa.me`) con mensaje pre-armado y flujo ágil de 1 clic (modal descartado para maximizar conversión CRO y eliminar fricción en móviles).
 - **Control de Versiones:** Git (Commits atómicos descriptivos).
 
 ---
@@ -46,3 +48,4 @@
 
 - **Compilación de Producción:** `npm run build`
 - **Chequeo de Tipos y Linter:** `npm run lint`
+- **Suite de Pruebas Automatizadas:** `npm run test`

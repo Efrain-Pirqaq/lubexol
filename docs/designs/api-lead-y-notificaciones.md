@@ -46,7 +46,7 @@ Capturar cada intención de cotización generada en el modal de preselección de
 ```http
 POST /api/lead HTTP/1.1
 Content-Type: application/json
-Origin: https://lubexol.pe
+Origin: https://aceitedemotorlima.com
 ```
 
 ### 2.2. Esquema de Entrada (Request Body)
@@ -173,9 +173,9 @@ function doPost(e) {
 ## 4. Adaptador de Resend (Email Transaccional)
 
 ### 4.1. Configuración de Envío
-* **De (From):** `LUBEXOL Notificaciones <notificaciones@lubexol.pe>` (o remitente verificado).
-* **Para (To):** `ADMIN_NOTIFICATION_EMAIL` (Efraín).
-* **Asunto (Subject):** `🚨 [Nuevo Lead Lubexol] Cotización de {boxCount} caja(s) - {productName}`
+* **De (From):** `Aceite de Motor Lima <notificaciones@aceitedemotorlima.com>` (remitente verificado en Resend).
+* **Para (To):** `ADMIN_NOTIFICATION_EMAIL` (`zoevarcasd@gmail.com`).
+* **Asunto (Subject):** `🚨 [Nuevo Lead] Cotización de {boxCount} caja(s) - {productName}`
 
 ### 4.2. Plantilla HTML del Correo
 ```html

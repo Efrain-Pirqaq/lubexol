@@ -8,7 +8,7 @@ describe('lead guards', () => {
     expect(isHoneypotTriggered({})).toBe(false);
   });
 
-  it('isTooFast bloquea < 1500ms', () => {
+  it('isTooFast bloquea < 500ms', () => {
     const now = 10000;
     expect(isTooFast(now - 100, now)).toBe(true);
     expect(isTooFast(now - 2000, now)).toBe(false);

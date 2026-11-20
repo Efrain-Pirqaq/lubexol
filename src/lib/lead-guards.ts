@@ -7,7 +7,7 @@ export function isTooFast(renderTs: unknown, now: number = Date.now()): boolean 
   if (typeof renderTs !== 'number') return false;
   const elapsed = now - renderTs;
   if (elapsed < 0) return false; // reloj cliente adelantado: no bloquear
-  return elapsed < 1500;
+  return elapsed < 500; // umbral anti-bot automatizado (<500ms) evitando falsos positivos en usuarios humanos
 }
 
 export function isRateLimited(

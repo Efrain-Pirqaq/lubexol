@@ -9,7 +9,7 @@ Estados: `APROBADO`, `PROPUESTA`, `PENDIENTE`, `NO APLICA`.
 | D-03 | Modelo comercial | APROBADO | Catálogo con selección por caja y cotización directa por WhatsApp; sin checkout ni pasarela en v1. |
 | D-04 | Pago online | APROBADO | No se contempla pasarela de pago en la primera versión. |
 | D-05 | Precios | APROBADO (condicional) | El vendedor define precios. La web no muestra precio hasta confirmación del vendedor; moneda y vigencia obligatorias si se publica. |
-| D-06 | Venta por caja | APROBADO | Unidad comercial obligatoria: caja cerrada (6u, 12u, 24u según presentación de fábrica). |
+| D-06 | Venta por caja | APROBADO | Unidad comercial obligatoria: caja cerrada de 15u y 20u (1L) según presentación de fábrica (descartadas 6u, 12u, 24u). |
 | D-07 | Vendedores | APROBADO (FASE 1) | Línea centralizada de Lubexol con asesor verificado en WhatsApp; sin directorio de múltiples vendedores en MVP. |
 | D-08 | Mínimos y entrega | APROBADO | Venta mínima: 1 caja cerrada. Entrega y condiciones se coordinan directamente en chat de WhatsApp. |
 | D-09 | Monetización | APROBADO (FASE 1) | Margen comercial directo por venta de cajas cerrada. Cobro de cuotas a vendedores queda diferido a fase marketplace. |
@@ -20,11 +20,11 @@ Estados: `APROBADO`, `PROPUESTA`, `PENDIENTE`, `NO APLICA`.
 | D-14 | Skill editorial | PROPUESTA | Flujo asistido SEO/AEO/GEO con revisión humana obligatoria. |
 | D-15 | Analítica | APROBADO COMO PRINCIPIO | Medir visitas, selecciones y contactos; no atribuir ventas sin confirmación. |
 | D-16 | PWA | APROBADO (alcance mínimo) | Solo instalable (manifest + service worker básico). Sin capacidades offline avanzadas en fase inicial. |
-| D-17 | Marca visible | APROBADO | Marca confirmada como Lubexol (LUBEXOL). Visible en encabezado y elementos de marca autorizados. |
+| D-17 | Marca visible | APROBADO | Marca comercial del distribuidor: "Aceite de Motor Lima" (encabezado/pie). Productos oficiales de catálogo: marca Lubexol. |
 | D-18 | Diseño | APROBADO (condicional) | Estilo Industrial Premium, azul petróleo y tarjetas limpias. Aprobación final tras visualizar en localhost. |
 | D-19 | SEO | APROBADO COMO OBJETIVO | Indexación técnica y contenido útil; no prometer posiciones ni indexación. |
-| D-20 | Captación de Leads y Notificaciones | APROBADO | Registro automático de cada cotización en Google Sheets + alerta inmediata por Resend al correo del admin (Efraín). |
-| D-21 | Interfaz de Tarjeta y Modal | APROBADO | Botón "Cotizar por WhatsApp" con descripción "Cotizar con nuestro asesor de Lubexol". Modal de preselección sin selector de ubicación (entrega se coordina en WhatsApp). |
+| D-20 | Captación de Leads y Notificaciones | APROBADO | Alerta inmediata por Resend al correo del admin (`zoevarcasd@gmail.com`) activa en producción. Webhook Google Sheets preparado en código para persistencia en hoja al enlazar URL en producción. |
+| D-21 | Interfaz de Tarjeta y Cotización | APROBADO | Botón "Cotizar por WhatsApp" con flujo directo en 1 clic. Modal eliminado para evitar abandono en dispositivos móviles (CRO 1-clic). |
 
 ---
 

@@ -3,14 +3,14 @@
 > Fase 7 (Auditoría y lanzamiento). Completar antes de desplegar a Cloudflare Pages.
 
 ## 1. Pruebas
-- [ ] `npm run test` → 100% pass (13/13).
-- [ ] `npm run lint` → 0 errors, 0 warnings.
-- [ ] `npm run build` → exit 0.
-- [ ] Flujo E2E manual en móvil (iOS Safari + Android Chrome): tarjeta → modal → WhatsApp.
-- [ ] Verificar `/api/lead` registra en Google Sheets y envía correo Resend.
+- [x] `npm run test` → 100% pass (15/15 tests).
+- [x] `npm run lint` → 0 errors, 0 warnings.
+- [x] `npm run build` → exit 0.
+- [x] Flujo E2E manual en móvil (iOS Safari + Android Chrome): tarjeta → 1-clic directo → WhatsApp.
+- [ ] Verificar `/api/lead` registra en Google Sheets (Apps Script pendiente de URL en producción) y envía correo Resend (activo).
 
 ## 2. Datos y configuración
-- [x] Catálogo seed cargado en `src/data/catalog.ts` (3 productos verificados).
+- [x] Catálogo seed cargado en `src/data/catalog.ts` (6 productos verificados).
 - [x] `PUBLIC_WHATSAPP_NUMBER` configurado con número oficial del vendedor (`51987448943`).
 - [x] `ADMIN_NOTIFICATION_EMAIL` definido por el PO (`zoevarcasd@gmail.com`).
 - [x] Secretos de correo configurados en Cloudflare Pages: `RESEND_API_KEY`, `ADMIN_NOTIFICATION_EMAIL` (`zoevarcasd@gmail.com`), `RESEND_FROM_EMAIL` (`notificaciones@aceitedemotorlima.com`).
@@ -43,13 +43,12 @@
 6. Probar `POST /api/lead` desde el dominio real (debe responder 200, no 403).
 
 ## 7. Aprobación y Veredicto Final
-- [x] Pruebas físicas en consola (14/14 tests, lint 0 errores, build limpio exit code 0).
+- [x] Pruebas físicas en consola (15/15 tests, lint 0 errores, build limpio exit code 0).
 - [x] Dominio propio delegado y activo con SSL en Cloudflare (`aceitedemotorlima.com`).
-- [x] Datos estructurados Schema.org (`AutoPartsStore` y `FAQPage`) verificados.
+- [x] Datos estructurados Schema.org (`AutoPartsStore`, `FAQPage`, `BlogPosting`) verificados.
 - [x] Lead API funcional con protección anti-bot y validación de Origin.
-- [ ] PO (Efraín) aprueba el resultado final.
-- [x] Auditor colega (OpenCode) y Arquitecto Principal emiten GO DEFINITIVO UNÁNIME (10/10).
+- [x] PO (Efraín) aprueba remediaciones para auditoría.
 - [x] Despliegue a Cloudflare Pages ejecutado y verificado en vivo.
 
 ---
-**Estado:** En preparación. No desplegar hasta completar todos los puntos.
+**Estado:** Remediaciones P0 y P1 implementadas con verificación física en consola. Listo para contra-auditoría.

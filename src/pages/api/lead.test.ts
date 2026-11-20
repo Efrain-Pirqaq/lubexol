@@ -54,7 +54,7 @@ describe('POST /api/lead', () => {
     expect(body.leadId).toBe('hp');
   });
 
-  it('rechaza si la interacción es demasiado rápida (< 1500ms)', async () => {
+  it('rechaza si la interacción es demasiado rápida (< 500ms)', async () => {
     const request = new Request('http://localhost/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -71,6 +71,30 @@ describe('POST /api/lead', () => {
     const body = await response.json();
     expect(body.success).toBe(false);
     expect(body.error).toBe('Solicitud demasiado rápida');
+  });
+
+  it('procesa cotización 1-clic directa con source direct_whatsapp_catalog y tiempo natural de carga', async () => {
+    const directPayload = {
+      ...validPayload,
+      source: 'direct_whatsapp_catalog',
+      renderTimestamp: Date.now() - 2500, // 2.5s transcurridos desde que cargó la página
+    };
+    const request = new Request('http://localhost/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(directPayload),
+    });
+
+    const response = await POST({
+      request,
+      clientAddress: '127.0.0.10',
+      locals: {},
+    } as any);
+
+    expect(response.status).toBe(200);
+    const body = await response.json();
+    expect(body.success).toBe(true);
+    expect(body.leadId).toBeDefined();
   });
 
   it('no bloquea si el reloj del cliente está adelantado', async () => {

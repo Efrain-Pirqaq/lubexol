@@ -56,44 +56,9 @@ const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
       )}
     </main>
 
-    <!-- Modal de preselección -->
-    <div
-      id="modal"
-      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-      tabindex="-1"
-    >
-      <div class="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-        <h2 id="modal-title" class="text-lg font-bold text-slate-900">Confirmar cotización</h2>
-        <div id="modal-summary" class="mt-4 space-y-1 text-sm text-slate-700" aria-live="polite"></div>
-        <input
-          type="text"
-          id="modal-hp"
-          name="website_hp"
-          style="position:absolute;left:-9999px;opacity:0;pointer-events:none;"
-          tabindex="-1"
-          autocomplete="off"
-          aria-hidden="true"
-        />
-        <p class="mt-4 rounded bg-amber-50 p-3 text-xs text-amber-800">
-          Al confirmar con el siguiente clic, serás redirigido al chat de WhatsApp para comunicarte
-          directamente con nuestro asesor de Lubexol y coordinar precio, disponibilidad y entrega.
-        </p>
-        <div class="mt-4 flex gap-2">
-          <button id="modal-cancel" type="button" class="flex-1 rounded border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50">
-            Cancelar
-          </button>
-          <button id="modal-confirm" type="button" class="flex-1 rounded bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700">
-            Confirmar y abrir WhatsApp
-          </button>
-        </div>
-      </div>
-    </div>
-
     <script>
       // @ts-nocheck
+      const pageLoadTimestamp = Date.now();
       const whatsappNumber = document.body.dataset.whatsapp || '';
       const state = new Map(); // productId -> { variantId, boxUnits, boxCount, allowed }
 
@@ -215,9 +180,9 @@ const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
               boxUnits: s.boxUnits,
               boxCount: s.boxCount,
               totalUnits: s.boxUnits * s.boxCount,
-              source: 'catalogo_direct',
+              source: 'direct_whatsapp_catalog',
               timestamp: new Date().toISOString(),
-              renderTimestamp: Date.now(),
+              renderTimestamp: pageLoadTimestamp,
               website_hp: '',
             };
 
@@ -247,92 +212,6 @@ const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
             return;
           }
         });
-      });
-
-      const modal = document.getElementById('modal');
-      const cancelBtn = document.getElementById('modal-cancel');
-      const confirmBtn = document.getElementById('modal-confirm');
-      let lastTriggerElement: HTMLElement | null = null;
-
-      function closeModal() {
-        modal?.classList.add('hidden');
-        modal?.classList.remove('flex');
-        lastTriggerElement?.focus();
-      }
-
-      cancelBtn?.addEventListener('click', closeModal);
-
-      // Cierre con ESC
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !modal?.classList.contains('hidden')) {
-          closeModal();
-        }
-      });
-
-      // Cierre al clic en backdrop
-      modal?.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          closeModal();
-        }
-      });
-
-      // Focus trap básico en modal
-      modal?.addEventListener('keydown', (e) => {
-        if (e.key !== 'Tab' || modal.classList.contains('hidden')) return;
-        const focusable = modal.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], input:not([tabindex="-1"]):not([type="hidden"]), select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
-        if (focusable.length === 0) return;
-        const first = focusable[0];
-        const last = focusable[focusable.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      });
-
-      confirmBtn?.addEventListener('click', async () => {
-        const pid = modal.dataset.productId;
-        const card = document.querySelector(`[data-product-id="${pid}"]`);
-        const s = state.get(pid);
-        const variantBtn = card.querySelector(`[data-variant="${s.variantId}"]`);
-        const volume = variantBtn?.dataset.volume || '';
-
-        const payload = {
-          productId: pid,
-          productName: card.dataset.productName,
-          fuelCompatibility: card.dataset.fuel.split(',').filter(Boolean),
-          containerSize: volume,
-          boxUnits: s.boxUnits,
-          boxCount: s.boxCount,
-          totalUnits: s.boxUnits * s.boxCount,
-          source: 'product_card_modal',
-          timestamp: new Date().toISOString(),
-          renderTimestamp: Number(modal.dataset.modalOpenedAt) || Date.now(),
-          website_hp: (document.getElementById('modal-hp') as HTMLInputElement)?.value || '',
-        };
-
-        // Fail-soft: no bloquear la venta
-        fetch('/api/lead', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          keepalive: true,
-        }).catch(() => console.warn('Registro asíncrono en proceso'));
-
-        const gradeInfo = (card as HTMLElement).dataset.grade ? ` [${(card as HTMLElement).dataset.grade}]` : '';
-        const message = `Hola Lubexol, quisiera cotizar lo siguiente con su asesor:\n- Producto: ${payload.productName}${gradeInfo}\n- Combustible: ${payload.fuelCompatibility.join(', ')}\n- Envase: ${payload.containerSize}\n- Empaque: Caja x ${payload.boxUnits} unidades\n- Cantidad: ${payload.boxCount} caja(s) (Total: ${payload.totalUnits} unidades)\n\n¿Podrían confirmarme precio por caja, disponibilidad y condiciones de entrega?`;
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-          window.location.href = whatsappUrl;
-        } else {
-          window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-        }
       });
     </script>
   </body>
