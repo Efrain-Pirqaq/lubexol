@@ -1779,6 +1779,40 @@ Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para 
 - Despliegue en Cloudflare Pages: Proyecto `lubexol` actualizado exitosamente (`https://aceitedemotorlima.com`).
 - Comprobación en vivo mediante `curl.exe`: `<title>Aceite de Motor por Caja al Mejor Precio Mayorista en Lima — Aceite de Motor Lima</title>` y número `51987448943` confirmados en producción.
 
+---
+
+## 📌 58. SILOS DE CONTENIDO SEO (BLOG), PULCRITUD VISUAL Y ARMONIZACIÓN DE NAVEGACIÓN
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 19/11/2026 22:25  
+> **Alcance:** Creación de 3 artículos pilares SEO para indexación orgánica, estandarización limpia de CTAs (sin emojis redundantes), ajuste de jerarquía visual del logo y armonización simétrica del menú superior.
+
+### 58.1. Implementación de Silos de Contenido SEO en `/blog/`
+Para resolver la falta de páginas indexables en Google y capturar tráfico orgánico de taxistas y talleres mecánicos en Lima, se publicaron 3 artículos técnicos con Schema `BlogPosting` y metadatos canónicos:
+1. `src/content/blog/aceite-de-motor-por-caja-lima.md`:
+   - **Keyword objetivo:** *"aceite de motor por caja Lima"* / *"comprar aceite mayorista Lima"*.
+   - **Contenido:** Comparativa matemática de ahorro anual de S/ 576 para taxistas, sellos API-SN y explicación de compra por caja de 15/20 unidades.
+2. `src/content/blog/aceite-para-taxi-gnv-glp-lima.md`:
+   - **Keyword objetivo:** *"aceite para taxi GNV GLP Lima"* / *"aceite motor a gas Lima"*.
+   - **Contenido:** Problema de nitración y evaporación a gas, viscosidades según kilometraje (20W-50 / 25W-60 / SAE 50) y ahorro anual superior a S/ 1,100 por caja.
+3. `src/content/blog/distribuidor-lubricantes-lima.md`:
+   - **Keyword objetivo:** *"distribuidor lubricantes Lima"* / *"lubricantes por mayor Lima"*.
+   - **Contenido:** Guía de seguridad antifraude (lote trazable, precinto de fábrica, boleta/factura con RUC, garantía de primera botella).
+
+### 58.2. Refinamiento Visual y Pulcritud de Marca
+- **Logo de Encabezado:** Se ajustó la tipografía a `text-sm sm:text-base font-black` con badge compacto `Dist. Mayorista`, logrando una presentación estética sobria y premium sin desproporciones.
+- **Hero Comercial:** Se mantuvieron las dimensiones originales completas de impacto comercial (`text-5xl/6xl`, espaciado amplio y botones ergonómicos).
+- **Estandarización de Botones de Cotización:** Se eliminó el emoji de texto (`💬`) en encabezado, hero y tarjetas de productos (`ProductCard.astro`), consolidando el copy exacto: `"Cotizar por WhatsApp"`.
+- **Armonización Simétrica del Navbar:** Se retiró el enlace "Preguntas Frecuentes" del menú de cabecera y móvil (manteniéndolo como sección de contenido en el cuerpo), dejando exactamente tres ítems centrados en equilibrio armónico: **Catálogo**, **Blog** y **Podcast** (`flex-1 justify-center gap-8`).
+
+### 58.3. Certificación Física de Calidad y Despliegue
+- **Tests Unitarios y de Integración:** `npm run test` ejecutado exitosamente (**14/14 tests pass**).
+- **Tipado y Diagnóstico Astro:** `npm run lint` (**0 errores, 0 advertencias**).
+- **Compilación de Producción:** `npm run build` (**Exit code 0**, sitemap generado y 3 rutas estáticas prerenderizadas en 2.14s).
+- **Despliegue Edge en Vivo:** `wrangler pages deploy dist --project-name lubexol` (**Exit code 0**, enrutamiento activo en `https://aceitedemotorlima.com`).
+- **Sincronización en GitHub:** Commits asegurados en rama `main` (`8c28a63`, `b3827a2`, `c57abec`, `b99fc45`, `125ec31`).
+
+
 
 
 
