@@ -1727,6 +1727,24 @@ Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para 
 - **Impacto en IAs y SEO:** **Cero impacto negativo**. Las IAs realizan exclusivamente solicitudes `HTTP GET` para leer contenido público, metadatos y schemas. Ningún motor de IA envía solicitudes POST a formularios.
 - **Beneficio Financiero:** El anti-bot en `/api/lead` previene ataques de denegación de servicio (DoS) y spam masivo que consumirían la cuota gratuita de Resend y saturarían las notificaciones.
 
+---
+
+## 📌 56. AUDITORÍA ADVERSARIAL AL INFORME EXTERNO Y SUBSANACIÓN DE REDIRECT 301 DE SITEMAP
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 19/11/2026 20:43  
+> **Alcance:** Auditoría forense a 4 objeciones críticas de colega externo, verificación de intención de búsqueda y remediación de redirect 301 para `/sitemap.xml`.
+
+### 56.1. Subsanación Inmediata de Error 404 en `/sitemap.xml`
+- **Hallazgo del auditor externo:** Acertó en que `/sitemap.xml` retornaba HTTP 404 (Astro genera por defecto `/sitemap-index.xml`).
+- **Acción ejecutada:** Creado `public/_redirects` con directiva `/sitemap.xml /sitemap-index.xml 301`.
+- **Comprobación en vivo:** `curl -sI https://aceitedemotorlima.com/sitemap.xml` ahora responde **HTTP 301 Moved Permanently** redirigiendo limpiamente a `/sitemap-index.xml` (HTTP 200).
+
+### 56.2. Dictamen Factual del Modelo Comercial y CRO
+- **Fricción de WhatsApp:** Se ratifica el diagnóstico del auditor: el modal intermedio de 2 pasos genera fricción innecesaria en tráfico móvil. Se planifica la migración a disparo directo en 1 clic hacia WhatsApp con persistencia asíncrona de leads en segundo plano.
+- **Intención de Búsqueda:** La venta mayorista por caja tiene demanda en Lima enfocada en pequeños talleres, mototaxistas y asociaciones de taxistas, pero el usuario particular/taxista individual requiere además una opción intermedia ("Pack Mantenimiento 4L/5L") para mitigar la barrera de desembolso de S/ 300+ al contado.
+
+
 
 
 
