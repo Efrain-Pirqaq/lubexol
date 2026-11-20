@@ -141,69 +141,67 @@ const faqPageSchema = {
 
     <!-- Navegación Principal -->
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md">
-      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-6">
         <a href="/" class="flex items-center gap-2">
-          <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
-            ACEITE DE MOTOR <span class="text-amber-500">LIMA</span>
+          <span class="text-sm sm:text-base font-black tracking-tight text-slate-900 uppercase">
+            Aceite de Motor <span class="text-amber-500">Lima</span>
           </span>
-          <span class="hidden sm:inline-block rounded bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-900">
-            Distribuidor Mayorista
+          <span class="hidden sm:inline-block rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-amber-900">
+            Dist. Mayorista
           </span>
         </a>
-        <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
+        <nav class="hidden items-center gap-5 text-xs font-semibold text-slate-600 md:flex">
           <a href="#catalogo" class="transition-colors hover:text-slate-900">Catálogo</a>
           <a href="/blog" class="transition-colors hover:text-slate-900">Blog</a>
-          <a href="/podcast" class="transition-colors hover:text-slate-900">Podcast</a>
-          <a href="#faq" class="transition-colors hover:text-slate-900">Preguntas Frecuentes</a>
+          <a href="#faq" class="transition-colors hover:text-slate-900">FAQ</a>
         </nav>
         <div class="flex items-center gap-3">
           <a
             href={defaultWaUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-500 sm:text-sm"
+            class="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-3 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-500"
           >
-            <span>💬 Cotizar por WhatsApp</span>
+            <span>💬 Cotizar</span>
           </a>
         </div>
       </div>
       <!-- Pestañas de Navegación Móvil -->
-      <div class="flex items-center justify-center gap-5 border-t border-slate-100 py-1.5 text-xs font-semibold text-slate-600 md:hidden">
+      <div class="flex items-center justify-center gap-5 border-t border-slate-100 py-1 text-[11px] font-semibold text-slate-600 md:hidden">
         <a href="#catalogo" class="hover:text-slate-900">Catálogo</a>
         <a href="/blog" class="hover:text-slate-900">Blog</a>
-        <a href="/podcast" class="hover:text-slate-900">Podcast</a>
         <a href="#faq" class="hover:text-slate-900">FAQ</a>
       </div>
     </header>
 
     <main>
       <!-- Hero Section -->
-      <section class="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100 px-4 py-16 sm:px-6 lg:py-24">
-        <div class="mx-auto max-w-5xl text-center">
-          <div class="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900">
+      <section class="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-slate-100 px-4 py-10 sm:px-6 lg:py-16">
+        <div class="mx-auto max-w-4xl text-center">
+          <div class="inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-900">
             <span>⭐ Precios Directos por Caja Cerrada</span>
           </div>
-          <h1 class="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+          <h1 class="mt-4 text-2xl font-extrabold tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
             Aceite de Motor por Caja al <span class="text-amber-600">Mejor Precio Mayorista</span> en Lima y Callao
           </h1>
-          <p class="mx-auto mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
-            Ahorra en cada mantenimiento comprando directo por caja de 15 o 20 unidades. Fórmulas homologadas <strong>Lubexol</strong> para <strong>Gasolina, GNV/GLP y Diésel de trabajo pesado</strong> con precinto de inviolabilidad y despacho rápido a tu taller o domicilio.
+          <p class="mx-auto mt-4 max-w-xl text-sm text-slate-600 sm:text-base">
+            Ahorra en cada mantenimiento comprando directo por caja de 15 o 20 unidades. Fórmulas homologadas <strong>Lubexol</strong> para <strong>Gasolina, GNV/GLP y Diésel</strong> con precinto de fábrica y despacho rápido en Lima y Callao.
           </p>
 
-          <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+          <div class="mt-6 flex flex-col justify-center gap-2 sm:flex-row sm:items-center">
             <a
               href="#catalogo"
-              class="inline-flex items-center justify-center rounded-lg bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:bg-slate-800"
+              class="inline-flex items-center justify-center rounded-lg bg-slate-950 px-5 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-slate-800"
             >
-              Explorar Catálogo de Productos ↓
+              Ver Catálogo de Productos ↓
             </a>
             <a
               href={defaultWaUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 shadow-sm transition hover:bg-slate-50"
+              class="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-bold text-slate-800 shadow-sm transition hover:bg-slate-50"
             >
-              Hablar con un Asesor de Ventas
+              Hablar con un Asesor
             </a>
           </div>
 
