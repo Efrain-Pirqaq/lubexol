@@ -1744,6 +1744,42 @@ Se procede al despliegue final a Cloudflare Pages y commit atómico en Git para 
 - **Fricción de WhatsApp:** Se ratifica el diagnóstico del auditor: el modal intermedio de 2 pasos genera fricción innecesaria en tráfico móvil. Se planifica la migración a disparo directo en 1 clic hacia WhatsApp con persistencia asíncrona de leads en segundo plano.
 - **Intención de Búsqueda:** La venta mayorista por caja tiene demanda en Lima enfocada en pequeños talleres, mototaxistas y asociaciones de taxistas, pero el usuario particular/taxista individual requiere además una opción intermedia ("Pack Mantenimiento 4L/5L") para mitigar la barrera de desembolso de S/ 300+ al contado.
 
+---
+
+## 📌 57. REBRANDING COMERCIAL, WHATSAPP DIRECTO EN 1 CLIC, EQUIVALENCIAS Y VERIFICACIÓN GSC
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 19/11/2026 21:44  
+> **Alcance:** Rebranding visual hacia "Aceite de Motor Lima", eliminación total de fricción de 2 clics hacia WhatsApp, inserción de meta tag de Google Search Console y despliegue a producción.
+
+### 57.1. Verificación de Propiedad en Google Search Console
+- Se incorporó en `src/pages/index.astro` el meta tag oficial proporcionado por el PO:
+  `<meta name="google-site-verification" content="MD814Y5SCMxmDpiT1PDnhvpDlhCV-C_oPhKIqwGqi4U" />`
+- Verificación validada y aprobada por el PO en el panel de Google Search Console.
+
+### 57.2. Rebranding Comercial en Header, Hero y Footer
+- **Header:** `ACEITE DE MOTOR LIMA` acompañado del badge `Distribuidor Mayorista`.
+- **Hero:** Titular orientado al posicionamiento orgánico: *"Aceite de Motor por Caja al Mejor Precio Mayorista en Lima y Callao"*.
+- **Footer:** `ACEITE DE MOTOR LIMA · Distribuidor Mayorista Lubexol`.
+- **Identidad de Reseller Seguro:** Se conserva la homologación de fórmulas Lubexol de planta como garantía de origen y precinto de inviolabilidad de fábrica, alineando el dominio `aceitedemotorlima.com` con la expectativa del usuario.
+
+### 57.3. Eliminación de Fricción CRO (Disparo Directo en 1 Clic a WhatsApp)
+- Se eliminó el bloqueo del modal intermedio en `src/pages/index.astro` y `src/pages/catalogo.astro`.
+- Al pulsar *"Cotizar por WhatsApp"*, el botón pasa a *"⚡ Abriendo WhatsApp..."* y en 0.1s abre el chat oficial con el mensaje pre-armado con todos los detalles del pedido (viscosidad, empaque, unidades).
+- En segundo plano, mediante `fetch('/api/lead', { keepalive: true })`, se registra la cotización en Google Sheets y se despacha la alerta por email vía Resend sin penalizar la velocidad de conversión del usuario.
+
+### 57.4. Tabla de Equivalencias y Garantía de Primera Botella
+- Se incorporó la sección *"Tabla de Equivalencias y Comparativa de Ahorro Real"* comparando la norma API-SN frente a marcas de grifo (Mobil/Castrol), evidenciando el ahorro directo por litro al comprar por caja cerrada.
+- Se implementó la sección *"Garantía Total de Confianza (Prueba de 1era Botella)"* para que taxistas y particulares prueben la primera botella con derecho a devolución total si no quedan satisfechos.
+
+### 57.5. Verificación Factual y Despliegue en Producción
+- `npm run test`: **14/14 tests pass** en 3 suites.
+- `npm run lint`: **0 errors, 0 warnings, 0 hints** (24 archivos).
+- `npm run build`: **Exit code 0** (Server built en 1.91s).
+- Despliegue en Cloudflare Pages: Proyecto `lubexol` actualizado exitosamente (`https://aceitedemotorlima.com`).
+- Comprobación en vivo mediante `curl.exe`: `<title>Aceite de Motor por Caja al Mejor Precio Mayorista en Lima — Aceite de Motor Lima</title>` y número `51987448943` confirmados en producción.
+
+
 
 
 

@@ -9,7 +9,7 @@ const siteUrl =
   import.meta.env.PUBLIC_SITE_URL ||
   (import.meta.env.DEV ? 'http://localhost:4321' : 'https://aceitedemotorlima.com');
 const defaultWaUrl = whatsappNumber
-  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola Lubexol, quisiera información y cotización sobre lubricantes por caja.')}`
+  ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hola Aceite de Motor Lima, quisiera información y cotización sobre lubricantes por caja.')}`
   : '#';
 
 const localBusinessSchema = {
@@ -113,13 +113,13 @@ const faqPageSchema = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lubexol — Lubricantes de Motor por Caja en Lima y Callao</title>
+    <title>Aceite de Motor por Caja al Mejor Precio Mayorista en Lima — Aceite de Motor Lima</title>
     <meta
       name="description"
       content="Venta y cotización de lubricantes de motor por caja para particulares, taxistas y flotas en Lima y Callao. Fórmulas para Gasolina, GNV/GLP y Diésel."
     />
     <link rel="canonical" href={siteUrl} />
-    <meta property="og:title" content="Lubexol — Lubricantes por caja en Lima y Callao" />
+    <meta property="og:title" content="Aceite de Motor por Caja en Lima y Callao — Distribuidor Mayorista" />
     <meta
       property="og:description"
       content="Ahorra comprando directo por caja. Cotización inmediata por WhatsApp con asesor verificado."
@@ -143,11 +143,11 @@ const faqPageSchema = {
     <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md">
       <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="/" class="flex items-center gap-2">
-          <span class="text-2xl font-black tracking-tight text-slate-900">
-            LUBEX<span class="text-amber-500">OL</span>
+          <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
+            ACEITE DE MOTOR <span class="text-amber-500">LIMA</span>
           </span>
-          <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600">
-            Por Mayor
+          <span class="hidden sm:inline-block rounded bg-amber-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-900">
+            Distribuidor Mayorista
           </span>
         </a>
         <nav class="hidden items-center gap-6 text-sm font-semibold text-slate-600 md:flex">
@@ -184,11 +184,10 @@ const faqPageSchema = {
             <span>⭐ Precios Directos por Caja Cerrada</span>
           </div>
           <h1 class="mt-6 text-3xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-            Lubricantes de Motor por Caja al <span class="text-amber-600">Mejor Precio</span> en Lima y Callao
+            Aceite de Motor por Caja al <span class="text-amber-600">Mejor Precio Mayorista</span> en Lima y Callao
           </h1>
           <p class="mx-auto mt-6 max-w-2xl text-base text-slate-600 sm:text-lg">
-            Ahorra en cada mantenimiento comprando directo por caja de 15 o 20 unidades. Especialistas en aceites
-            certificados para <strong>Gasolina, GNV/GLP y Diésel de trabajo pesado</strong>. Cotización directa e inmediata por WhatsApp.
+            Ahorra en cada mantenimiento comprando directo por caja de 15 o 20 unidades. Fórmulas homologadas <strong>Lubexol</strong> para <strong>Gasolina, GNV/GLP y Diésel de trabajo pesado</strong> con precinto de inviolabilidad y despacho rápido a tu taller o domicilio.
           </p>
 
           <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
@@ -326,6 +325,94 @@ const faqPageSchema = {
         </div>
       </section>
 
+      <!-- Tabla de Equivalencias y Comparativa de Ahorro Real -->
+      <section id="equivalencias" class="border-t border-slate-200 bg-slate-50 px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-5xl">
+          <div class="text-center">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Transparencia y Ahorro Directo</span>
+            <h2 class="mt-2 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              ¿Por qué pagar sobreprecio por litro en grifos y lubricentros?
+            </h2>
+            <p class="mx-auto mt-2 max-w-2xl text-xs text-slate-600 sm:text-sm">
+              Compara la especificación técnica internacional y calcula cuánto ahorras comprando la caja cerrada directa de fábrica.
+            </p>
+          </div>
+
+          <div class="mt-8 overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+            <table class="w-full text-left text-xs sm:text-sm">
+              <thead class="border-b border-slate-200 bg-slate-900 text-white">
+                <tr>
+                  <th class="p-3 sm:p-4">Uso / Viscosidad</th>
+                  <th class="p-3 sm:p-4">Marca Referencia (Grifo)</th>
+                  <th class="p-3 sm:p-4">Precio aprox. / Litro</th>
+                  <th class="p-3 sm:p-4">Fórmula Homologada Lubexol</th>
+                  <th class="p-3 sm:p-4">Precio / Litro en Caja</th>
+                  <th class="p-3 sm:p-4 font-black text-amber-400">Tu Ahorro por Caja</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100 text-slate-700">
+                <tr class="hover:bg-slate-50/80">
+                  <td class="p-3 font-bold text-slate-900 sm:p-4">GNV / GLP / Gasolina (20W-50)</td>
+                  <td class="p-3 sm:p-4 text-slate-500">Mobil Super / Castrol GTX</td>
+                  <td class="p-3 sm:p-4 text-rose-600 font-semibold">S/ 26.00 – S/ 29.00</td>
+                  <td class="p-3 sm:p-4 font-semibold text-slate-900">Optimus Premium 20W-50 (API-SN)</td>
+                  <td class="p-3 sm:p-4 font-bold text-emerald-700">S/ 16.50</td>
+                  <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">Ahorras ~S/ 150 por caja</td>
+                </tr>
+                <tr class="hover:bg-slate-50/80">
+                  <td class="p-3 font-bold text-slate-900 sm:p-4">Diésel Pesado / Flotas (15W-40)</td>
+                  <td class="p-3 sm:p-4 text-slate-500">Rimula R4 / Delvac 1300</td>
+                  <td class="p-3 sm:p-4 text-rose-600 font-semibold">S/ 28.00 – S/ 32.00</td>
+                  <td class="p-3 sm:p-4 font-semibold text-slate-900">Ultra Oil 15W-40 (API CI-4 Plus)</td>
+                  <td class="p-3 sm:p-4 font-bold text-emerald-700">S/ 17.50</td>
+                  <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">Ahorras ~S/ 165 por caja</td>
+                </tr>
+                <tr class="hover:bg-slate-50/80">
+                  <td class="p-3 font-bold text-slate-900 sm:p-4">Gas Monogrado Alto Calor (SAE 50)</td>
+                  <td class="p-3 sm:p-4 text-slate-500">Lubricantes Grifo Monogrado</td>
+                  <td class="p-3 sm:p-4 text-rose-600 font-semibold">S/ 22.00 – S/ 25.00</td>
+                  <td class="p-3 sm:p-4 font-semibold text-slate-900">HD 50 Especial Gas (API-SL/CF)</td>
+                  <td class="p-3 sm:p-4 font-bold text-emerald-700">S/ 14.50</td>
+                  <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">Ahorras ~S/ 130 por caja</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Garantía Total de Confianza -->
+      <section class="border-t border-slate-200 bg-amber-500/10 px-4 py-12 sm:px-6">
+        <div class="mx-auto max-w-4xl rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 via-white to-amber-50 p-6 shadow-md sm:p-8">
+          <div class="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
+            <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-amber-500 text-3xl shadow-lg shadow-amber-500/30 text-white">
+              🛡️
+            </div>
+            <div class="flex-1">
+              <span class="inline-block rounded bg-amber-200/80 px-2.5 py-0.5 text-[11px] font-black uppercase tracking-wider text-amber-900">
+                Garantía de Satisfacción 100% Cero Riesgo
+              </span>
+              <h3 class="mt-2 text-xl font-extrabold text-slate-950 sm:text-2xl">
+                Prueba la 1era botella en tu motor sin ningún compromiso
+              </h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
+                Recibe tu caja sellada. Abre la primera botella, haz el cambio o relleno en tu motor y verifica la presión, suavidad y estabilidad térmica. Si por cualquier motivo no quedas 100% satisfecho, <strong>te devolvemos el dinero de las botellas restantes de la caja</strong> sin preguntas ni trabas.
+              </p>
+            </div>
+            <div class="shrink-0">
+              <a
+                href={defaultWaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-xs font-bold text-white shadow-md transition hover:bg-slate-800"
+              >
+                <span>Cotizar con Garantía →</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Cómo Funciona -->
       <section id="como-funciona" class="border-t border-slate-200 bg-slate-900 px-4 py-16 text-white sm:px-6">
         <div class="mx-auto max-w-5xl">
@@ -424,10 +511,10 @@ const faqPageSchema = {
         <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
           <div>
             <span class="text-xl font-black text-slate-900">
-              LUBEX<span class="text-amber-500">OL</span>
+              ACEITE DE MOTOR <span class="text-amber-500">LIMA</span>
             </span>
             <p class="mt-1 text-xs text-slate-500">
-              Venta mayorista de lubricantes de motor por caja en Lima y Callao.
+              Distribución mayorista de lubricantes de motor por caja en Lima y Callao. Fórmulas oficiales Lubexol directas de planta.
             </p>
           </div>
           <div class="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-600">
@@ -440,7 +527,7 @@ const faqPageSchema = {
           </div>
         </div>
         <div class="mt-8 border-t border-slate-200 pt-6 text-center text-[11px] text-slate-400">
-          © {new Date().getFullYear()} Lubexol. Todos los derechos reservados. Lima, Perú.
+          © {new Date().getFullYear()} Aceite de Motor Lima · Distribuidor Mayorista Lubexol. Todos los derechos reservados. Lima, Perú.
         </div>
       </div>
     </footer>
@@ -586,24 +673,54 @@ const faqPageSchema = {
               alert('Configura PUBLIC_WHATSAPP_NUMBER en .env para habilitar la cotización.');
               return;
             }
-            lastTriggerElement = target.closest('[data-quote]');
-            const s = state.get(card.dataset.productId);
-            const modal = document.getElementById('modal');
-            const summary = document.getElementById('modal-summary');
-            summary.innerHTML = `
-              <p><strong>Producto:</strong> ${card.dataset.productName}</p>
-              ${card.dataset.grade ? `<p><strong>Tipo:</strong> ${card.dataset.grade}</p>` : ''}
-              <p><strong>Combustible:</strong> ${card.dataset.fuel}</p>
-              <p><strong>Envase:</strong> ${s.variantId ? card.querySelector(`[data-variant="${s.variantId}"]`)?.dataset.volume : ''}</p>
-              <p><strong>Empaque:</strong> Caja x ${s.boxUnits} unidades</p>
-              <p><strong>Cantidad:</strong> ${s.boxCount} caja(s)</p>
-              <p><strong>Total unidades:</strong> ${s.boxUnits * s.boxCount}</p>
-            `;
-            modal.dataset.productId = card.dataset.productId;
-            modal.dataset.modalOpenedAt = String(Date.now());
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            document.getElementById('modal-confirm')?.focus();
+            const quoteBtn = target.closest('[data-quote]');
+            const originalText = quoteBtn.innerHTML;
+            quoteBtn.disabled = true;
+            quoteBtn.innerHTML = '<span>⚡ Abriendo WhatsApp...</span>';
+
+            const pid = card.dataset.productId;
+            const s = state.get(pid);
+            const variantBtn = card.querySelector(`[data-variant="${s.variantId}"]`);
+            const volume = variantBtn?.dataset.volume || '';
+
+            const payload = {
+              productId: pid,
+              productName: card.dataset.productName,
+              fuelCompatibility: card.dataset.fuel.split(',').filter(Boolean),
+              containerSize: volume,
+              boxUnits: s.boxUnits,
+              boxCount: s.boxCount,
+              totalUnits: s.boxUnits * s.boxCount,
+              source: 'landing_hero_modal',
+              timestamp: new Date().toISOString(),
+              renderTimestamp: Date.now(),
+              website_hp: '',
+            };
+
+            // Registro asíncrono en segundo plano
+            fetch('/api/lead', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true,
+            }).catch(() => console.warn('Registro asíncrono en proceso'));
+
+            const gradeInfo = card.dataset.grade ? ` [${card.dataset.grade}]` : '';
+            const message = `Hola Aceite de Motor Lima, quisiera cotizar lo siguiente con un asesor:\n- Producto: ${payload.productName}${gradeInfo}\n- Combustible: ${payload.fuelCompatibility.join(', ')}\n- Envase: ${payload.containerSize}\n- Empaque: Caja x ${payload.boxUnits} unidades\n- Cantidad: ${payload.boxCount} caja(s) (Total: ${payload.totalUnits} botellas)\n\n¿Podrían confirmarme disponibilidad y despacho rápido en Lima / Callao?`;
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+              window.location.href = whatsappUrl;
+            } else {
+              window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+            }
+
+            setTimeout(() => {
+              quoteBtn.disabled = false;
+              quoteBtn.innerHTML = originalText;
+            }, 2500);
+            return;
           }
         });
       });
