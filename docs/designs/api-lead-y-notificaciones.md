@@ -1,7 +1,7 @@
 # Especificación Técnica: Endpoint `/api/lead` y Pipeline de Notificaciones
 
 > **Documento de Diseño y Gobernanza EGM**  
-> **Proyecto:** Lubexol  
+> **Proyecto:** Aceite de Motor Lima (Distribuidor Mayorista Lubexol)  
 > **Estado:** Aprobado para Implementación  
 > **Autor:** Arquitecto Fullstack / PO Efraín  
 
@@ -9,15 +9,15 @@
 
 ## 1. Objetivo y Flujo General
 
-Capturar cada intención de cotización generada en el modal de preselección de la tarjeta de producto, registrándola de forma inmediata y desacoplada en:
-1. **Google Sheets:** Hoja de control de prospectos y trazabilidad comercial.
+Capturar cada intención de cotización generada en el botón de cotización directa (1 clic) de la tarjeta de producto, registrándola de forma inmediata y desacoplada en:
+1. **Google Sheets:** Hoja de control de prospectos y trazabilidad comercial (diferida a Fase 2; ver §3).
 2. **Resend (Email Transaccional):** Notificación instantánea al correo del Administrador.
-3. **Redirección a WhatsApp:** Conexión del cliente con el asesor oficial de Lubexol sin demoras de interfaz.
+3. **Redirección a WhatsApp:** Conexión del cliente con el asesor oficial de Aceite de Motor Lima sin demoras de interfaz.
 
 ```
-[ Modal de Preselección ]
+[ Botón "Cotizar por WhatsApp" (1 clic) ]
            │
-           │ (Clic: "Confirmar y Abrir WhatsApp")
+           │ (Clic directo, sin modal de preselección)
            ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ 1. Client-Side: fetch('/api/lead', { keepalive: true })    │
@@ -56,14 +56,14 @@ export interface CreateLeadPayload {
   productId: string;        // Identificador único (ej. "mobil-super-20w50")
   productName: string;      // Nombre visible (ej. "Mobil Super 20W-50")
   fuelCompatibility: Array<'GNV' | 'GLP' | 'Gasolina' | 'Diesel'>; // Compatibilidad de motor
-  containerSize: string;    // Envase unitario (ej. "1L / Cuarto", "Galón 4L", "250ml")
-  boxUnits: number;         // Unidades por caja cerrada (ej. 12, 6, 24)
+  containerSize: string;    // Envase unitario estándar "1L"
+  boxUnits: number;         // Unidades por caja cerrada (15 o 20)
   boxCount: number;         // Cantidad de cajas solicitadas (entero >= 1)
   totalUnits: number;       // Calculado: boxUnits * boxCount
-  source: 'product_card_modal'; // Trazabilidad de UI
+  source: 'direct_whatsapp_catalog' | 'catalogo_direct' | 'product_card_direct'; // Trazabilidad de UI
   timestamp: string;        // ISO 8601 UTC
-  renderTimestamp?: number; // Epoch ms cuando se abrió el modal (anti-bot)
-  website_hp?: string;      // Campo Honeypot invisible (debe llegar vacío)
+  renderTimestamp?: number; // Epoch ms al cargar la página (pageLoadTimestamp, anti-bot)
+  website_hp?: string;      // Campo Honeypot (debe llegar vacío)
 }
 ```
 
@@ -72,12 +72,12 @@ export interface CreateLeadPayload {
 * `productName`: String no vacío, máx. 150 caracteres.
 * `fuelCompatibility`: Array no vacío con al menos uno de: `'GNV'`, `'GLP'`, `'Gasolina'`, `'Diesel'`.
 * `containerSize`: String válido según catálogo (no nulo).
-* `boxUnits`: Entero positivo estrictamente mayor a 0 (típicos: 4, 6, 12, 24).
+* `boxUnits`: Entero positivo estrictamente mayor a 0 (15 o 20 según presentación de fábrica).
 * `boxCount`: Entero positivo entre 1 y 999.
 * `totalUnits`: Debe ser exactamente igual a `boxUnits * boxCount`.
 * `timestamp`: Cadena válida en formato ISO 8601.
 * **Honeypot Check (`website_hp`):** Si el campo contiene texto, responder inmediatamente con `200 OK` falso pero **abortar silenciosamente** las llamadas a Resend y Google Sheets.
-* **Velocidad Inhumana (Timestamp Check):** Si `Date.now() - renderTimestamp < 1500`, rechazar o abortar (tiempo mínimo humano para interactuar con el modal).
+* **Velocidad Inhumana (Timestamp Check):** Si `Date.now() - renderTimestamp < 500`, rechazar o abortar (umbral anti-bot; `renderTimestamp` se captura al cargar la página, no al clic).
 * **Rate Limiting:** Máximo 3 peticiones por IP por ventana de 5 minutos en el Edge.
 
 ### 2.4. Respuestas HTTP
@@ -115,12 +115,12 @@ La hoja en Google Sheets contendrá las siguientes 10 columnas ordenadas (A a J)
 | :---: | :--- | :--- | :--- |
 | **A** | `ID_Lead` | String | `lead_1731535200_a8f9` |
 | **B** | `Fecha_Hora_PET` | String (UTC-5) | `13/11/2026 19:15:00` |
-| **C** | `Producto` | String | `Mobil Super 20W-50` |
+| **C** | `Producto` | String | `Lubexol Optimus Premium SAE 20W-50` |
 | **D** | `Combustible` | String | `GNV, GLP` |
-| **E** | `Envase` | String | `1L / Cuarto` |
-| **F** | `Unidades_x_Caja` | Number | `12` |
+| **E** | `Envase` | String | `1L` |
+| **F** | `Unidades_x_Caja` | Number | `15` |
 | **G** | `Cajas_Solicitadas`| Number | `2` |
-| **H** | `Total_Unidades` | Number | `24` |
+| **H** | `Total_Unidades` | Number | `30` |
 | **I** | `Estado` | Enum | `Pendiente Contacto` |
 | **J** | `Canal` | String | `WhatsApp Web` |
 
@@ -207,7 +207,7 @@ function doPost(e) {
 El cliente no debe quedar bloqueado por popups en navegadores móviles (iOS Safari) ni esperar a que Resend o Google Sheets respondan:
 
 ```javascript
-// Disparador al confirmar en el Modal
+// Disparador al clic directo en "Cotizar por WhatsApp" (1 clic)
 async function handleConfirmQuote(payload, whatsappUrl) {
   // 1. Despacho en background con keepalive (garantiza entrega en Edge aún tras descarga de página)
   fetch('/api/lead', {
@@ -239,7 +239,7 @@ async function handleConfirmQuote(payload, whatsappUrl) {
 
 | Variable | Tipo | Ámbito | Descripción |
 | :--- | :--- | :--- | :--- |
-| `PUBLIC_SITE_URL` | String | Público (Cliente/Servidor) | Dominio oficial de Lubexol |
+| `PUBLIC_SITE_URL` | String | Público (Cliente/Servidor) | Dominio oficial (`https://aceitedemotorlima.com`) |
 | `PUBLIC_WHATSAPP_NUMBER` | String | Público | Número del asesor (ej. 519XXXXXXXX) |
 | `PUBLIC_WHATSAPP_DEFAULT_PREFIX` | String | Público | Saludo inicial pre-armado |
 | `RESEND_API_KEY` | String (Secreto) | Servidor Privado | Clave de API de Resend |

@@ -20,7 +20,7 @@
    - Prohibido quemar teléfonos ficticios (como 51987654321), RUCs inventados o correos demo en componentes.
    - Si un dato no existe en la base de datos o en este archivo, la interfaz debe degradar con gracia sin exponer placeholders.
 5. **Costo Mínimo de Infraestructura:**
-   - Arquitectura orientada a capas gratuitas/Serverless de alto rendimiento (Cloudflare + Supabase Free Tier).
+   - Arquitectura orientada a capas gratuitas/Serverless de alto rendimiento (Cloudflare Pages + Google Sheets / Resend Free Tier).
 
 ---
 
@@ -38,7 +38,7 @@
 ## 3. Stack Tecnológico (Aprobado D-11)
 
 - **Arquitectura Base:** Astro 5 + Tailwind CSS + Cloudflare Pages (Edge SSR / SSG).
-- **Backend / Integraciones:** Endpoint serverless `/api/lead` + Resend SDK (Alertas email a Admin `zoevarcasd@gmail.com`). Integración con Google Sheets Webhook preparada en código (Fase 1: alertas por email operativas; enlace de webhook pendiente de URL en producción).
+- **Backend / Integraciones:** Endpoint serverless `/api/lead` + Resend API (vía `fetch`; Alertas email a Admin `zoevarcasd@gmail.com`). Integración con Google Sheets Webhook preparada en código (Fase 1: alertas por email operativas; enlace de webhook pendiente de URL en producción).
 - **Canal de Ventas:** WhatsApp directo (`wa.me`) con mensaje pre-armado y flujo ágil de 1 clic (modal descartado para maximizar conversión CRO y eliminar fricción en móviles).
 - **Control de Versiones:** Git (Commits atómicos descriptivos).
 

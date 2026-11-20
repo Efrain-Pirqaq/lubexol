@@ -23,7 +23,7 @@ Estados: `APROBADO`, `PROPUESTA`, `PENDIENTE`, `NO APLICA`.
 | D-17 | Marca visible | APROBADO | Marca comercial del distribuidor: "Aceite de Motor Lima" (encabezado/pie). Productos oficiales de catálogo: marca Lubexol. |
 | D-18 | Diseño | APROBADO (condicional) | Estilo Industrial Premium, azul petróleo y tarjetas limpias. Aprobación final tras visualizar en localhost. |
 | D-19 | SEO | APROBADO COMO OBJETIVO | Indexación técnica y contenido útil; no prometer posiciones ni indexación. |
-| D-20 | Captación de Leads y Notificaciones | APROBADO | Alerta inmediata por Resend al correo del admin (`zoevarcasd@gmail.com`) activa en producción. Webhook Google Sheets preparado en código para persistencia en hoja al enlazar URL en producción. |
+| D-20 | Captación de Leads y Notificaciones | APROBADO (Fase 1) | Alerta inmediata por Resend al correo del admin (`zoevarcasd@gmail.com`) activa en producción. Google Sheets **DIFERIDO a Fase 2**: adaptador tipado en código; requiere desplegar el Apps Script y configurar `GOOGLE_SHEETS_WEBHOOK_URL`/`SECRET` en Cloudflare (pendiente de confirmación del PO). |
 | D-21 | Interfaz de Tarjeta y Cotización | APROBADO | Botón "Cotizar por WhatsApp" con flujo directo en 1 clic. Modal eliminado para evitar abandono en dispositivos móviles (CRO 1-clic). |
 
 ---
