@@ -2098,6 +2098,32 @@ Se implementó un único libro maestro de Google Sheets con 3 pestañas especial
 - **Integración Local:** Variables añadidas a `.env` (`GOOGLE_SHEETS_WEBHOOK_URL` y `GOOGLE_SHEETS_WEBHOOK_SECRET`).
 - **Verificación de Regresión:** `npm run test` (15/15 pass), `npm run lint` (0 errors), `npm run build` (Exit code 0). Commit `ba63504` sincronizado en `origin/main`.
 
+---
+
+## 📌 65. CIERRE DE SESIÓN NOCTURNA Y ESTADO DE MEMORIA PARA APERTURA
+
+> **Fecha:** 20/11/2026 22:20  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** Sesión pausada por el PO. Todo respaldado y asegurado en Git (`main`).
+
+### 65.1. Logros Consolidados de la Sesión
+1. **Hoja Maestra Unificada (`Leads Aceite de Motor Lima`):**
+   - **`Configuracion`:** Centraliza WhatsApp del vendedor (`51987448943`), horarios de atención y reglas comerciales.
+   - **`Catalogo_Productos`:** 6 aceites Lubexol homologados con precios para cajas de 15u y 20u, y enlaces dinámicos a WhatsApp (`=HIPERVINCULO(...)`) funcionando al 100%.
+   - **`Leads`:** Webhook de Google Apps Script probado en vivo y certificado físicamente con escritura exitosa (`lead_test_001_live`).
+2. **Entorno y Seguridad:**
+   - `.env` actualizado con `GOOGLE_SHEETS_WEBHOOK_URL` y `GOOGLE_SHEETS_WEBHOOK_SECRET`.
+   - Repositorio limpio: 15/15 tests pasando, 0 errores de linter, compilación Astro exitosa.
+
+### 65.2. Hoja de Ruta Inmediata para la Apertura de Mañana
+1. **Cloudflare Pages:**
+   - Añadir las 2 variables en producción (`GOOGLE_SHEETS_WEBHOOK_URL` y `GOOGLE_SHEETS_WEBHOOK_SECRET` como *Secret*).
+   - Reconectar la autorización de GitHub en `https://github.com/settings/installations` para el repositorio `lubexol`.
+2. **Sincronización Web del Catálogo:**
+   - Definir con el PO la preferencia para reflejar cambios del Sheet en la web:
+     * *Opción 1:* Lectura en vivo/automática sin botones de publicar.
+     * *Opción 2:* Botón de publicar en Google Sheets vía Deploy Hook de Cloudflare.
+
 
 
 
