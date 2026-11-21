@@ -2075,6 +2075,29 @@ Se solicita al colega (Antigravity / Arquitecto):
 **CALIFICACIÓN CONSOLIDADA:** **10/10 — GO DEFINITIVO DE LANZAMIENTO.**  
 Proyecto en producción, canales de venta y cotización 1-clic directos a WhatsApp activos, cero bloqueos, cero deuda crítica.
 
+---
+
+## 📌 64. IMPLEMENTACIÓN Y CERTIFICACIÓN EN VIVO DE GOOGLE SHEETS (D-20 CERRADO AL 100%)
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 20/11/2026 21:56  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** 100% Operativo y Verificado Físicamente.
+
+### 64.1. Arquitectura de Datos Unificada
+Se implementó un único libro maestro de Google Sheets con 3 pestañas especializadas:
+1. **`Configuracion`:** Parámetros comerciales globales. Celda `B2` (`Telefono_WhatsApp="51987448943"`) alimenta dinámicamente todo el catálogo. Celda `D4` reservada para notas operativas del PO.
+2. **`Catalogo_Productos`:** 6 fórmulas homologadas Lubexol con desglose de precios mayoristas para cajas de 15u (`precio_caja_15u`) y 20u (`precio_caja_20u`). Columna de WhatsApp con fórmula universal: `=HIPERVINCULO(...)` hacia `'Configuracion'!$B$2`. Plantilla de respaldo registrada en `docs/catalogo_productos_plantilla.csv`.
+3. **`Leads`:** Ingesta automática de cotizaciones desde `/api/lead` mediante Webhook en Google Apps Script. 10 columnas ordenadas (`ID_Lead`, `Fecha_Hora_PET`, `Producto`, `Combustible`, `Envase`, `Unidades_x_Caja`, `Cajas_Solicitadas`, `Total_Unidades`, `Estado`, `Canal`).
+
+### 64.2. Certificación Física del Webhook
+- **Endpoint:** `https://script.google.com/macros/s/AKfycbye_gZMRmaQ_0TvGYwd-mUWQUtA6ozWYnGZOgTtly16kmqMCoItwArDdyVa55vetIiq/exec`
+- **Autenticación:** Token criptográfico `lubexol_leads_secure_token_2026`.
+- **Prueba Física en Consola:** Ejecutada vía `Invoke-RestMethod` con payload de prueba.
+- **Resultado:** `{"success": true, "leadId": "lead_test_001_live"}`. Fila escrita físicamente en la pestaña `Leads` con hora oficial de Lima (PET).
+- **Integración Local:** Variables añadidas a `.env` (`GOOGLE_SHEETS_WEBHOOK_URL` y `GOOGLE_SHEETS_WEBHOOK_SECRET`).
+- **Verificación de Regresión:** `npm run test` (15/15 pass), `npm run lint` (0 errors), `npm run build` (Exit code 0). Commit `ba63504` sincronizado en `origin/main`.
+
 
 
 
