@@ -2204,6 +2204,37 @@ Google Search Console reportaba la advertencia/error:
 - Googlebot tiene la URL en cola preferente para actualizar el título de búsqueda a *Aceite de Motor Lima* y archivar los 6 reportes de producto en estado verde superado.
 - Repositorio: Limpio, compilación en Cloudflare Pages `Active` (`46dd55c7`), 18/18 tests unitarios pasando.
 
+---
+
+## 📌 69. CIERRE DE SESIÓN — PLAN DE LANZAMIENTO DE PODCAST Y BLOG E-E-A-T
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 21/11/2026 17:26  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** Sesión pausada por el PO. Todo sincronizado en `origin/main`.
+
+### 69.1. Estado Consolidado del Sistema
+1. **Infraestructura y Producción:**
+   - Dominio en vivo: `https://aceitedemotorlima.com` (Cloudflare Pages).
+   - Catálogo Dinámico sincronizado con Google Sheets (`GOOGLE_SHEET_ID="1yIR6FR9Vlc303XRQi7Q7SQrWUvMRhVMGh_MtcLup5ag"`).
+   - Menú superior `🚀 Directorio > Publicar Cambios en la Web` operativo en Google Sheets con Cloudflare Deploy Hook (`4df202c9`).
+   - Recepción de cotizaciones / leads por WhatsApp y persistencia automática en la pestaña `Leads` verificada físicamente.
+   - Datos estructurados Schema.org validados con Google Search Console (`offers`, precios en Soles, `InStock`, `image`, `shippingDetails`).
+   - Re-indexación prioritaria solicitada a Googlebot.
+   - Tests: 18/18 pasando limpio. Linter: 0 errores. Compilación exitosa en `dist/`.
+
+### 69.2. Hoja de Ruta Inmediata para la Siguiente Sesión: Podcast y Blog
+1. **Ingesta y Limpieza de Audio:**
+   - Procesar los audios de WhatsApp del vendedor de lubricantes:
+     * Unir pistas de preguntas/respuestas con AudioJoiner / conversor a MP3.
+     * Limpieza de ruido urbano, eco y normalización de voz vía IA con **Adobe Podcast Enhance** (`podcast.adobe.com/enhance`).
+2. **Generación de Episodio de Podcast:**
+   - Alojar audio limpio en `public/audio/` o CDN.
+   - Crear entrada en `src/content/podcast/` con metadatos completos, schema `PodcastEpisode` y transcripción fiel para indexación de IAs.
+3. **Publicación de Blog Post de Autoridad E-E-A-T:**
+   - Redactar artículo en `src/content/blog/` con las declaraciones textuales y conocimientos de campo del vendedor (GNV/GLP, viscosidad 20W-50, ahorro por caja cerrada vs compra en grifos).
+   - Enlazar reproductor de podcast y llamada a la acción (CTA) directa al catálogo de WhatsApp.
+
 
 
 
