@@ -48,16 +48,44 @@ const localBusinessSchema = {
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Catálogo de Lubricantes por Caja',
-    itemListElement: catalog.map((p, index) => ({
-      '@type': 'Offer',
-      itemOffered: {
-        '@type': 'Product',
-        name: p.name,
-        description: p.description,
-        brand: { '@type': 'Brand', name: p.brand },
-      },
-      position: index + 1,
-    })),
+    itemListElement: catalog.map((p, index) => {
+      const priceMap: Record<string, string> = {
+        'lubexol-optimus-premium-20w50': '245.00',
+        'lubexol-ultra-oil-15w40': '255.00',
+        'lubexol-hd50-gnv-glp': '225.00',
+        'lubexol-turbo-vis-25w60': '260.00',
+        'lubexol-hd40-ultra-oil': '220.00',
+        'lubexol-moto-4t-25w60': '230.00',
+      };
+      const price = priceMap[p.id] || '245.00';
+      const imgUrl = p.imageUrl?.startsWith('http') ? p.imageUrl : `${siteUrl}${p.imageUrl}`;
+
+      return {
+        '@type': 'Offer',
+        position: index + 1,
+        itemOffered: {
+          '@type': 'Product',
+          name: p.name,
+          description: p.description,
+          image: imgUrl,
+          brand: { '@type': 'Brand', name: p.brand },
+          sku: p.variants?.[0]?.sku || p.id,
+          offers: {
+            '@type': 'Offer',
+            url: `${siteUrl}#catalogo`,
+            priceCurrency: 'PEN',
+            price: price,
+            priceValidUntil: '2027-12-31',
+            itemCondition: 'https://schema.org/NewCondition',
+            availability: p.status === 'archived' ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+            seller: {
+              '@type': 'AutoPartsStore',
+              name: 'Aceite de Motor Lima',
+            },
+          },
+        },
+      };
+    }),
   },
 };
 

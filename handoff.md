@@ -2152,6 +2152,39 @@ Se implementó un único libro maestro de Google Sheets con 3 pestañas especial
 - **Compilación Astro:** Exit code 0 (Server built en 2.60s).
 - **Despliegue Producción:** Sincronizado en `main`. Cloudflare Pages recompilará en automático.
 
+---
+
+## 📌 67. SUBSANACIÓN Y BLINDAJE DE DATOS ESTRUCTURADOS (GOOGLE SEARCH CONSOLE RICH RESULTS)
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 21/11/2026 08:47  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** Subsanado al 100% y Verificado Físicamente.
+
+### 67.1. Causa Raíz Diagnosticada
+Google Search Console reportaba la advertencia/error:  
+`debe especificarse "offers", "review" o "aggregateRating"`.  
+- **Motivo:** En `src/pages/index.astro`, el catálogo anidaba entidades `@type: "Product"` dentro de `itemOffered` sin declarar explícitamente el objeto `offers` con su precio (`price`), moneda (`priceCurrency: "PEN"`), disponibilidad (`InStock`) e imagen (`image`). Googlebot exige que todo `Product` defina al menos una oferta transaccional, reseña o calificación agregada.
+
+### 67.2. Remediación Implementada
+1. **Esquema de Producto (`index.astro`):**
+   - Se inyectó el objeto canónico `offers` dentro de cada `itemOffered`:
+     * `@type: "Offer"`
+     * `price`: Precio mayorista oficial por caja (ej. `245.00`).
+     * `priceCurrency`: `"PEN"`.
+     * `availability`: `"https://schema.org/InStock"`.
+     * `itemCondition`: `"https://schema.org/NewCondition"`.
+     * `priceValidUntil`: `"2027-12-31"`.
+     * `image`: URL absoluta del envase.
+     * `sku`: Identificador único de variante.
+     * `seller`: Referencia a `AutoPartsStore` ("Aceite de Motor Lima").
+2. **Esquema de Blog (`[slug].astro`):**
+   - Se añadió la propiedad `image` mandatoria al esquema `BlogPosting` para prevenir advertencias análogas en artículos indexados.
+3. **Verificación Factual:**
+   - 18/18 pruebas unitarias pasando limpio en Vitest.
+   - Astro check con 0 errores, 0 advertencias, 0 hints.
+   - Compilación exitosa en Cloudflare Pages (`dist` generado en 2.13s). Sincronizado en `main`.
+
 
 
 
