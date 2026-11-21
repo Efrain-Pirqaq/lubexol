@@ -2124,6 +2124,34 @@ Se implementó un único libro maestro de Google Sheets con 3 pestañas especial
      * *Opción 1:* Lectura en vivo/automática sin botones de publicar.
      * *Opción 2:* Botón de publicar en Google Sheets vía Deploy Hook de Cloudflare.
 
+---
+
+## 📌 66. INTEGRACIÓN TOTAL DEL CATÁLOGO DINÁMICO Y DEPLOY HOOK DE 1 CLIC (18/18 TESTS PASS)
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 21/11/2026 08:32  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** 100% Implementado, Verificado Físicamente y Desplegado en Nube.
+
+### 66.1. Logros y Arquitectura Sincronizada
+1. **Deploy Hook Oficial Creado en Cloudflare Pages:**
+   - Creado vía Cloudflare API: Hook ID `4df202c9-181a-4459-bcb6-01d7122c3170`.
+   - URL de webhook: `https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/4df202c9-181a-4459-bcb6-01d7122c3170`.
+   - Menú superior configurado en el Google Sheet: **`🚀 Directorio` > `Publicar Cambios en la Web`**.
+2. **Servicio Dinámico de Catálogo (`src/services/catalog.ts`):**
+   - Consume en vivo `GOOGLE_SHEET_ID="1yIR6FR9Vlc303XRQi7Q7SQrWUvMRhVMGh_MtcLup5ag"` mediante Google Visualization CSV API y PapaParse.
+   - Pestaña `Configuracion`: Extrae el número activo de WhatsApp del vendedor (`51987448943`).
+   - Pestaña `Catalogo_Productos`: Mapea los 6 aceites con estado (`Activo`/`Agotado`/`Inactivo`), compatibilidad de combustible y variantes.
+   - **Garantía Anti-Caídas:** En caso de corte o lentitud de Google Sheets, degrada con gracia al catálogo base estático (`src/data/catalog.ts`).
+3. **Páginas Conectadas:**
+   - `src/pages/index.astro`, `src/pages/catalogo.astro` y `src/pages/api/lead.ts` actualizados para consumir `getCatalogData()`.
+
+### 66.2. Certificación Física
+- **Vitest:** 18/18 pruebas exitosas en 4 suites (`src/services/catalog.test.ts`, `lead.test.ts`, etc.).
+- **Astro Check:** 0 errors / 0 warnings / 0 hints.
+- **Compilación Astro:** Exit code 0 (Server built en 2.60s).
+- **Despliegue Producción:** Sincronizado en `main`. Cloudflare Pages recompilará en automático.
+
 
 
 

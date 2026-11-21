@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { CreateLeadPayloadSchema } from '@/lib/contracts/lead';
-import { catalog } from '@/data/catalog';
+import { getCatalog } from '@/services/catalog';
 
 import { isHoneypotTriggered, isTooFast, isRateLimited } from '@/lib/lead-guards';
 
@@ -70,9 +70,12 @@ export const POST: APIRoute = async ({ request, clientAddress, locals }) => {
 
   const data = parsed.data;
 
-  // Validación contra catálogo (si hay productos cargados)
-  if (catalog.length > 0) {
-    const product = catalog.find((p) => p.id === data.productId);
+  // Validación contra catálogo (dinámico desde Google Sheets con fallback seguro)
+  const currentCatalog = await getCatalog();
+  if (currentCatalog.length > 0) {
+    const product = currentCatalog.find(
+      (p) => p.id === data.productId || p.id.includes(data.productId) || data.productId.includes(p.id)
+    );
     if (!product) {
       return new Response(JSON.stringify({ success: false, error: 'Producto no encontrado' }), { status: 400 });
     }

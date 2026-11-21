@@ -1,10 +1,10 @@
 ---
 import '../styles/global.css';
-import { catalog } from '@/data/catalog';
+import { getCatalogData } from '@/services/catalog';
 import ProductCard from '@/components/ProductCard.astro';
 
+const { catalog, whatsappNumber } = await getCatalogData();
 const hasProducts = catalog.length > 0;
-const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
 ---
 <html lang="es">
   <head>
