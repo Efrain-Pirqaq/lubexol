@@ -2185,6 +2185,25 @@ Google Search Console reportaba la advertencia/error:
    - Astro check con 0 errores, 0 advertencias, 0 hints.
    - Compilación exitosa en Cloudflare Pages (`dist` generado en 2.13s). Sincronizado en `main`.
 
+---
+
+## 📌 68. BLINDAJE CANÓNICO DE SCHEMA.ORG Y SOLICITUD DE RE-INDEXACIÓN EN SEARCH CONSOLE
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 21/11/2026 09:47  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** 100% Blindado, Desplegado en Cloudflare y Solicitud de Indexación Emitida.
+
+### 68.1. Mejoras Finales Desplegadas (Commit `bf88099`)
+1. **Canonical Host:** `siteUrl` fijado estrictamente en `https://aceitedemotorlima.com` en todos los bloques JSON-LD y OpenGraph.
+2. **Merchant Listings Enhanced:** Incorporación de políticas de entrega y devolución completas (`shippingDetails` con tasa `0.00 PEN` para Lima y Callao, y `hasMerchantReturnPolicy` con ventana de 7 días).
+3. **LocalBusiness Physical Fields:** Inclusión de `streetAddress` y `postalCode: '15001'` en `PostalAddress`.
+
+### 68.2. Validación Externa del PO
+- El Product Owner ejecutó la prueba en tiempo real en Google Search Console y envió formalmente la **Solicitud de Indexación Prioritaria**.
+- Googlebot tiene la URL en cola preferente para actualizar el título de búsqueda a *Aceite de Motor Lima* y archivar los 6 reportes de producto en estado verde superado.
+- Repositorio: Limpio, compilación en Cloudflare Pages `Active` (`46dd55c7`), 18/18 tests unitarios pasando.
+
 
 
 
