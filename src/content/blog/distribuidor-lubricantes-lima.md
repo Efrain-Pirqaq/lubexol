@@ -38,8 +38,8 @@ El **sello API (American Petroleum Institute)** es el estándar de calidad inter
 ### 4. Emisión de comprobante electrónico
 Un distribuidor formal emite **Boleta o Factura electrónica** con RUC. Si solo ofrecen "voucher" informal o no tienen RUC, es una señal de riesgo.
 
-### 5. Garantía post-venta
-Un distribuidor serio respalda su producto. Busca distribuidores que ofrezcan devolución o cambio si detectas algún problema con el producto.
+### 5. Respaldo post-venta
+Un distribuidor serio respalda su producto y atiende incidencias por un canal directo. Antes de comprar, consulta por escrito cuál es su política de atención post-venta.
 
 ## Precios de referencia de lubricantes por mayor en Lima (2026)
 
@@ -76,7 +76,7 @@ En **Aceite de Motor Lima**, el proceso es simple:
 
 - Fórmulas homologadas **API-SN** con precinto de inviolabilidad de fábrica
 - Emisión de **Boleta o Factura electrónica** con RUC
-- **Garantía de Primera Botella**: Si el producto no cumple tus expectativas, devolvemos el costo de las botellas restantes
+- **Atención post-venta directa**: evaluamos cualquier consulta o incidencia con tu pedido por WhatsApp
 - Atención directa por WhatsApp con asesor especializado
 - Despacho en Lima y Callao sin costos ocultos
 

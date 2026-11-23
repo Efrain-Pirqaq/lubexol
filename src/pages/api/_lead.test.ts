@@ -10,7 +10,7 @@ describe('POST /api/lead', () => {
     boxUnits: 15,
     boxCount: 2,
     totalUnits: 30,
-    source: 'product_card_modal',
+    source: 'direct_whatsapp_catalog',
     timestamp: new Date().toISOString(),
     renderTimestamp: Date.now() - 3000, // 3 segundos atrás
     website_hp: '',

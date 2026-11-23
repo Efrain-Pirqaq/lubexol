@@ -1,5 +1,7 @@
 # Fase 1 — Diseño Aprobado (Lubexol)
 
+> ⚠️ **DOCUMENTO HISTÓRICO (Fase 1).** Describe el diseño original con `PreselectionModal` y cajas 6u/12u/24u. **No implementar.** El flujo vigente es 1-clic a WhatsApp, cajas 15u/20u y precios en `src/data/prices.ts` (ver handoff §14, §57, §70-§75).
+
 > **Estado:** En curso (diseño, sin código)  
 > **Decisión de diseño base:** Industrial Premium, azul petróleo, tarjetas limpias (D-18, condicional hasta ver en localhost).  
 > **Stack objetivo:** Astro 5 + Tailwind + Cloudflare Pages (D-11).  

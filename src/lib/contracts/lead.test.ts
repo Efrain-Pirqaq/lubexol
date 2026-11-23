@@ -11,7 +11,7 @@ describe('CreateLeadPayloadSchema', () => {
       boxUnits: 15,
       boxCount: 2,
       totalUnits: 30,
-      source: 'product_card_modal',
+      source: 'direct_whatsapp_catalog',
       timestamp: new Date().toISOString(),
     });
     expect(result.success).toBe(true);
@@ -26,7 +26,7 @@ describe('CreateLeadPayloadSchema', () => {
       boxUnits: 15,
       boxCount: 2,
       totalUnits: 99,
-      source: 'product_card_modal',
+      source: 'direct_whatsapp_catalog',
       timestamp: new Date().toISOString(),
     });
     expect(result.success).toBe(false);

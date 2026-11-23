@@ -1,23 +1,24 @@
-# Checklist de Lanzamiento — Lubexol
+# Checklist de Lanzamiento — Aceite de Motor Lima
 
 > Fase 7 (Auditoría y lanzamiento). Completar antes de desplegar a Cloudflare Pages.
 
 ## 1. Pruebas
-- [x] `npm run test` → 100% pass (15/15 tests).
+- [x] `npm run test` → 100% pass (26/26 tests).
 - [x] `npm run lint` → 0 errors, 0 warnings.
 - [x] `npm run build` → exit 0.
 - [x] Flujo E2E manual en móvil (iOS Safari + Android Chrome): tarjeta → 1-clic directo → WhatsApp.
-- [ ] Verificar `/api/lead` registra en Google Sheets (Apps Script pendiente de URL en producción) y envía correo Resend (activo).
+- [x] Verificar `/api/lead` registra en Google Sheets (Apps Script operativo, §64) y envía correo Resend (activo).
 
 ## 2. Datos y configuración
 - [x] Catálogo seed cargado en `src/data/catalog.ts` (6 productos verificados).
 - [x] `PUBLIC_WHATSAPP_NUMBER` configurado con número oficial del vendedor (`51987448943`).
 - [x] `ADMIN_NOTIFICATION_EMAIL` definido por el PO (`zoevarcasd@gmail.com`).
 - [x] Secretos de correo configurados en Cloudflare Pages: `RESEND_API_KEY`, `ADMIN_NOTIFICATION_EMAIL` (`zoevarcasd@gmail.com`), `RESEND_FROM_EMAIL` (`notificaciones@aceitedemotorlima.com`).
-- [ ] Google Apps Script desplegado y probado (zona `America/Lima`).
+- [x] Google Apps Script desplegado y probado (zona `America/Lima`) — §64.
 - [x] Dominio verificado en Resend (`aceitedemotorlima.com` verificado y activo con envío autorizado).
 
 ## 3. Seguridad
+> Los ítems de esta sección no fueron verificados en §75 (requieren acceso a Cloudflare); se mantienen abiertos como deuda.
 - [ ] Cabeceras de seguridad activas (`_headers`).
 - [ ] CSP revisada (eliminar `unsafe-inline` si se usan nonces).
 - [ ] Rate limiting en Cloudflare (binding o WAF) configurado.
@@ -43,7 +44,7 @@
 6. Probar `POST /api/lead` desde el dominio real (debe responder 200, no 403).
 
 ## 7. Aprobación y Veredicto Final
-- [x] Pruebas físicas en consola (15/15 tests, lint 0 errores, build limpio exit code 0).
+- [x] Pruebas físicas en consola (26/26 tests, lint 0 errores, build limpio exit code 0).
 - [x] Dominio propio delegado y activo con SSL en Cloudflare (`aceitedemotorlima.com`).
 - [x] Datos estructurados Schema.org (`AutoPartsStore`, `FAQPage`, `BlogPosting`) verificados.
 - [x] Lead API funcional con protección anti-bot y validación de Origin.
@@ -51,4 +52,4 @@
 - [x] Despliegue a Cloudflare Pages ejecutado y verificado en vivo.
 
 ---
-**Estado:** Remediaciones P0 y P1 implementadas con verificación física en consola. Listo para contra-auditoría.
+**Estado:** Precios de caja 15u desplegados y verificados en producción; garantía de primera botella retirada (D-22). Deuda P2 documentada en `handoff.md` §74-§75. Listo para contra-auditoría.

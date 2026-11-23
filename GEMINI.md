@@ -31,14 +31,16 @@
 - **Modelo Comercial:** Venta mayorista por caja cerrada de 15 o 20 unidades (1L) para taxistas, particulares y talleres mecánicos en Lima y Callao.
 - **Marca y Fórmulas:** Marca comercial del distribuidor: "Aceite de Motor Lima". Catálogo oficial: 6 fórmulas homologadas Lubexol con precinto de inviolabilidad y trazabilidad de fábrica.
 - **Canal de Ventas / Contacto:** WhatsApp oficial del vendedor parametrizado en `.env` (`PUBLIC_WHATSAPP_NUMBER="51987448943"`).
-- **Archivo de trabajo para auditoría entre agentes:** `handoff.md` (bitácora viva). `CONTROL-DE-DECISIONES.md` y `GEMINI.md` son referencias sincrónicas obligatorias.
+- **Archivo de trabajo para auditoría entre agentes:** `handoff.md` (bitácora viva). `GEMINI.md` y `LUBEXOL-STARTER-KIT-v1.0/00-MAESTRO/CONTROL-DE-DECISIONES.md` son referencias sincrónicas obligatorias.
+- **Garantía comercial:** la *Garantía de Primera Botella* fue **retirada** por decisión del PO (22/11/2026, D-22). No volver a promocionarla en la web ni en el blog; se mantiene la garantía legal por producto defectuoso.
 
 ---
 
 ## 3. Stack Tecnológico (Aprobado D-11)
 
 - **Arquitectura Base:** Astro 5 + Tailwind CSS + Cloudflare Pages (Edge SSR / SSG).
-- **Backend / Integraciones:** Endpoint serverless `/api/lead` + Resend API (vía `fetch`; Alertas email a Admin `zoevarcasd@gmail.com`). Integración con Google Sheets Webhook preparada en código (Fase 1: alertas por email operativas; enlace de webhook pendiente de URL en producción).
+- **Backend / Integraciones:** Endpoint serverless `/api/lead` + Resend API (vía `fetch`; alertas email a Admin `zoevarcasd@gmail.com`). **Google Sheets operativo** (`Catalogo_Productos` para catálogo dinámico y `Leads_Lubexol` para leads) con fallback estático tipado. **Precios de referencia centralizados en `src/data/prices.ts`**: caja de 15u pública (S/ 180 multigrado, S/ 112 monogrado) y caja de 20u solo por cotización.
+- **Catálogo:** dinámico desde Google Sheets con *deploy hook* de 1 clic; la web degrada al catálogo estático si la hoja falla.
 - **Canal de Ventas:** WhatsApp directo (`wa.me`) con mensaje pre-armado y flujo ágil de 1 clic (modal descartado para maximizar conversión CRO y eliminar fricción en móviles).
 - **Control de Versiones:** Git (Commits atómicos descriptivos).
 

@@ -9,6 +9,7 @@ import {
   getMaxSavingsPct,
   REFERENCE_BOX_UNITS,
 } from '@/data/prices';
+import { FEATURES } from '@/data/features';
 
 const { catalog, whatsappNumber } = await getCatalogData();
 const maxSavingsPct = getMaxSavingsPct();
@@ -50,7 +51,7 @@ const localBusinessSchema = {
       '@type': 'OpeningHoursSpecification',
       dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       opens: '08:00',
-      closes: '19:00',
+      closes: '18:00',
     },
   ],
   hasOfferCatalog: {
@@ -117,14 +118,6 @@ const localBusinessSchema = {
                 },
               },
             },
-            hasMerchantReturnPolicy: {
-              '@type': 'MerchantReturnPolicy',
-              applicableCountry: 'PE',
-              returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-              merchantReturnDays: 7,
-              returnMethod: 'https://schema.org/ReturnInStore',
-              returnFees: 'https://schema.org/FreeReturn',
-            },
           },
         },
       };
@@ -165,7 +158,7 @@ const faqPageSchema = {
       name: '¿Cómo se coordinan los envíos en Lima Metropolitana y Callao?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Coordinamos despachos directos y seguros a tu taller, cochera o domicilio en todo Lima y Callao. Al presionar "Cotizar por WhatsApp", nuestro asesor te confirma disponibilidad de stock inmediato, costo preferencial de envío y ventana de entrega para tu pedido.',
+        text: 'Coordinamos despachos directos y seguros a tu taller, cochera o domicilio en todo Lima y Callao. Al presionar "Cotizar por WhatsApp", nuestro asesor te confirma disponibilidad de stock inmediato, despacho incluido en Lima Metropolitana y ventana de entrega para tu pedido; en Callao coordinamos las condiciones según la zona.',
       },
     },
     {
@@ -456,7 +449,8 @@ const faqPageSchema = {
         </div>
       </section>
 
-      <!-- Garantía Total de Confianza -->
+      <!-- Garantía de Primera Botella: oculta por decisión del PO (22/11/2026, D-22). Reactivar con FEATURES.showFirstBottleGuarantee. -->
+      {FEATURES.showFirstBottleGuarantee && (
       <section class="border-t border-slate-200 bg-amber-500/10 px-4 py-12 sm:px-6">
         <div class="mx-auto max-w-4xl rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 via-white to-amber-50 p-6 shadow-md sm:p-8">
           <div class="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left">
@@ -487,6 +481,7 @@ const faqPageSchema = {
           </div>
         </div>
       </section>
+      )}
 
       <!-- Cómo Funciona -->
       <section id="como-funciona" class="border-t border-slate-200 bg-slate-900 px-4 py-16 text-white sm:px-6">

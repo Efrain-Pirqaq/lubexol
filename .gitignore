@@ -17,6 +17,7 @@ dist/
 build/
 .astro/
 .output/
+.wrangler/
 
 # Logs
 npm-debug.log*

@@ -4,6 +4,7 @@ import type { Product } from '../lib/contracts/catalog';
 
 const GOOGLE_SHEET_ID = import.meta.env.GOOGLE_SHEET_ID || '1yIR6FR9Vlc303XRQi7Q7SQrWUvMRhVMGh_MtcLup5ag';
 const DEFAULT_WHATSAPP = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '51987448943';
+const SHEET_TIMEOUT_MS = 5000;
 
 /**
  * Nota de precios: el catálogo dinámico NO lee precios del Google Sheet.
@@ -38,7 +39,10 @@ export interface CatalogData {
 export async function getSalesConfig(): Promise<{ whatsappNumber: string }> {
   try {
     const url = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Configuracion`;
-    const res = await fetch(url, { headers: { 'Cache-Control': 'no-cache' } });
+    const res = await fetch(url, {
+      headers: { 'Cache-Control': 'no-cache' },
+      signal: AbortSignal.timeout(SHEET_TIMEOUT_MS),
+    });
     if (!res.ok) return { whatsappNumber: DEFAULT_WHATSAPP };
 
     const csvText = await res.text();
@@ -64,7 +68,10 @@ export async function getSalesConfig(): Promise<{ whatsappNumber: string }> {
 export async function getCatalog(): Promise<Product[]> {
   try {
     const url = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Catalogo_Productos`;
-    const res = await fetch(url, { headers: { 'Cache-Control': 'no-cache' } });
+    const res = await fetch(url, {
+      headers: { 'Cache-Control': 'no-cache' },
+      signal: AbortSignal.timeout(SHEET_TIMEOUT_MS),
+    });
     if (!res.ok) return fallbackCatalog;
 
     const csvText = await res.text();

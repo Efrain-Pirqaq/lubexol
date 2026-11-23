@@ -10,6 +10,7 @@ const { product } = Astro.props;
 const defaultVariant = product.variants[0];
 const boxPrice = getBoxPrice15u(product.id);
 const pricePerLiter = getPricePerLiter15u(product.id);
+const isArchived = product.status === 'archived';
 ---
 
 <article
@@ -31,6 +32,11 @@ const pricePerLiter = getPricePerLiter15u(product.id);
             }`}
           >
             {product.gradeType === 'Multigrado' ? '⚡ Multigrado' : '⚙️ Monogrado'}
+          </span>
+        )}
+        {isArchived && (
+          <span class="absolute right-2 top-2 rounded bg-rose-600 px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-white shadow-sm">
+            Agotado
           </span>
         )}
         <img
@@ -112,10 +118,13 @@ const pricePerLiter = getPricePerLiter15u(product.id);
 
   <button
     type="button"
-    class="mt-4 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-emerald-500 active:scale-[0.98] disabled:opacity-50"
+    class="mt-4 w-full rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-bold text-white shadow-md transition hover:bg-emerald-500 active:scale-[0.98] disabled:cursor-not-allowed disabled:bg-slate-400 disabled:opacity-70"
     data-quote
+    disabled={isArchived}
   >
-    Cotizar por WhatsApp
-    <span class="block text-[11px] font-normal text-emerald-100">Atención inmediata con asesor · Clic directo</span>
+    {isArchived ? 'Producto agotado' : 'Cotizar por WhatsApp'}
+    <span class={`block text-[11px] font-normal ${isArchived ? 'text-slate-100' : 'text-emerald-100'}`}>
+      {isArchived ? 'Consúltanos por reposición' : 'Atención inmediata con asesor · Clic directo'}
+    </span>
   </button>
 </article>

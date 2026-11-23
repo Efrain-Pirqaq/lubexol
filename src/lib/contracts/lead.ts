@@ -11,8 +11,6 @@ export const CreateLeadPayloadSchema = z.object({
   boxCount: z.number().int().min(1).max(999),
   totalUnits: z.number().int().positive(),
   source: z.enum([
-    'product_card_modal',
-    'landing_hero_modal',
     'direct_whatsapp_catalog',
     'product_card_direct',
     'catalogo_direct',

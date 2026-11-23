@@ -5,12 +5,14 @@
 > **Estado:** Aprobado para Implementación  
 > **Autor:** Arquitecto Fullstack / PO Efraín  
 
+> ⚠️ **PARCIALMENTE OBSOLETO.** El contrato vigente está en `src/lib/contracts/lead.ts`; el flujo es 1-clic y `PUBLIC_WHATSAPP_DEFAULT_PREFIX` ya no se usa. Google Sheets está operativo en Fase 1 (§64).
+
 ---
 
 ## 1. Objetivo y Flujo General
 
 Capturar cada intención de cotización generada en el botón de cotización directa (1 clic) de la tarjeta de producto, registrándola de forma inmediata y desacoplada en:
-1. **Google Sheets:** Hoja de control de prospectos y trazabilidad comercial (diferida a Fase 2; ver §3).
+1. **Google Sheets:** Hoja de control de prospectos y trazabilidad comercial (operativo en Fase 1; §64).
 2. **Resend (Email Transaccional):** Notificación instantánea al correo del Administrador.
 3. **Redirección a WhatsApp:** Conexión del cliente con el asesor oficial de Aceite de Motor Lima sin demoras de interfaz.
 
@@ -53,8 +55,8 @@ Origin: https://aceitedemotorlima.com
 
 ```typescript
 export interface CreateLeadPayload {
-  productId: string;        // Identificador único (ej. "mobil-super-20w50")
-  productName: string;      // Nombre visible (ej. "Mobil Super 20W-50")
+  productId: string;        // Identificador único (ej. "lubexol-optimus-premium-20w50")
+  productName: string;      // Nombre visible (ej. "Lubexol Optimus Premium SAE 20W-50")
   fuelCompatibility: Array<'GNV' | 'GLP' | 'Gasolina' | 'Diesel'>; // Compatibilidad de motor
   containerSize: string;    // Envase unitario estándar "1L"
   boxUnits: number;         // Unidades por caja cerrada (15 o 20)
@@ -241,7 +243,6 @@ async function handleConfirmQuote(payload, whatsappUrl) {
 | :--- | :--- | :--- | :--- |
 | `PUBLIC_SITE_URL` | String | Público (Cliente/Servidor) | Dominio oficial (`https://aceitedemotorlima.com`) |
 | `PUBLIC_WHATSAPP_NUMBER` | String | Público | Número del asesor (ej. 519XXXXXXXX) |
-| `PUBLIC_WHATSAPP_DEFAULT_PREFIX` | String | Público | Saludo inicial pre-armado |
 | `RESEND_API_KEY` | String (Secreto) | Servidor Privado | Clave de API de Resend |
 | `RESEND_FROM_EMAIL` | String | Servidor Privado | Remitente verificado en Resend |
 | `ADMIN_NOTIFICATION_EMAIL` | String | Servidor Privado | Correo del Administrador receptor |

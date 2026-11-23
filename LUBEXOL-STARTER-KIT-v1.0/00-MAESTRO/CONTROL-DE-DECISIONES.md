@@ -13,7 +13,7 @@ Estados: `APROBADO`, `PROPUESTA`, `PENDIENTE`, `NO APLICA`.
 | D-07 | Vendedores | APROBADO (FASE 1) | Línea centralizada de Lubexol con asesor verificado en WhatsApp; sin directorio de múltiples vendedores en MVP. |
 | D-08 | Mínimos y entrega | APROBADO | Venta mínima: 1 caja cerrada. Entrega y condiciones se coordinan directamente en chat de WhatsApp. |
 | D-09 | Monetización | APROBADO (FASE 1) | Margen comercial directo por venta de cajas cerrada. Cobro de cuotas a vendedores queda diferido a fase marketplace. |
-| D-10 | Datos iniciales | APROBADO | Google Sheets como repositorio de leads y prospectos; catálogo estático tipado en código para MVP. |
+| D-10 | Datos iniciales | APROBADO | Google Sheets como repositorio de leads y prospectos; **catálogo dinámico** desde la hoja `Catalogo_Productos` con fallback estático tipado en código. Precios de referencia *code-owned* en `src/data/prices.ts`. |
 | D-11 | Hosting/infraestructura | APROBADO | Astro 5 + Tailwind CSS + Cloudflare Pages (Edge SSR / SSG). |
 | D-12 | Blog | APROBADO COMO OBJETIVO | Módulo editorial para educación, confianza y tráfico; enlaza a fichas de productos. |
 | D-13 | Podcast | APROBADO COMO OBJETIVO | Audio con portada estática en primera etapa; RSS y distribución por definir. |
@@ -23,8 +23,9 @@ Estados: `APROBADO`, `PROPUESTA`, `PENDIENTE`, `NO APLICA`.
 | D-17 | Marca visible | APROBADO | Marca comercial del distribuidor: "Aceite de Motor Lima" (encabezado/pie). Productos oficiales de catálogo: marca Lubexol. |
 | D-18 | Diseño | APROBADO (condicional) | Estilo Industrial Premium, azul petróleo y tarjetas limpias. Aprobación final tras visualizar en localhost. |
 | D-19 | SEO | APROBADO COMO OBJETIVO | Indexación técnica y contenido útil; no prometer posiciones ni indexación. |
-| D-20 | Captación de Leads y Notificaciones | APROBADO (Fase 1) | Alerta inmediata por Resend al correo del admin (`zoevarcasd@gmail.com`) activa en producción. Google Sheets **DIFERIDO a Fase 2**: adaptador tipado en código; requiere desplegar el Apps Script y configurar `GOOGLE_SHEETS_WEBHOOK_URL`/`SECRET` en Cloudflare (pendiente de confirmación del PO). |
+| D-20 | Captación de Leads y Notificaciones | APROBADO (Fase 1) | Alerta inmediata por Resend al correo del admin (`zoevarcasd@gmail.com`) activa en producción. **Google Sheets OPERATIVO en Fase 1** (`Leads_Lubexol` vía Apps Script, certificado en §64); catálogo dinámico desde `Catalogo_Productos`. |
 | D-21 | Interfaz de Tarjeta y Cotización | APROBADO | Botón "Cotizar por WhatsApp" con flujo directo en 1 clic. Modal eliminado para evitar abandono en dispositivos móviles (CRO 1-clic). |
+| D-22 | Garantía de Primera Botella | RETIRADA | Retirada por decisión del PO (22/11/2026). La tarjeta de portada queda oculta con `FEATURES.showFirstBottleGuarantee = false`; no se promociona en el blog. Se mantiene la garantía legal por producto defectuoso. |
 
 ---
 
@@ -57,4 +58,4 @@ Una propuesta no equivale a aprobación. Antigravity debe pedir confirmación de
 
 - **D-05 actualizada** por instrucción del PO: la web muestra precios de referencia de la caja cerrada de **15u**; la caja de **20u** se cotiza por WhatsApp sin precio público.
 - **Fuente única de precios:** `src/data/prices.ts`. La tabla `#equivalencias` y el JSON-LD de la portada se derivan de ese archivo. El Google Sheet y `docs/catalogo_productos_plantilla.csv` **no** son la fuente de precios.
-- **Pendiente de re-baseline:** D-10 (catálogo estático) y D-20 (Sheets diferido) contradicen la implementación descrita en §64–§69 (catálogo dinámico y Sheets operativo). No se modifican sin confirmación explícita del PO.
+- **Re-baseline completado (22/11/2026, §75):** D-10 actualizada a catálogo dinámico y D-20 a Google Sheets operativo. D-22 registra el retiro de la Garantía de Primera Botella.

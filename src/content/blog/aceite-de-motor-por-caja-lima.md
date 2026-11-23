@@ -32,6 +32,8 @@ Al comprar directamente una **caja cerrada de 15 unidades** (nuestra referencia 
 
 > **Ejemplo práctico:** Un taxista que cambia 4 litros cada 5,000 km y recorre 60,000 km al año realiza 12 cambios = **48 litros anuales**. Al precio de grifo (S/ 28/L) paga **S/ 1,344**. Comprando por caja de 15u a S/ 12/L solo paga **S/ 576**. **Ahorro neto: S/ 768 al año.** Si usa el monogrado SAE 50 a S/ 7.47/L, el ahorro es aún mayor.
 
+> **Sobre el 63%:** es el ahorro máximo de la comparativa y corresponde al monogrado SAE 50 frente a un precio de grifo de S/ 18–22/L. En multigrados el ahorro ronda el 54–60% según el grifo de referencia.
+
 ## ¿Qué viscosidad necesito para mi auto en Lima?
 
 Lima tiene un clima cálido y seco. Para la mayoría de vehículos a gasolina con GNV/GLP, la viscosidad recomendada es **SAE 20W-50** (API-SN). Este es el estándar de protección para:
@@ -64,9 +66,9 @@ Busca distribuidores mayoristas de lubricantes en Lima que operen en la **modali
 - Despacho directo a Lima Metropolitana y Callao
 - **Cotización inmediata por WhatsApp**: Sin formularios, sin esperas
 
-## Garantía de Satisfacción: Prueba la Primera Botella
+## Compra con respaldo y trazabilidad
 
-Si es tu primera vez comprando por caja y tienes dudas sobre la calidad, ofrecemos la **Garantía de Primera Botella**: prueba con la primera unidad de la caja y si el motor no responde como esperas, te devolvemos el costo de las botellas restantes.
+Todas las cajas salen **selladas de fábrica**, con número de lote trazable y comprobante electrónico. Si detectas alguna incidencia con tu pedido, nuestro asesor la evalúa directamente por WhatsApp para darte una solución.
 
 ---
 
