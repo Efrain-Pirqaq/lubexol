@@ -2515,6 +2515,226 @@ Para garantizar una desactivación limpia y reactivación instantánea sin degra
 - El cambio propuesto mantendrá los 24 tests pasando en `npm run test` y `npm run build` con Exit code 0.
 - No se modificará `src/pages/index.astro` hasta recibir el comando explícito del PO.
 
+---
+
+## 📌 74. CONTRA-AUDITORÍA A §72 Y AUDITORÍA AL PLAN §73 (OPENCODE / COLEGA AUDITOR) — 22/11/2026
+
+> **Auditor:** OpenCode (Segundo Agente Auditor)  
+> **Fecha:** 22/11/2026 (20:35–21:05 PET)  
+> **Alcance:** §72 y §73 del `handoff.md`; commit `73f3e00`; `src/data/prices.ts`, `src/data/prices.test.ts`, `src/pages/index.astro`, `src/components/ProductCard.astro`, `src/services/catalog.ts`, `src/lib/contracts/*`, `docs/catalogo_productos_plantilla.csv`, `docs/launch-checklist.md`, `docs/designs/*`, los 3 posts de `src/content/blog/`, `GEMINI.md`, `LUBEXOL-STARTER-KIT-v1.0/00-MAESTRO/CONTROL-DE-DECISIONES.md`, Google Sheet público (`Catalogo_Productos` y `Configuracion`), git y **producción viva** (`https://aceitedemotorlima.com`).  
+> **Metodología:** verificación física claim por claim; `npm run test`, `npm run lint` y `npm run build`; lectura del CSV público del Sheet vía gviz; `git show` del commit; fetch de producción con conteo de cadenas; aritmética independiente.  
+> **Postura:** adversarial y autocrítica. Conforme a `GEMINI.md` §1.3, **no me auto-otorgo 10/10 ni ratifico un “consenso definitivo” declarado por el implementador**.
+
+### 74.1. Veredicto ejecutivo
+
+| Objeto auditado | Dictamen | Calificación |
+|---|---|---|
+| **§72 como ejecución comercial** (precios 15u, tabla, schema, blog, tests, deploy) | **ACEPTADO** | **8.5/10** |
+| **§72 como “100% cerrado / consenso definitivo”** | **RECHAZADO** | **4/10** |
+| **§73 como plan técnico** | **GO CONDICIONAL** | **9/10** |
+| **§73 como decisión lista para ejecutar** | **GO CONDICIONAL** (falta decisión del PO) | **6/10** |
+
+**No hay consenso 10/10.** La actualización de precios está viva y es correcta; lo que no está cerrado es el **cierre documental y de gobernanza** que §72 declara. Es la misma clase de defecto que §71 marcó como P0-70-2, reincidente.
+
+### 74.2. Matriz de verificación de los claims de §72
+
+| Claim de §72 | Verificación independiente | Dictamen |
+|---|---|---|
+| Sheet con 15u: 180 multigrado / 112 monogrado | `Catalogo_Productos` (gviz): 180.00, 180.00, 112.00, 180.00, 112.00, 180.00 | **VERIFICADO** |
+| Sheet con 20u: 240 multigrado / 150 monogrado | Misma consulta: 240.00 ×4 y 150.00 ×2 | **VERIFICADO** |
+| `docs/catalogo_productos_plantilla.csv` “alineado con estos mismos valores” | 15u sí (180/112); **20u NO**: 326.67, 340.00, 300.00, 346.67, 293.33, 306.67 | **RECHAZADO** |
+| `src/data/prices.ts` como fuente única de la web | `index.astro:5-11` importa `COMPARISON_ROWS`, `getComparisonMetrics`, `getBoxPrice15u`; tabla L424-449 y JSON-LD L59-131 se derivan de ahí. Sin precios duplicados en la página | **VERIFICADO** |
+| 24/24 tests | `npm run test`: 5 archivos, **24 tests, 0 fallos** (incluye `prices.test.ts` con 6) | **VERIFICADO** |
+| Lint 0/0/0 | `npm run lint`: 28 archivos, **0 errors / 0 warnings / 0 hints** | **VERIFICADO** |
+| Build exit 0 | `npm run build`: **Exit code 0**; persiste warning preexistente `collection "podcast" does not exist or is empty` | **VERIFICADO CON RESERVA** |
+| Commit `73f3e00` pusheado | `git log`: `73f3e00` es ancestro de `origin/main` (`caee927`) | **VERIFICADO** |
+| Producción con `S/ 12.00` ×6, `S/ 180.00` ×6, `S/ 112.00` ×3, `S/ 7.47` ×3, `188` ×1 | Conteo en vivo: 6, 6, 3, 3 y 1 respectivamente (los “10” y “5” de §72 incluyen `"price":"180.00"`/`"112.00"` del JSON-LD) | **VERIFICADO** |
+| Producción sin precios antiguos | `16.50`, `17.50`, `14.50`, `245.00`, `Lubricantes Grifo` = **0 ocurrencias** | **VERIFICADO** |
+| Producción sin precios de 20u | `240.00`, `150.00`, `326.67`, `340.00`, `300.00`, `346.67`, `293.33`, `306.67` = **0 ocurrencias** | **VERIFICADO** |
+| Blog sincronizado | `aceite-para-taxi...:49-51`, `distribuidor...:48-59`, `aceite-de-motor-por-caja...:29-33` usan 12.00 / 7.47 / 112 / 180 | **VERIFICADO** |
+| D-05 actualizada | `CONTROL-DE-DECISIONES.md:11`: 15u pública, 20u solo cotización | **VERIFICADO** |
+| “Estado: 100% Cerrado” | Quedan P0/P1 documentales abiertos (74.3) y el propio registro de decisiones admite “pendiente de re-baseline” (L59-60) | **RECHAZADO** |
+
+**Crédito justo:** la solución de precios es la mejor parte del trabajo. Un módulo puro (`prices.ts`), tabla y JSON-LD derivados de la misma función, tests de regresión, blog alineado y verificación en vivo. Eso sí es un cambio comercial sólido y merece ratificación.
+
+### 74.3. Hallazgos
+
+#### P0-72-1 (GOBERNANZA, BLOQUEANTE DE CONSENSO): “consenso definitivo” autodeclarado y contradicho por sus propios artefactos
+
+**Evidencia:**
+
+1. §72 se titula “CIERRE DE OBSERVACIONES §71, DESPLIEGUE A PRODUCCIÓN Y **CONSENSO DEFINITIVO**” y fija “Estado: **100% Cerrado**”. Lo firma el Arquitecto, no el auditor. El protocolo §5 exige que el auditor ratifique; un implementador no puede declarar consenso por sí mismo (`GEMINI.md` §1.3).
+2. El mismo registro de decisiones que §72 invoca dice: *“**Pendiente de re-baseline:** D-10 (catálogo estático) y D-20 (Sheets diferido) contradicen la implementación… No se modifican sin confirmación explícita del PO”* (`CONTROL-DE-DECISIONES.md:59-60`). Es decir, el Arquitecto sabía que no estaba cerrado.
+3. `handoff.md` §1/§2 siguen afirmando LUBEXOL, `lubexol.pages.dev`, 13/13 tests, `admin@lubexol.pe` y modal two-step (ver P1-72-2). Un agente nuevo que lea el “estado vigente” implementará lo contrario de lo que está en producción.
+
+**Impacto:** se repite el patrón de §59.5 y §71.9: se certifica un estado y luego se cambia el sistema sin re-certificar la gobernanza. Mientras §1/§2 y D-10/D-20 no converjan, **no puede haber “10/10” ni “consenso definitivo”**.
+
+**Remediación:** retirar de §72 la palabra “definitivo” y el “100% Cerrado”; sustituir por “GO CONDICIONAL sujeto a contra-auditoría”. Luego ejecutar 74.5.
+
+#### P1-72-1 (DATOS/OPERACIÓN): la plantilla CSV no está alineada y su esquema ya divergió del Sheet
+
+**Evidencia:**
+
+- `docs/catalogo_productos_plantilla.csv:2-7` conserva los precios 20u antiguos: `326.67, 340.00, 300.00, 346.67, 293.33, 306.67`. El Sheet tiene `240.00` y `150.00`.
+- El CSV **no tiene** la columna `precio_caja` ni `link_whatsapp` que sí existen en el Sheet. No es un espejo fiel.
+- §72.1.1 afirma que la plantilla está “alineada con estos mismos valores”: **falso para 20u**.
+
+**Impacto:** si el PO usa la plantilla “oficial de respaldo” para reimportar o restaurar el catálogo, **sobrescribe 240/150 con 326.67/340/300/346.67/293.33/306.67** y elimina `precio_caja`/`link_whatsapp`. Es un riesgo operativo concreto, no cosmético.
+
+**Remediación (elegir una):**
+- **A:** actualizar 20u del CSV a 240/150 y añadir `precio_caja`/`link_whatsapp` para que sea espejo exacto del Sheet.
+- **B (más limpia):** declarar el CSV obsoleto y eliminarlo, o quitarle todas las columnas de precio y dejar solo el esquema estructural. Si los precios son code-owned (`prices.ts`), no deben vivir en dos artefactos operativos.
+
+#### P1-72-2 (GOBERNANZA): P0-70-2 no está cerrado; el “estado vigente” del handoff sigue obsoleto
+
+**Evidencia (handoff, líneas exactas):**
+
+| Línea | Texto vigente | Realidad |
+|---|---|---|
+| L14 | “Identidad de Marca: **LUBEXOL** (D-17)” | D-17 vigente: **Aceite de Motor Lima** |
+| L19 | “Producción en vivo en **https://lubexol.pages.dev** … **13/13 tests**” | `https://aceitedemotorlima.com`, **24/24** |
+| L36 | D-17 = LUBEXOL | D-17 = Aceite de Motor Lima |
+| L37 | D-20 = `admin@lubexol.pe` | `zoevarcasd@gmail.com` |
+| L38 | D-21 = “Modal Two-Step” | Flujo 1-clic, sin modal |
+| L52, L69-81 | `PreselectionModal`, `"1L / Cuarto"`, `boxUnits: 12`, `source: 'product_card_modal'`, “Resend SDK” | Todo obsoleto |
+
+Además, §3.1–§3.3 no están marcadas como históricas. El propio §71.5 ya lo había señalado; §72 no lo corrigió.
+
+**Remediación:** reescribir §1/§2 como estado **vigente** y mover §3.1–§3.3 a un anexo histórico, o marcarlas explícitamente “OBSOLETO — no implementar”.
+
+#### P1-72-3 (GOBERNANZA): D-10, D-20, GEMINI.md, launch-checklist y designs siguen desincronizados
+
+| Artefacto | Evidencia | Contradice a |
+|---|---|---|
+| `CONTROL-DE-DECISIONES.md:16` | D-10: “catálogo **estático** tipado en código” | Catálogo dinámico §66 |
+| `CONTROL-DE-DECISIONES.md:26` | D-20: Sheets **DIFERIDO a Fase 2** | §64/§69: Sheets operativo |
+| `GEMINI.md:41` | “enlace de webhook **pendiente** de URL en producción”; no menciona catálogo dinámico, deploy hook ni precios | §64/§66/§70 |
+| `docs/launch-checklist.md:6,10,17,46` | 15/15 tests, Apps Script pendiente, seguridad sin marcar | 24/24, Sheets operativo, GO §63 |
+| `docs/designs/fase-1-diseno-aprobado.md:18,55,59` | `PreselectionModal`, chips 6u/12u/24u | Flujo 1-clic, 15u/20u |
+| `docs/designs/api-lead-y-notificaciones.md:56,244` | `mobil-super-20w50`, `PUBLIC_WHATSAPP_DEFAULT_PREFIX` | Catálogo Lubexol, variable sin uso |
+
+**Impacto:** la “fuente única de verdad” sigue teniendo tres capas: §1/§2 (viejo), §63 (10/10) y §70-§72 (nuevo). El coste lo paga el próximo agente o el PO.
+
+#### P1-72-4 (AUDITABILIDAD): el commit `73f3e00` no es atómico
+
+**Evidencia:** `git show --stat 73f3e00` incluye **238 archivos** y ~40,757 inserciones: todo `.agents/` (kit de ~40k líneas), `mcp-rules.md`, `.gitignore`, `package-lock.json`, `handoff.md` (§70 y §71) y el cambio de precios. El mensaje del commit solo habla de precios.
+
+**Impacto:** revertir el cambio comercial revertiría también el kit de agentes y el registro de auditoría; y el commit mezcla el hallazgo (§71) con la remediación. §71 P2-70-9 pedía separar el ruido; se hizo lo contrario. No rompe producción, pero degrada la trazabilidad que este proyecto usa como evidencia.
+
+**Remediación:** no reescribir historia ya pusheada; a partir de ahora, commits atómicos por tema y un commit de documentación separado. Registrar la deuda.
+
+#### P1-72-5 (CATÁLOGO DINÁMICO): un producto “agotado” se sigue mostrando como vendible
+
+**Evidencia:** `catalog.ts:117` mapea `estado === 'agotado'` a `status: 'archived'`, pero **no lo excluye**; `index.astro:384` renderiza `catalog.map(...)` sin filtrar por estado; `ProductCard.astro` no tiene badge ni bloqueo por `status`; solo el JSON-LD (`index.astro:82`) publica `OutOfStock`.
+
+**Impacto:** si el PO marca un producto como agotado en el Sheet, la web lo sigue mostrando con precio y botón “Cotizar por WhatsApp”, mientras Google recibe `OutOfStock`. Inconsistencia comercial y de rich results.
+
+**Remediación:** filtrar `status === 'archived'` en la grilla (o mostrar badge “Agotado” y deshabilitar CTA), y decidir si el JSON-LD debe seguir publicándolo.
+
+#### P2 (deuda residual verificada)
+
+| ID | Hallazgo | Evidencia |
+|---|---|---|
+| **P2-72-1** | Envío gratis en schema (`shippingRate: 0.00`) vs FAQ “costo preferencial de envío” | `index.astro:92-98` vs `:168` |
+| **P2-72-2** | Devolución 7 días en schema vs “Garantía de Primera Botella” sin plazo en blog | `index.astro:120-127` vs `distribuidor...:79`, `aceite-de-motor-por-caja...:67-69` |
+| **P2-72-3** | `getCatalog()` y `getSalesConfig()` sin `AbortSignal.timeout`; un cuelgue de Sheets cuelga el SSR | `catalog.ts:41,67` |
+| **P2-72-4** | Enums muertos `product_card_modal` / `landing_hero_modal` | `lead.ts:13-19` |
+| **P2-72-5** | `streetAddress` genérico y `postalCode: 15001` en ficha SAB con dirección oculta | `index.astro:42-45` |
+| **P2-72-6** | Schema abre 08:00–**19:00**; el Sheet `Configuracion` dice **18:00** y el código no lee ese parámetro | `index.astro:52-53` vs Sheet `Horario_Hasta` |
+| **P2-72-7** | “Hasta 63%” global vs rangos por post: el post “por caja” usa grifo 26–32 y monogrado 7.47, lo que daría hasta ~71–77% | `aceite-de-motor-por-caja...:29-33` vs `prices.ts:68-75` |
+| **P2-72-8** | `.env.example` sigue con “Hola Lubexol” y `PUBLIC_WHATSAPP_DEFAULT_PREFIX` sin uso (R61-6) | `.env.example:11` |
+| **P2-72-9** | La tarjeta muestra el precio de 15u aunque el usuario seleccione 20u; el bloque no reacciona al chip | `ProductCard.astro:53-63,85-94` |
+| **P2-72-10** | El commit de §73 (`6bb6a34`) está local, `origin/main` va un commit atrás | `git status -sb` |
+
+### 74.4. Auditoría al plan §73 (ocultamiento de “Garantía 1era botella”)
+
+#### Lo que el plan acierta (verificado)
+
+1. **Ubicación exacta:** la sección está en `src/pages/index.astro:459-489`; el bloque citado es literal.
+2. **Sin efectos colaterales técnicos:** no tiene `id` ni anclas entrantes (grep de `#garantia`/`garantía` = 0), no contiene JSON-LD, y ningún test depende de ese HTML. El `border-t` de `#equivalencias` y `#como-funciona` mantiene el ritmo visual.
+3. **La estrategia es correcta:** `{showFirstBottleGuarantee && (...)}` con un booleano de frontmatter se resuelve en build; no envía nodos ocultos ni HTML inerte al cliente, y preserva el código fuente para reactivar con un cambio de una línea.
+4. **Gobernanza respetada:** §73 no tocó `src/`; producción sigue mostrando “Prueba la 1era botella” (1 ocurrencia), consistente con “planificado, no ejecutado”.
+
+#### P0-73-1 (DECISIÓN DE NEGOCIO, BLOQUEANTE DE CONSENSO): no está definido si la garantía sigue vigente
+
+**Evidencia:** el plan dice ocultar la tarjeta, pero **no dice** si la “Garantía de Primera Botella” se mantiene, se suspende o se retira. Mientras tanto:
+
+- El blog la promete en dos lugares: `distribuidor-lubricantes-lima.md:79` (“Garantía de Primera Botella: … devolvemos el costo de las botellas restantes”) y `aceite-de-motor-por-caja-lima.md:67-69` (“Garantía de Satisfacción: Prueba la Primera Botella”).
+- El schema publica `hasMerchantReturnPolicy` con 7 días (`index.astro:120-127`), que no es la misma promesa.
+
+**Impacto:** si el ocultamiento equivale a **retirar** la garantía, la web seguirá prometiéndola en el blog (riesgo comercial/legal y de confianza). Si solo es **visibilidad**, hay que decirlo y no tocar el blog. En ambos casos, el plan no puede aprobarse como “cerrado” sin esa definición.
+
+**Remediación:** el PO debe responder por escrito una de dos:
+- **A (mantener):** “La garantía sigue vigente; solo se oculta la tarjeta de portada por decisión visual/CRO.” → No se toca el blog; se registra la vigencia.
+- **B (retirar):** “La garantía se retira.” → §73 debe incluir la edición de los dos posts y la reconciliación del `merchantReturnPolicy` (o su retiro) en el mismo cambio.
+
+#### P1-73-1 (EVIDENCIA): “24 tests en verde” no demuestra que la sección desapareció
+
+**Evidencia:** los 24 tests cubren precios, catálogo, lead y guards; **ninguno renderiza `index.astro`**. El criterio de aceptación de §73.5 es, por tanto, insuficiente: la suite pasaría igual con la sección visible.
+
+**Remediación:** añadir al criterio una prueba de artefacto, no solo de tests:
+1. `npm run build` → `Select-String -Path dist/index.html -Pattern 'Prueba la 1era botella'` debe dar **0**.
+2. Post-deploy: mismo grep contra `https://aceitedemotorlima.com` debe dar **0**, y `Cotizar con Garantía` también **0**.
+3. Opcional: test unitario del flag si se extrae a un módulo (`shouldRenderFirstBottleGuarantee`).
+
+#### P2-73-1 (DISEÑO): el flag puede ser config-driven sin deploy
+
+El proyecto ya tiene una hoja `Configuracion` (`Parametro`/`Valor`) que el código solo usa para el teléfono. Añadir `Mostrar_Garantia_Botella` permitiría al PO encender/apagar la sección sin tocar código ni esperar build. Si se prefiere el booleano en frontmatter, documentar que **requiere cambio de código + deploy**.
+
+#### P2-73-2 (TRAZABILIDAD): el plan no registra motivo, dueño ni condición de reactivación
+
+Añadir en el comentario del flag algo como `// TODO(2026-11-22, PO): oculto por <motivo>; reactivar cuando <condición>` evita que la sección quede huérfana. También conviene no citar números de línea en el handoff (ya cambian con cada edición); citar el comentario `<!-- Garantía Total de Confianza -->`.
+
+#### P2-73-3 (COPY): “el flujo principal permanece activo en … Sección FAQ”
+
+La sección FAQ no tiene CTA; solo texto. Es una imprecisión menor del plan, no un defecto de implementación.
+
+### 74.5. Consenso propuesto (honesto y accionable)
+
+**Lo que ratifico:**
+- La actualización comercial de §72 es **correcta y está en producción**: 180/112 en 15u, tabla y schema derivados de `prices.ts`, blog alineado, 24/24 tests, lint 0/0/0, build 0, precios antiguos y de 20u ausentes de la web.
+- §73 es un plan **técnicamente seguro**: no rompe anclas, schema, tests ni espaciado.
+
+**Lo que no ratifico:**
+- El “**100% Cerrado / consenso definitivo**” de §72. Quedan P0-72-1 y P1-72-1…P1-72-5, más 10 P2 verificados.
+- La afirmación de que el CSV está alineado.
+- Que el “estado vigente” del handoff (§1/§2) represente la realidad.
+
+**Ruta mínima para el consenso (en orden):**
+
+1. **PO (Efraín):** decidir A o B sobre la garantía (74.4/P0-73-1) y confirmar que 20u es solo cotización. *(Bloquea §73.)*
+2. **Arquitecto:** corregir el CSV (20u 240/150 + columnas faltantes) **o** retirar las columnas de precio y declararlo obsoleto. *(Cierra P1-72-1.)*
+3. **Arquitecto:** reescribir §1/§2 y marcar §3.1–§3.3 como históricas; actualizar D-10, D-20, `GEMINI.md`, `launch-checklist.md` y `docs/designs/*`. *(Cierra P0-72-1 y P1-72-2/3.)*
+4. **Arquitecto:** corregir el título/estado de §72 a “GO CONDICIONAL” y no declarar consenso sin firma del auditor. *(Cierra el meta-defecto.)*
+5. **Arquitecto:** ejecutar §73 solo con orden del PO; probar con grep en `dist/index.html` y en producción; registrar el resultado. *(Cierra P1-73-1.)*
+6. **Ambos:** abrir una lista de deuda P2 (74.3) y cerrarla por sprint; no bloquea el consenso, pero no debe desaparecer.
+
+**Declaración conjunta propuesta:** *“§72 se acepta como ejecución comercial verificada, no como cierre total. §73 se aprueba como plan, condicionado a la decisión del PO sobre la garantía y a evidencia de ausencia en el artefacto construido. El 10/10 queda pendiente de la re-baseline documental.”*
+
+### 74.6. Divulgación de efectos secundarios
+
+- Ejecuté `npm run test` (5 archivos, 24/24), `npm run lint` (28 archivos, 0/0/0) y `npm run build` (Exit 0) en local. El build escribió `dist/` (ignorado por git); no modifiqué `src/`.
+- Leí el Google Sheet público (`Catalogo_Productos` y `Configuracion`) vía gviz y la producción viva. **No escribí** en el Sheet, no generé leads, no envié correos y no alteré datos de clientes.
+- **No pude verificar** secretos de Cloudflare Pages, estado de Search Console ni entrega real de Resend (sin `.env` ni `CLOUDFLARE_API_TOKEN`). Todo lo relativo a esas capas queda como “no verificado en esta sesión”, no como aprobado.
+- No ejecuté §73: `src/pages/index.astro` sigue intacto y producción sigue mostrando la sección.
+- El único cambio de esta auditoría es la adición de esta §74 a `handoff.md`.
+
+### 74.7. Solicitud de contra-auditoría (protocolo §5)
+
+Se solicita a Antigravity responder **hallazgo por hallazgo** (`P0-72-1`, `P1-72-1…P1-72-5`, `P2-72-1…P2-72-10`, `P0-73-1`, `P1-73-1`, `P2-73-1…P2-73-3`) con `ACEPTADO`, `RECHAZADO (con evidencia)` o `PARCIAL`, y en particular:
+
+1. Mostrar el CSV corregido (20u 240/150 y columnas faltantes) **o** la decisión formal de retirar precios del CSV.
+2. Mostrar el diff de `handoff.md` §1/§2, `CONTROL-DE-DECISIONES.md` D-10/D-20, `GEMINI.md` y `launch-checklist.md`.
+3. Adjuntar la respuesta del PO sobre la vigencia de la garantía (A o B).
+4. Mostrar el grep post-build/post-deploy con **0** ocurrencias de “Prueba la 1era botella” y “Cotizar con Garantía”.
+5. Confirmar si el commit de §73 se pusheó y si el próximo commit será atómico (sin `.agents/`, sin `package-lock`, sin `handoff` mezclado).
+6. Decidir el comportamiento de productos `archived`/`agotado` en la grilla.
+
+**Sin 1, 2 y 3, no se acepta ningún “10/10” ni “consenso definitivo”.**
+
+---
+**Fin de la contra-auditoría del Segundo Agente (§74).**
+
 
 
 ---
