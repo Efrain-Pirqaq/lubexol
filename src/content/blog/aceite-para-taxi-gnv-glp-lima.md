@@ -47,15 +47,15 @@ Con 24 cambios anuales de 4 litros cada uno = **96 litros de aceite al año**.
 | Canal de compra | Precio por litro | Costo anual |
 |---|---|---|
 | Grifo / lubricentro | S/ 28 | S/ 2,688 |
-| **Caja mayorista (20W-50)** | **S/ 16.50** | **S/ 1,584** |
-| **Ahorro anual** | — | **S/ 1,104** |
+| **Caja mayorista de 15u (20W-50)** | **S/ 12.00** | **S/ 1,152** |
+| **Ahorro anual** | — | **S/ 1,536** |
 
-Más de **mil soles al año** que se quedan en tu bolsillo. Para un taxista que gana entre S/ 3,500 y S/ 5,000 mensuales, eso representa entre 1 y 2 semanas de ingreso neto adicional.
+Más de **S/ 1,500 al año** que se quedan en tu bolsillo. Para un taxista que gana entre S/ 3,500 y S/ 5,000 mensuales, eso representa entre 1 y 2 semanas de ingreso neto adicional.
 
 ## Aceites recomendados para taxi GNV/GLP en Lima
 
 ### Lubexol Optimus Premium SAE 20W-50 (API-SN)
-El más vendido para taxis con GNV y GLP en Lima. Fórmula multigrado con paquete de aditivos reforzado para alta temperatura. Precinto de inviolabilidad de fábrica, disponible en caja de 20 unidades de 1L.
+El más vendido para taxis con GNV y GLP en Lima. Fórmula multigrado con paquete de aditivos reforzado para alta temperatura. Precinto de inviolabilidad de fábrica, disponible en caja cerrada de **15 unidades de 1L** (referencia de precio: S/ 180 por caja). La caja de 20u se cotiza por WhatsApp.
 
 ### Lubexol HD 50 Ultra Oil GNV/GLP (API-SL/CD)
 Monogrado SAE 50 diseñado específicamente para motores de trabajo continuo a gas con alto kilometraje (150,000 km+). Mayor viscosidad para compensar el desgaste de la cámara de combustión.

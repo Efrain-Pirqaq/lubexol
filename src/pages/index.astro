@@ -2,8 +2,16 @@
 import '../styles/global.css';
 import { getCatalogData } from '@/services/catalog';
 import ProductCard from '@/components/ProductCard.astro';
+import {
+  COMPARISON_ROWS,
+  getBoxPrice15u,
+  getComparisonMetrics,
+  getMaxSavingsPct,
+  REFERENCE_BOX_UNITS,
+} from '@/data/prices';
 
 const { catalog, whatsappNumber } = await getCatalogData();
+const maxSavingsPct = getMaxSavingsPct();
 const hasProducts = catalog.length > 0;
 const siteUrl = 'https://aceitedemotorlima.com';
 const defaultWaUrl = whatsappNumber
@@ -48,16 +56,10 @@ const localBusinessSchema = {
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Catálogo de Lubricantes por Caja',
-    itemListElement: catalog.map((p, index) => {
-      const priceMap: Record<string, string> = {
-        'lubexol-optimus-premium-20w50': '245.00',
-        'lubexol-ultra-oil-15w40': '255.00',
-        'lubexol-hd50-gnv-glp': '225.00',
-        'lubexol-turbo-vis-25w60': '260.00',
-        'lubexol-hd40-ultra-oil': '220.00',
-        'lubexol-moto-4t-25w60': '230.00',
-      };
-      const price = priceMap[p.id] || '245.00';
+    itemListElement: catalog
+      .filter((p) => getBoxPrice15u(p.id) !== undefined)
+      .map((p, index) => {
+      const boxPrice = getBoxPrice15u(p.id) as number;
       const imgUrl = p.imageUrl?.startsWith('http') ? p.imageUrl : `${siteUrl}${p.imageUrl}`;
 
       return {
@@ -65,19 +67,24 @@ const localBusinessSchema = {
         position: index + 1,
         itemOffered: {
           '@type': 'Product',
-          name: p.name,
+          name: `${p.name} — Caja de ${REFERENCE_BOX_UNITS} x 1L`,
           description: p.description,
           image: imgUrl,
           brand: { '@type': 'Brand', name: p.brand },
           sku: p.variants?.[0]?.sku || p.id,
           offers: {
             '@type': 'Offer',
-            url: `${siteUrl}#catalogo`,
+            url: `${siteUrl}#equivalencias`,
             priceCurrency: 'PEN',
-            price: price,
+            price: boxPrice.toFixed(2),
             priceValidUntil: '2027-12-31',
             itemCondition: 'https://schema.org/NewCondition',
             availability: p.status === 'archived' ? 'https://schema.org/OutOfStock' : 'https://schema.org/InStock',
+            eligibleQuantity: {
+              '@type': 'QuantitativeValue',
+              value: REFERENCE_BOX_UNITS,
+              unitText: 'botellas de 1 L (caja cerrada)',
+            },
             seller: {
               '@type': 'AutoPartsStore',
               name: 'Aceite de Motor Lima',
@@ -308,7 +315,7 @@ const faqPageSchema = {
               </div>
               <h3 class="mt-4 text-base font-bold text-slate-900">Ahorro por Caja</h3>
               <p class="mt-2 text-xs leading-relaxed text-slate-600">
-                Olvídate de pagar sobreprecio por litro en grifos. Compra la caja cerrada y reduce hasta 30% tu costo anual de lubricación.
+                Olvídate de pagar sobreprecio por litro en grifos. Compra la caja cerrada de 15u y reduce hasta {maxSavingsPct}% tu costo por litro frente al precio de grifo.
               </p>
             </div>
 
@@ -396,7 +403,7 @@ const faqPageSchema = {
               ¿Por qué pagar sobreprecio por litro en grifos y lubricentros?
             </h2>
             <p class="mx-auto mt-2 max-w-2xl text-xs text-slate-600 sm:text-sm">
-              Compara la especificación técnica internacional y calcula cuánto ahorras comprando la caja cerrada directa de fábrica.
+              Compara la especificación técnica internacional y calcula cuánto ahorras comprando la caja cerrada de 15u directa de fábrica.
             </p>
           </div>
 
@@ -409,37 +416,43 @@ const faqPageSchema = {
                   <th class="p-3 sm:p-4">Precio aprox. / Litro</th>
                   <th class="p-3 sm:p-4">Fórmula Homologada Lubexol</th>
                   <th class="p-3 sm:p-4">Precio / Litro en Caja</th>
+                  <th class="p-3 sm:p-4">Caja de 15u</th>
                   <th class="p-3 sm:p-4 font-black text-amber-400">Tu Ahorro por Caja</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-slate-100 text-slate-700">
-                <tr class="hover:bg-slate-50/80">
-                  <td class="p-3 font-bold text-slate-900 sm:p-4">GNV / GLP / Gasolina (20W-50)</td>
-                  <td class="p-3 sm:p-4 text-slate-500">Mobil Super / Castrol GTX</td>
-                  <td class="p-3 sm:p-4 text-rose-600 font-semibold">S/ 26.00 – S/ 29.00</td>
-                  <td class="p-3 sm:p-4 font-semibold text-slate-900">Optimus Premium 20W-50 (API-SN)</td>
-                  <td class="p-3 sm:p-4 font-bold text-emerald-700">S/ 16.50</td>
-                  <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">Ahorras ~S/ 150 por caja</td>
-                </tr>
-                <tr class="hover:bg-slate-50/80">
-                  <td class="p-3 font-bold text-slate-900 sm:p-4">Diésel Pesado / Flotas (15W-40)</td>
-                  <td class="p-3 sm:p-4 text-slate-500">Rimula R4 / Delvac 1300</td>
-                  <td class="p-3 sm:p-4 text-rose-600 font-semibold">S/ 28.00 – S/ 32.00</td>
-                  <td class="p-3 sm:p-4 font-semibold text-slate-900">Ultra Oil 15W-40 (API CI-4 Plus)</td>
-                  <td class="p-3 sm:p-4 font-bold text-emerald-700">S/ 17.50</td>
-                  <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">Ahorras ~S/ 165 por caja</td>
-                </tr>
-                <tr class="hover:bg-slate-50/80">
-                  <td class="p-3 font-bold text-slate-900 sm:p-4">Gas Monogrado Alto Calor (SAE 50)</td>
-                  <td class="p-3 sm:p-4 text-slate-500">Lubricantes Grifo Monogrado</td>
-                  <td class="p-3 sm:p-4 text-rose-600 font-semibold">S/ 22.00 – S/ 25.00</td>
-                  <td class="p-3 sm:p-4 font-semibold text-slate-900">HD 50 Especial Gas (API-SL/CF)</td>
-                  <td class="p-3 sm:p-4 font-bold text-emerald-700">S/ 14.50</td>
-                  <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">Ahorras ~S/ 130 por caja</td>
-                </tr>
+                {COMPARISON_ROWS.map((row) => {
+                  const metrics = getComparisonMetrics(row);
+                  return (
+                    <tr class="hover:bg-slate-50/80">
+                      <td class="p-3 font-bold text-slate-900 sm:p-4">{row.label}</td>
+                      <td class="p-3 sm:p-4 text-slate-500">{row.referenceBrand}</td>
+                      <td class="p-3 sm:p-4 text-rose-600 font-semibold">
+                        S/ {row.grifoMin.toFixed(2)} – S/ {row.grifoMax.toFixed(2)}
+                      </td>
+                      <td class="p-3 sm:p-4 font-semibold text-slate-900">{row.formula}</td>
+                      <td class="p-3 sm:p-4 font-bold text-emerald-700">
+                        S/ {metrics.pricePerLiter?.toFixed(2) ?? '—'}
+                      </td>
+                      <td class="p-3 sm:p-4 font-bold text-slate-900">
+                        S/ {metrics.boxPrice?.toFixed(2) ?? '—'}
+                        <span class="block text-[10px] font-normal text-slate-500">caja de 15u</span>
+                      </td>
+                      <td class="p-3 sm:p-4 font-black text-emerald-600 bg-emerald-50/50">
+                        Ahorras ~S/ {metrics.savings ?? '—'} por caja
+                        <span class="block text-[10px] font-semibold text-emerald-700">
+                          ~{metrics.savingsPct ?? '—'}% vs grifo
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+          <p class="mt-3 text-center text-[11px] text-slate-500">
+            Precios de referencia en soles (PEN) para caja cerrada de 15 botellas de 1L. La caja de 20u se cotiza por WhatsApp.
+          </p>
         </div>
       </section>
 

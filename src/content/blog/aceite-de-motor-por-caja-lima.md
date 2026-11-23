@@ -1,6 +1,6 @@
 ---
-title: "Aceite de Motor por Caja en Lima: Ahorra hasta 35% Comprando al Por Mayor"
-description: "Guía completa para taxistas y particulares en Lima que quieren comprar aceite de motor por caja y ahorrar hasta 35% frente al precio de grifo por litro."
+title: "Aceite de Motor por Caja en Lima: Ahorra hasta 63% Comprando al Por Mayor"
+description: "Guía completa para taxistas y particulares en Lima que quieren comprar aceite de motor por caja y ahorrar hasta 63% frente al precio de grifo por litro."
 author: "Aceite de Motor Lima"
 publishedAt: 2026-11-19
 status: "published"
@@ -8,7 +8,7 @@ tags: ["aceite de motor por caja", "lubricantes por mayor Lima", "ahorro aceite 
 relatedProducts: ["lubexol-optimus-premium-20w50", "lubexol-ultra-oil-15w40"]
 ---
 
-# Aceite de Motor por Caja en Lima: Ahorra hasta 35% Comprando al Por Mayor
+# Aceite de Motor por Caja en Lima: Ahorra hasta 63% Comprando al Por Mayor
 
 Si tienes un taxi, una flota pequeña o simplemente tu auto personal con muchos kilómetros encima, **comprar aceite de motor por caja en Lima** es la forma más inteligente de reducir tu costo de mantenimiento anual.
 
@@ -20,7 +20,7 @@ Cuando compras aceite en un grifo o lubricentro, estás pagando:
 - El **costo de exhibición** y almacenamiento del local
 - El **servicio de cambio** (aunque no lo uses)
 
-Al comprar directamente una **caja cerrada de 15 o 20 unidades** a un distribuidor mayorista, eliminas esas capas de precio. El aceite llega directamente de planta a tu mano.
+Al comprar directamente una **caja cerrada de 15 unidades** (nuestra referencia de precio) o de 20 unidades (sujeta a cotización) a un distribuidor mayorista, eliminas esas capas de precio. El aceite llega directamente de planta a tu mano.
 
 ### Comparativa real de precio en Lima (2026)
 
@@ -28,9 +28,9 @@ Al comprar directamente una **caja cerrada de 15 o 20 unidades** a un distribuid
 |---|---|
 | Grifo / lubricentro | S/ 26 – S/ 32 |
 | Supermercado (marcas import.) | S/ 22 – S/ 28 |
-| **Caja mayorista (distribuidor)** | **S/ 15 – S/ 18** |
+| **Caja mayorista de 15u (distribuidor)** | **S/ 7.47 – S/ 12.00** |
 
-> **Ejemplo práctico:** Un taxista que cambia 4 litros cada 5,000 km y recorre 60,000 km al año realiza 12 cambios = **48 litros anuales**. Al precio de grifo (S/ 28/L) paga **S/ 1,344**. Comprando por caja a S/ 16/L solo paga **S/ 768**. **Ahorro neto: S/ 576 al año.**
+> **Ejemplo práctico:** Un taxista que cambia 4 litros cada 5,000 km y recorre 60,000 km al año realiza 12 cambios = **48 litros anuales**. Al precio de grifo (S/ 28/L) paga **S/ 1,344**. Comprando por caja de 15u a S/ 12/L solo paga **S/ 576**. **Ahorro neto: S/ 768 al año.** Si usa el monogrado SAE 50 a S/ 7.47/L, el ahorro es aún mayor.
 
 ## ¿Qué viscosidad necesito para mi auto en Lima?
 

@@ -8,7 +8,7 @@ Estados: `APROBADO`, `PROPUESTA`, `PENDIENTE`, `NO APLICA`.
 | D-02 | Público | APROBADO | Principalmente particulares y taxistas que buscan ahorrar comprando aceite por caja. |
 | D-03 | Modelo comercial | APROBADO | Catálogo con selección por caja y cotización directa por WhatsApp; sin checkout ni pasarela en v1. |
 | D-04 | Pago online | APROBADO | No se contempla pasarela de pago en la primera versión. |
-| D-05 | Precios | APROBADO (condicional) | El vendedor define precios. La web no muestra precio hasta confirmación del vendedor; moneda y vigencia obligatorias si se publica. |
+| D-05 | Precios | APROBADO | El vendedor define los precios. La web publica precios de referencia en PEN para la **caja cerrada de 15u**: S/ 180 (multigrados) y S/ 112 (monogrados), más el equivalente por litro calculado. El precio final se confirma por WhatsApp. La **caja de 20u** se cotiza y no publica precio de referencia (decisión PO 22/11/2026). Moneda y vigencia obligatorias. |
 | D-06 | Venta por caja | APROBADO | Unidad comercial obligatoria: caja cerrada de 15u y 20u (1L) según presentación de fábrica (descartadas 6u, 12u, 24u). |
 | D-07 | Vendedores | APROBADO (FASE 1) | Línea centralizada de Lubexol con asesor verificado en WhatsApp; sin directorio de múltiples vendedores en MVP. |
 | D-08 | Mínimos y entrega | APROBADO | Venta mínima: 1 caja cerrada. Entrega y condiciones se coordinan directamente en chat de WhatsApp. |
@@ -50,3 +50,11 @@ Tabla de decisiones formalmente blindada, sin contradicciones y alineada a las d
 
 ## Regla
 Una propuesta no equivale a aprobación. Antigravity debe pedir confirmación de los puntos que afecten estructura, datos o comportamiento antes de implementarlos.
+
+---
+
+## 📌 Nota de sincronización de precios (22/11/2026)
+
+- **D-05 actualizada** por instrucción del PO: la web muestra precios de referencia de la caja cerrada de **15u**; la caja de **20u** se cotiza por WhatsApp sin precio público.
+- **Fuente única de precios:** `src/data/prices.ts`. La tabla `#equivalencias` y el JSON-LD de la portada se derivan de ese archivo. El Google Sheet y `docs/catalogo_productos_plantilla.csv` **no** son la fuente de precios.
+- **Pendiente de re-baseline:** D-10 (catálogo estático) y D-20 (Sheets diferido) contradicen la implementación descrita en §64–§69 (catálogo dinámico y Sheets operativo). No se modifican sin confirmación explícita del PO.

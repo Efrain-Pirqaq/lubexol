@@ -43,22 +43,23 @@ Un distribuidor serio respalda su producto. Busca distribuidores que ofrezcan de
 
 ## Precios de referencia de lubricantes por mayor en Lima (2026)
 
-| Producto | Especificación | Precio aprox. por litro (caja) |
+| Producto | Especificación | Precio aprox. por litro (caja de 15u) |
 |---|---|---|
-| SAE 20W-50 multigrado | API-SN (gasolina/gas) | S/ 15.50 – S/ 18.00 |
-| SAE 15W-40 multigrado | API CI-4 (diésel pesado) | S/ 16.00 – S/ 19.00 |
-| SAE 25W-60 multigrado | API CH-4/SF (alto km) | S/ 16.00 – S/ 18.50 |
-| SAE 50 monogrado | API-SL/CD (gas intensivo) | S/ 15.00 – S/ 17.50 |
+| SAE 20W-50 multigrado | API-SN (gasolina/gas) | S/ 12.00 |
+| SAE 15W-40 multigrado | API CI-4 (diésel pesado) | S/ 12.00 |
+| SAE 25W-60 multigrado | API CH-4/SF (alto km) | S/ 12.00 |
+| SAE 50 monogrado | API-SL/CD (gas intensivo) | S/ 7.47 |
 
-> **Alerta:** Si te ofrecen aceite "API-SN" a menos de S/ 10 el litro por mayor, desconfía. El costo de producción de un aceite de calidad no permite ese precio sin que algo esté adulterado.
+> **Alerta:** Si te ofrecen un **multigrado API-SN** a menos de S/ 10 el litro por mayor, desconfía. El **monogrado SAE 50** es una formulación distinta y su precio de referencia es menor (S/ 7.47/L en caja de 15u). El precio final siempre se confirma por WhatsApp.
 
 ## ¿Cuál es la cantidad mínima de compra?
 
 Los distribuidores mayoristas en Lima normalmente venden en **cajas cerradas de fábrica**:
-- **Caja de 20 unidades de 1L** → S/ 310 – S/ 360 aprox.
-- **Caja de 15 unidades de 1L** → S/ 230 – S/ 270 aprox.
 
-Para un taxista con uso intensivo, una caja de 20 unidades dura entre **4 y 6 meses** dependiendo del kilometraje y si el motor consume aceite entre cambios.
+- **Caja de 15 unidades de 1L** → desde **S/ 112** (monogrado SAE 50) hasta **S/ 180** (multigrados), según producto.
+- **Caja de 20 unidades de 1L** → se cotiza por WhatsApp; no se publica precio de referencia.
+
+Para un taxista con uso intensivo, una caja de **15 unidades (15L)** dura entre **3 y 5 meses** dependiendo del kilometraje y si el motor consume aceite entre cambios. La caja de 20u se cotiza según disponibilidad.
 
 ## ¿Cómo funciona la compra con despacho en Lima?
 

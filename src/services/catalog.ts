@@ -5,6 +5,11 @@ import type { Product } from '../lib/contracts/catalog';
 const GOOGLE_SHEET_ID = import.meta.env.GOOGLE_SHEET_ID || '1yIR6FR9Vlc303XRQi7Q7SQrWUvMRhVMGh_MtcLup5ag';
 const DEFAULT_WHATSAPP = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '51987448943';
 
+/**
+ * Nota de precios: el catálogo dinámico NO lee precios del Google Sheet.
+ * La fuente única de precios es `src/data/prices.ts` (decisión PO 22/11/2026).
+ * Las columnas `precio_caja*` del Sheet quedan como dato histórico/legacy.
+ */
 interface SheetProductRow {
   id?: string;
   estado?: string;
@@ -12,9 +17,6 @@ interface SheetProductRow {
   especialidad?: string;
   viscosidad?: string;
   presentacion?: string;
-  precio_caja_15u?: string;
-  precio_caja_20u?: string;
-  precio_caja?: string;
   delivery?: string;
   foto_url?: string;
   descripcion?: string;
