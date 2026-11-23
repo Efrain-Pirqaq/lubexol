@@ -2465,6 +2465,57 @@ Se solicita a Antigravity (Arquitecto) responder por cada hallazgo **P0-70-1, P0
   * `HasAhorro188`: 1 ocurrencia (`Ahorras ~S/ 188 por caja (~63% vs grifo)`).
   * Precios antiguos (`16.50`, `245.00` y etiqueta genérica) **0 ocurrencias** (eliminados al 100%).
 
+---
+
+## 📌 73. PLAN TÉCNICO: OCULTAMIENTO TEMPORAL DE SECCIÓN "GARANTÍA 1ERA BOTELLA" (FASE DE PLANIFICACIÓN)
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 22/11/2026 20:30  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** ⏸️ PLANIFICADO Y DOCUMENTADO (EN ESPERA DE ORDEN EXPRESA DEL PO PARA EJECUCIÓN).
+
+### 73.1. Requerimiento del PO
+- Ocultar la tarjeta/sección promocional: *"Prueba la 1era botella en tu motor sin ningún compromiso"*.
+- Condición de diseño: Debe quedar preservada intacta en el código para reactivación inmediata cuando el PO lo indique en el futuro.
+- Gobernanza estricta: Solo planificar y registrar en el handoff para auditoría del colega; **cero modificaciones en `src/` hasta recibir la orden de ejecución**.
+
+### 73.2. Diagnóstico Técnico y Ubicación en Código
+- **Archivo:** `src/pages/index.astro`
+- **Líneas afectadas:** 459 a 489 (`<!-- Garantía Total de Confianza -->`).
+- **Estructura:**
+  ```astro
+  <section class="border-t border-slate-200 bg-amber-500/10 px-4 py-12 sm:px-6">
+    <div class="mx-auto max-w-4xl rounded-2xl border border-amber-300 bg-gradient-to-r from-amber-50 via-white to-amber-50 p-6 shadow-md sm:p-8">
+      ...
+      <h3 class="mt-2 text-xl font-extrabold text-slate-950 sm:text-2xl">
+        Prueba la 1era botella en tu motor sin ningún compromiso
+      </h3>
+      ...
+    </div>
+  </section>
+  ```
+- **Contexto de Flujo Visual:** Se encuentra intercalada entre la tabla comparativa (`#equivalencias`, L390-457) y la sección de pasos de compra (`#como-funciona`, L491-536). Ambas secciones contiguas cuentan con `border-t border-slate-200`, por lo que su retiro visual mantiene un ritmo vertical impecable sin desajustes de espaciado ni saltos en la interfaz.
+
+### 73.3. Estrategia de Implementación Propuesta (Clean Architecture)
+Para garantizar una desactivación limpia y reactivación instantánea sin degradar el DOM ni cargar código HTML inerte:
+1. **Opción Recomendada (Feature Flag Limpio en Astro Frontmatter):**
+   - Declarar en el frontmatter de `src/pages/index.astro`:
+     ```typescript
+     const showFirstBottleGuarantee = false; // Toggle para reactivar en el futuro
+     ```
+   - Envolver la sección en `{showFirstBottleGuarantee && ( ... )}`.
+   - **Ventajas:** No envía nodos HTML ocultos al cliente, no afecta el tiempo de renderizado ni SEO, preserva el código 100% intacto y para volver a encenderla solo se cambia el booleano a `true`.
+
+### 73.4. Impactos y Regresiones Evaluadas
+- **Schema.org:** No se ve afectado (el bloque de Garantía no contenía metadatos JSON-LD estructurados).
+- **CTA y Enlaces:** El botón secundario *"Cotizar con Garantía →"* dejará de mostrarse; el flujo comercial principal permanece 100% activo en el Navbar, Hero, Tarjetas de Catálogo y Sección FAQ.
+- **Tests unitarios:** Los 24 tests unitarios actuales siguen en verde (ninguno depende de este bloque HTML).
+
+### 73.5. Criterio de Aceptación para Auditoría
+- El cambio propuesto mantendrá los 24 tests pasando en `npm run test` y `npm run build` con Exit code 0.
+- No se modificará `src/pages/index.astro` hasta recibir el comando explícito del PO.
+
+
 
 ---
 
