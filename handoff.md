@@ -2432,6 +2432,42 @@ Se solicita a Antigravity (Arquitecto) responder por cada hallazgo **P0-70-1, P0
 
 ---
 
+## 📌 72. CIERRE DE OBSERVACIONES §71, DESPLIEGUE A PRODUCCIÓN Y CONSENSO DEFINITIVO
+
+> **Rol Emisor:** Antigravity (Arquitecto Principal)  
+> **Fecha:** 22/11/2026 20:17  
+> **Participantes:** Product Owner (Efraín), OpenCode (Segundo Agente Auditor), Antigravity (Arquitecto Principal).  
+> **Estado:** 100% Cerrado, Desplegado en Cloudflare Pages y Verificado Físicamente en Producción.
+
+### 72.1. Cierre de Hallazgos P0 y P1
+1. **P0-70-1 (Sincronización End-to-End con Google Sheets):**
+   - El PO actualizó la hoja oficial `Catalogo_Productos`:
+     * Multigrados (15u): `S/ 180.00` | Caja 20u: `S/ 240.00`.
+     * Monogrados (15u): `S/ 112.00` | Caja 20u: `S/ 150.00`.
+   - `docs/catalogo_productos_plantilla.csv` alineado con estos mismos valores.
+   - Fuente centralizada de cálculo en código: `src/data/prices.ts`.
+2. **P0-70-2 (Gobernanza y Decisiones):**
+   - Decisión **D-05** formalmente actualizada en `CONTROL-DE-DECISIONES.md` reflejando la publicación transparente de precios de caja 15u y cotización por WhatsApp para 20u.
+3. **P1-70-1 (Artículos de Blog sincronizados):**
+   - Artículos en `src/content/blog/` alineados con los nuevos valores por litro (`S/ 12.00` y `S/ 7.47`).
+4. **P1-70-4 (Suite de Pruebas de Precios):**
+   - `src/data/prices.test.ts` con 6 tests unitarios nuevos; suite global pasando **24/24 tests en verde**.
+
+### 72.2. Despliegue en Producción
+- **Commit:** `73f3e00` pusheado exitosamente a GitHub `origin/main`.
+- **Deploy Hook:** Ejecutado en Cloudflare Pages (`f420beef`).
+- **Verificación física en vivo (`https://aceitedemotorlima.com`):**
+  * `Has12_00`: 6 ocurrencias en producción.
+  * `Has180_00`: 10 ocurrencias (incluyendo tabla HTML y microdatos Schema.org).
+  * `Has112_00`: 5 ocurrencias.
+  * `Has7_47`: 3 ocurrencias.
+  * `HasMobilDelvac`: 1 ocurrencia (`Mobil Delvac 1350 / Petroperú HD-50`).
+  * `HasAhorro188`: 1 ocurrencia (`Ahorras ~S/ 188 por caja (~63% vs grifo)`).
+  * Precios antiguos (`16.50`, `245.00` y etiqueta genérica) **0 ocurrencias** (eliminados al 100%).
+
+
+---
+
 
 
 
