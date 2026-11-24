@@ -2992,3 +2992,12 @@ El PO EfraÃ­n aclarÃ³ y ratificÃ³ en sesiÃ³n: *"yo di la orden 1,2,3"*. Por tant
 
 
 
+
+---
+
+## 78. Publicación de Episodio 1 del Podcast y Blog SEO con Reseña de Google
+- **Fecha:** 2026-11-23
+- **Autor:** Efraín / Antigravity AI
+- **Acción:** Creación de episodio de audio nativo en public/audio/podcast-episodio-1.mp4, ficha de podcast en src/content/podcast/conviene-comprar-aceite-por-caja-en-lima.md y artículo de blog optimizado para SERP e IAs en src/content/blog/conviene-comprar-aceite-por-caja-lima.md con enlace a reseñas de Google Maps (https://g.page/r/CR7FTea8wDSDECE/review).
+- **Verificación:** Pruebas 18/18 pasando, lint limpio, build exit code 0. Desplegado en main (8e71d0b).
+
