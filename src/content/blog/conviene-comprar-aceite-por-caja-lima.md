@@ -36,7 +36,7 @@ Reproduce la entrevista completa con jingle introductorio y consejos prácticos 
       <h3 class="text-sm font-bold text-white sm:text-base">¿Conviene comprar aceite por caja en lugar de por unidad?</h3>
     </div>
   </div>
-  <audio controls class="w-full rounded-lg" preload="none" src="https://aceitedemotorlima.com/audio/podcast-episodio-1.mp4">
+  <audio controls class="w-full rounded-lg" preload="none" src="https://aceitedemotorlima.com/audio/podcast-episodio-1.mp3">
     Tu navegador no soporta el reproductor de audio.
   </audio>
   <p class="mt-3 text-[11px] text-slate-400">

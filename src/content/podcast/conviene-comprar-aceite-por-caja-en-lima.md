@@ -3,7 +3,7 @@ title: "¿Conviene Comprar Aceite de Motor por Caja en Lima? Entrevista con Ases
 description: "Conversamos con un especialista en lubricantes sobre el ahorro real, protección ante adulteraciones y ventajas de comprar aceite por caja de 15 o 20 unidades en Lima."
 host: "Efraín (Aceite de Motor Lima)"
 publishedAt: 2026-11-23
-audioUrl: "https://aceitedemotorlima.com/audio/podcast-episodio-1.mp4"
+audioUrl: "https://aceitedemotorlima.com/audio/podcast-episodio-1.mp3"
 duration: "05:00"
 status: "published"
 relatedProducts:
