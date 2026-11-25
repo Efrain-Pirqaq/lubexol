@@ -3,11 +3,12 @@
 > Fase 7 (Auditoría y lanzamiento). Completar antes de desplegar a Cloudflare Pages.
 
 ## 1. Pruebas
-- [x] `npm run test` → 100% pass (26/26 tests).
+- [x] `npm run test` → 100% pass (43/43 tests, 7 archivos).
 - [x] `npm run lint` → 0 errors, 0 warnings.
 - [x] `npm run build` → exit 0.
 - [x] Flujo E2E manual en móvil (iOS Safari + Android Chrome): tarjeta → 1-clic directo → WhatsApp.
 - [x] Verificar `/api/lead` registra en Google Sheets (Apps Script operativo, §64) y envía correo Resend (activo).
+- [x] Tracking editorial: blog y podcast registran lead con `contentSlug` sin alterar los mensajes pre-armados (`editorial-tracking.test.ts`, §82).
 
 ## 2. Datos y configuración
 - [x] Catálogo seed cargado en `src/data/catalog.ts` (6 productos verificados).
@@ -23,6 +24,7 @@
 - [ ] CSP revisada (eliminar `unsafe-inline` si se usan nonces).
 - [ ] Rate limiting en Cloudflare (binding o WAF) configurado.
 - [ ] Sin secretos en cliente ni en repositorio.
+  - Repo limpio en el árbol (§82), pero el `LEADS_SECRET` **sigue en el historial** de un repositorio público: **rotación pendiente del PO** (bloqueante).
 
 ## 4. SEO y PWA
 - [ ] `robots.txt` y sitemap accesibles.
@@ -44,7 +46,7 @@
 6. Probar `POST /api/lead` desde el dominio real (debe responder 200, no 403).
 
 ## 7. Aprobación y Veredicto Final
-- [x] Pruebas físicas en consola (26/26 tests, lint 0 errores, build limpio exit code 0).
+- [x] Pruebas físicas en consola (43/43 tests, lint 0 errores, build limpio exit code 0).
 - [x] Dominio propio delegado y activo con SSL en Cloudflare (`aceitedemotorlima.com`).
 - [x] Datos estructurados Schema.org (`AutoPartsStore`, `FAQPage`, `BlogPosting`) verificados.
 - [x] Lead API funcional con protección anti-bot y validación de Origin.
@@ -52,4 +54,4 @@
 - [x] Despliegue a Cloudflare Pages ejecutado y verificado en vivo.
 
 ---
-**Estado:** Precios de caja 15u desplegados y verificados en producción; garantía de primera botella retirada (D-22). Deuda P2 documentada en `handoff.md` §74-§75. Listo para contra-auditoría.
+**Estado:** Precios de caja 15u desplegados y verificados en producción; garantía de primera botella retirada (D-22). Tracking editorial implementado y probado (§82). Deuda P2 documentada en `handoff.md` §74-§75 y §81. Pendiente único no delegable: rotación del `LEADS_SECRET`. Listo para contra-auditoría.

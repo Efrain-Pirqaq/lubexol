@@ -58,6 +58,7 @@ const hasProducts = catalog.length > 0;
 
     <script>
       // @ts-nocheck
+      import { sendLead } from '@/lib/lead-client';
       const pageLoadTimestamp = Date.now();
       const whatsappNumber = document.body.dataset.whatsapp || '';
       const state = new Map(); // productId -> { variantId, boxUnits, boxCount, allowed }
@@ -180,19 +181,14 @@ const hasProducts = catalog.length > 0;
               boxUnits: s.boxUnits,
               boxCount: s.boxCount,
               totalUnits: s.boxUnits * s.boxCount,
-              source: 'direct_whatsapp_catalog',
+              source: 'catalogo_direct',
               timestamp: new Date().toISOString(),
               renderTimestamp: pageLoadTimestamp,
               website_hp: '',
             };
 
-            // Registro asíncrono en segundo plano
-            fetch('/api/lead', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
-              keepalive: true,
-            }).catch(() => console.warn('Registro asíncrono en proceso'));
+            // Registro asíncrono (sendBeacon con fallback keepalive)
+            sendLead(payload);
 
             const gradeInfo = (card as HTMLElement).dataset.grade ? ` [${(card as HTMLElement).dataset.grade}]` : '';
             const message = `Hola Aceite de Motor Lima, quisiera cotizar lo siguiente con un asesor:\n- Producto: ${payload.productName}${gradeInfo}\n- Combustible: ${payload.fuelCompatibility.join(', ')}\n- Envase: ${payload.containerSize}\n- Empaque: Caja x ${payload.boxUnits} unidades\n- Cantidad: ${payload.boxCount} caja(s) (Total: ${payload.totalUnits} botellas)\n\n¿Podrían confirmarme disponibilidad y despacho rápido en Lima / Callao?`;

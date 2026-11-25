@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import { getCollection } from 'astro:content';
 import { catalog } from '@/data/catalog';
+import type { Product } from '@/lib/contracts/catalog';
 
 export const prerender = true;
 
@@ -14,8 +15,8 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 
 const related = post.data.relatedProducts
-  .map((id) => catalog.find((p) => p.id === id))
-  .filter(Boolean);
+  .map((id) => catalog.find((p) => p.id === id && p.status !== 'archived'))
+  .filter((p): p is Product => Boolean(p));
 
 const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
 const canonicalUrl = `https://aceitedemotorlima.com/blog/${post.slug}`;
@@ -161,6 +162,14 @@ const schemaArticle = {
                       href={whatsappNumber ? `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(`Hola, quisiera cotizar una caja de ${prod?.name} que vi en su artículo de blog.`)}` : '/catalogo'}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-lead-cta
+                      data-product-id={prod.id}
+                      data-product-name={prod.name}
+                      data-fuel={prod.fuelCompatibility.join(',')}
+                      data-container-size={prod.variants[0]?.volume}
+                      data-box-units={prod.variants[0]?.allowedBoxUnits[0]}
+                      data-source="blog_related_product"
+                      data-content-slug={post.slug}
                       class="inline-flex w-full items-center justify-center gap-1.5 rounded-lg bg-slate-900 px-3 py-2 text-xs font-bold text-white transition hover:bg-slate-800"
                     >
                       <span>Cotizar por WhatsApp</span>
@@ -184,5 +193,10 @@ const schemaArticle = {
     <footer class="border-t border-slate-200 bg-slate-50 px-4 py-8 text-center text-xs text-slate-500">
       © 2026 aceitedemotorlima.com · Consultas técnicas y cotizaciones directas por WhatsApp.
     </footer>
+
+    <script>
+      import { initEditorialLeadCtas } from '@/lib/lead-client';
+      initEditorialLeadCtas();
+    </script>
   </body>
 </html>

@@ -62,7 +62,8 @@ export interface CreateLeadPayload {
   boxUnits: number;         // Unidades por caja cerrada (15 o 20)
   boxCount: number;         // Cantidad de cajas solicitadas (entero >= 1)
   totalUnits: number;       // Calculado: boxUnits * boxCount
-  source: 'direct_whatsapp_catalog' | 'catalogo_direct' | 'product_card_direct'; // Trazabilidad de UI
+  source: 'direct_whatsapp_catalog' | 'catalogo_direct' | 'blog_related_product' | 'podcast_related_product'; // Trazabilidad de UI
+  contentSlug?: string;     // Obligatorio en fuentes editoriales (slug del artículo/episodio)
   timestamp: string;        // ISO 8601 UTC
   renderTimestamp?: number; // Epoch ms al cargar la página (pageLoadTimestamp, anti-bot)
   website_hp?: string;      // Campo Honeypot (debe llegar vacío)
@@ -78,9 +79,11 @@ export interface CreateLeadPayload {
 * `boxCount`: Entero positivo entre 1 y 999.
 * `totalUnits`: Debe ser exactamente igual a `boxUnits * boxCount`.
 * `timestamp`: Cadena válida en formato ISO 8601.
+* `contentSlug`: Obligatorio si `source` es `blog_related_product` o `podcast_related_product`. Formato `^[a-z0-9]+(?:-[a-z0-9]+)*$`, máx. 120 caracteres (evita inyección en Sheets/correo).
 * **Honeypot Check (`website_hp`):** Si el campo contiene texto, responder inmediatamente con `200 OK` falso pero **abortar silenciosamente** las llamadas a Resend y Google Sheets.
 * **Velocidad Inhumana (Timestamp Check):** Si `Date.now() - renderTimestamp < 500`, rechazar o abortar (umbral anti-bot; `renderTimestamp` se captura al cargar la página, no al clic).
-* **Rate Limiting:** Máximo 3 peticiones por IP por ventana de 5 minutos en el Edge.
+* **Rate Limiting:** Máximo 3 **leads persistidos** por IP por ventana de 5 minutos en el Edge (decisión PO 24/11/2026). Se evalúa **después** de validar el esquema y el catálogo, y solo se registra un hit cuando el despacho tuvo éxito: un `400`/`502` no consume cupo.
+* **Autoridad del servidor:** `productName` y `fuelCompatibility` se reemplazan por los del catálogo; `totalUnits` se recalcula. El cliente no dicta el contenido del CRM.
 
 ### 2.4. Respuestas HTTP
 * **`200 OK` (Procesado con éxito):**
@@ -169,6 +172,12 @@ function doPost(e) {
   }
 }
 ```
+
+### 3.3. Contrato de respuesta obligatorio (Apps Script → Worker)
+
+* El script **debe** devolver `{"success": true}` cuando escribe la fila.
+* Apps Script responde **HTTP 200 incluso cuando rechaza** (p. ej. `{"error":"No autorizado"}`). Por eso el Worker inspecciona el cuerpo y convierte cualquier `error` explícito en fallo (`502`) en lugar de reportar un éxito falso. Ver handoff §81 P1-81-3 y §82.
+* **Pendiente PO (no delegable desde el repo):** para persistir el artículo/episodio en el Sheet hay que añadir la columna `Contenido_Origen` y `contents.contentSlug` al `appendRow`. Mientras no exista, la atribución editorial queda registrada en la columna `Canal` (`blog_related_product` / `podcast_related_product`) y en el asunto/cuerpo del correo.
 
 ---
 

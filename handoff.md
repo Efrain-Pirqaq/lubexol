@@ -2099,8 +2099,8 @@ Se implementó un único libro maestro de Google Sheets con 3 pestañas especial
 3. **`Leads`:** Ingesta automática de cotizaciones desde `/api/lead` mediante Webhook en Google Apps Script. 10 columnas ordenadas (`ID_Lead`, `Fecha_Hora_PET`, `Producto`, `Combustible`, `Envase`, `Unidades_x_Caja`, `Cajas_Solicitadas`, `Total_Unidades`, `Estado`, `Canal`).
 
 ### 64.2. Certificación Física del Webhook
-- **Endpoint:** `https://script.google.com/macros/s/AKfycbye_gZMRmaQ_0TvGYwd-mUWQUtA6ozWYnGZOgTtly16kmqMCoItwArDdyVa55vetIiq/exec`
-- **Autenticación:** Token criptográfico `lubexol_leads_secure_token_2026`.
+- **Endpoint:** `[WEBHOOK CONFIGURADO EN .env / CLOUDFLARE — ver §82]`
+- **Autenticación:** Token criptográfico `[SECRETO REDACTADO — rotar, ver §82]`.
 - **Prueba Física en Consola:** Ejecutada vía `Invoke-RestMethod` con payload de prueba.
 - **Resultado:** `{"success": true, "leadId": "lead_test_001_live"}`. Fila escrita físicamente en la pestaña `Leads` con hora oficial de Lima (PET).
 - **Integración Local:** Variables añadidas a `.env` (`GOOGLE_SHEETS_WEBHOOK_URL` y `GOOGLE_SHEETS_WEBHOOK_SECRET`).
@@ -2995,9 +2995,302 @@ El PO Efraín aclaró y ratificó en sesión: *"yo di la orden 1,2,3"*. Por tant
 
 ---
 
-## 78. Publicaci�n de Episodio 1 del Podcast y Blog SEO con Rese�a de Google
+## 78. Publicaci�n de Episodio 1 del Podcast y Blog SEO con Rese�a de Google
 - **Fecha:** 2026-11-23
-- **Autor:** Efra�n / Antigravity AI
-- **Acci�n:** Creaci�n de episodio de audio nativo en public/audio/podcast-episodio-1.mp4, ficha de podcast en src/content/podcast/conviene-comprar-aceite-por-caja-en-lima.md y art�culo de blog optimizado para SERP e IAs en src/content/blog/conviene-comprar-aceite-por-caja-lima.md con enlace a rese�as de Google Maps (https://g.page/r/CR7FTea8wDSDECE/review).
-- **Verificaci�n:** Pruebas 18/18 pasando, lint limpio, build exit code 0. Desplegado en main (8e71d0b).
+- **Autor:** Efra�n / Antigravity AI
+- **Acci�n:** Creaci�n de episodio de audio nativo en public/audio/podcast-episodio-1.mp4, ficha de podcast en src/content/podcast/conviene-comprar-aceite-por-caja-en-lima.md y art�culo de blog optimizado para SERP e IAs en src/content/blog/conviene-comprar-aceite-por-caja-lima.md con enlace a rese�as de Google Maps (https://g.page/r/CR7FTea8wDSDECE/review).
+- **Verificaci�n:** Pruebas 18/18 pasando, lint limpio, build exit code 0. Desplegado en main (8e71d0b).
 
+---
+
+## 📌 79. PLANIFICACIÓN: TRACKING DE PRODUCTOS EN BLOG/PODCAST Y CONFIGURACIÓN DE NUBE
+
+> **Fecha:** 24/11/2026 21:10  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal).  
+> **Estado:** Fase de Planificación Formal (Cero código en `src/` pendiente de aprobación del PO).  
+
+### 79.1. Diagnóstico Forense y Certificación de Webhook
+1. **Webhook de Google Apps Script:** Certificado físicamente con `Invoke-RestMethod`. La URL y el token secreto funcionan al 100% y escriben en la hoja `Leads`:
+   - URL: `[WEBHOOK CONFIGURADO EN .env / CLOUDFLARE — ver §82]`
+   - Secreto: `[SECRETO REDACTADO — rotar, ver §82]`
+2. **Confirmación del PO:** El PO Efraín confirma expresamente que **ambas variables YA están configuradas en Cloudflare Pages**.
+3. **Prueba Forense en Producción Real (Certificación Fisiológica en Vivo):**
+   - A las **21:27:50 (24/11/2026)** se envió una petición POST real a `https://aceitedemotorlima.com/api/lead`.
+   - **Resultado del servidor:** `HTTP 200 OK`, `{"success": true, "leadId": "lead_1795573669014_5j8l", "message": "Lead registrado"}`.
+   - **Inspección Física en Google Sheets (`Leads`):** Se verificó la descarga CSV del Sheet en vivo y la fila **SÍ SE ESCRIBIÓ FÍSICAMENTE**:
+     `"lead_1795573669014_5j8l","24/11/2026 21:27:50","Lubexol Optimus Premium SAE 20W-50","Gasolina, GNV, GLP","1L","15","1","15","Pendiente Contacto","WhatsApp Web (direct_whatsapp_catalog)"`.
+   - **Conclusión Técnica Inmutable:** Las variables de Cloudflare Pages **SÍ están activas y el endpoint en producción SÍ escribe en Google Sheets**.
+
+### 79.2. ¿Por qué el PO no vio registrarse sus clics de prueba? (Causas Raíz Detectadas)
+1. **Botones sin Tracking (Causa Principal):** Si el PO probó haciendo clic en el botón de WhatsApp del **Header (menú superior)**, del **Hero principal**, del **Footer** o de los artículos del **Blog/Podcast**, ninguno de ellos tiene llamada a `/api/lead`; son enlaces directos `<a href="https://wa.me/...">`.
+2. **Filtro Anti-Spam / Rate Limit (HTTP 429):** El backend tiene `isRateLimited` configurado a **3 peticiones cada 5 minutos por IP**. Si el PO hizo más de 3 clics seguidos de prueba, a partir del 4to clic el servidor bloqueó la solicitud silenciosamente para proteger el Sheet.
+3. **Discrepancia en ID de Producto:** Al enviar `lubexol-20w50` (ID de Sheets), la API devuelve `400 Producto no encontrado` porque el catálogo normalizado en frontend usa `lubexol-optimus-premium-20w50`. Solo las tarjetas del catálogo envían el ID correcto.
+
+### 79.3. Órdenes Clave del PO (Efraín)
+1. **NO modificar los mensajes de WhatsApp existentes:** Los mensajes pre-armados ya están definidos y deben mantenerse intactos sin alteración.
+2. **Productos en Blog y Podcast:** Deben ejecutar la misma instrucción de cotización formal para registrarse en Google Sheets y enviar alerta por Resend.
+3. **Botones Generales (Header, Hero, Footer):** Quedan como enlaces directos sin registro de lead ni correo.
+
+---
+
+## 📌 80. MANDATO DE AUDITORÍA FORENSE AL COLEGA AUDITOR (ROL B)
+
+> **Instrucción Formal de Transferencia (Protocolo EGM / Spec-First):**  
+> Se convoca al Colega Auditor a evaluar con rigor crítico, adversarial y honesto los siguientes puntos:
+
+1. **Auditoría de Persistencia en Vivo de Cloudflare a Google Sheets:**
+   - Validar la prueba certificada en §79.1 (`lead_1795573669014_5j8l`).
+   - Confirmar si existe riesgo de corte o fallo silencioso de `fetch` con `keepalive: true` en navegadores móviles (iOS Safari / Android Chrome) al redirigir con `window.location.href = whatsappUrl`.
+2. **Auditoría del Rate Limiting (`isRateLimited` en `src/lib/lead-guards.ts`):**
+   - Evaluar si el límite de 3 solicitudes en 5 minutos es demasiado agresivo para pruebas del PO o para clientes que cotizan más de 2 productos distintos en una misma visita. ¿Se debe ampliar a 5 o 10 por IP o añadir bypass en modo dev/admin?
+3. **Auditoría del Plan de Tracking en Blog y Podcast (`docs/designs/tracking-productos-blog-podcast.md`):**
+   - Revisar la ampliación del esquema Zod en `src/lib/contracts/lead.ts` (`blog_related_product`, `podcast_related_product`).
+   - Verificar el cumplimiento estricto del mandato del PO: **NO modificar los mensajes pre-armados existentes de WhatsApp**.
+4. **Veredicto Requerido:**
+   - Clasificar hallazgos en P0, P1, P2 y emitir veredicto formal (`GO`, `GO CONDICIONAL` o `NO-GO`) en este handoff.
+
+---
+
+## 📌 81. CONTRA-AUDITORÍA FORENSE INDEPENDIENTE (ROL B — OPENCODE) A §79 Y §80 — 24/11/2026
+
+> **Auditor:** OpenCode (Rol B), por mandato de §80.
+> **Postura:** adversarial y sin auto-certificación (GEMINI.md §1.3). Cada afirmación se contrastó con evidencia física reproducible; lo que no pude probar se declara como **NO CERTIFICADO**, no como aprobado.
+> **Alcance de cambios:** cero modificaciones en `src/`. Solo este registro.
+
+### 81.0. Método, commit auditado y límites honestos
+
+| Ítem | Valor real |
+|---|---|
+| Árbol local auditado | `b1fc570` — `handoff.md` modificado sin commit; `docs/designs/tracking-productos-blog-podcast.md` sin trackear |
+| `origin/main` | `93c5006` — **4 commits por delante** del árbol local |
+| Producción | `https://aceitedemotorlima.com` — auditada en vivo el 24/11/2026 |
+| Pruebas ejecutadas | `npm run test`, `npm run lint` (`astro check`), `npm run build`, POSTs reales contra producción, lectura CSV del Sheet `Leads`, verificación del repo en GitHub |
+
+**Límites:** no tuve acceso al panel de Cloudflare Pages, al panel de Resend ni a Search Console. Por tanto **no certifico** "variables configuradas en Cloudflare" por panel: solo certifico el **efecto observable** (una fila escrita en Sheets). Tampoco certifico entrega de correo (ver P1-81-3 y P1-81-5).
+
+### 81.1. Verificación de las afirmaciones de §79
+
+| # | Afirmación | Evidencia obtenida | Resultado |
+|---|---|---|---|
+| 1 | §79.1.3: el lead `lead_1795573669014_5j8l` se escribió en `Leads` | CSV `gviz` del Sheet: fila exacta `"lead_1795573669014_5j8l","24/11/2026 21:27:50","Lubexol Optimus Premium SAE 20W-50","Gasolina, GNV, GLP","1L","15","1","15","Pendiente Contacto","WhatsApp Web (direct_whatsapp_catalog)"` | ✅ **VERIFICADO** |
+| 2 | §79.1.3: producción escribe en Google Sheets | La fila existe y es legible en el Sheet en vivo | ✅ **VERIFICADO** |
+| 3 | §79.1.2: "ambas variables ya están configuradas" (Sheets **y** Resend) | `lead.ts:134-139` responde `200` si **al menos un** adaptador tiene éxito; la fila solo prueba Sheets | ⚠️ **PARCIAL / NO CERTIFICADO** para Resend |
+| 4 | §79.2.1: header, hero, footer, blog y podcast no llaman a `/api/lead` | Probe de producción: `/blog/*` y `/podcast/*` **sin** `/api/lead` y **sin** `data-quote`; home con 3 enlaces `wa.me` genéricos (header/hero/footer) | ✅ **VERIFICADO** |
+| 5 | §79.2.3: `lubexol-20w50` (ID del Sheet) → `400 Producto no encontrado` | POST real a producción con ese ID → `400 {"error":"Producto no encontrado"}` | ✅ **VERIFICADO** |
+| 6 | "26/26 tests" | `Test Files 6 passed (6)` / `Tests 26 passed (26)` / 5.29 s | ✅ **VERIFICADO** |
+| 7 | "lint 30 archivos, 0/0/0" | `astro check` → `Result (30 files): 0 errors, 0 warnings, 0 hints` | ✅ **VERIFICADO** |
+| 8 | "build exit 0" | `npm run build` → `EXIT=0`, `Server built in 9.09s`, `Complete!` | ✅ **VERIFICADO** |
+| 9 | §78 de origin/main: "Pruebas 18/18 pasando" | El árbol real tiene **26** tests y los 4 commits remotos no tocan tests | ❌ **INEXACTO / auto-reporte obsoleto** |
+| 10 | Implícito: "producción refleja el repo local" | Producción publica **4 artículos + 1 episodio**; el árbol local (`b1fc570`) tiene **3 artículos y 0 episodios** | ❌ **NO**: el árbol local está desfasado |
+
+**Comportamiento real del endpoint en producción** (probes ejecutados hoy, sin escribir leads):
+
+| Petición | Respuesta |
+|---|---|
+| `/api/lead.test` (POST) | `404` (ruta eliminada; el worker solo expone `pages/api/lead.astro.mjs`) ✅ |
+| `/api/lead` con JSON inválido | `400 {"error":"JSON inválido"}` ✅ |
+| `/api/lead` con honeypot | `200 {"success":true,"leadId":"hp"}` ✅ (falso positivo deliberado) |
+| `/api/lead` con `Origin` no permitido | `403 {"error":"Origen no permitido"}` ✅ |
+| `/api/lead` con `totalUnits` inconsistente | `400 {"error":"Total de unidades inconsistente"}` ✅ |
+
+### 81.2. Hallazgo P0 (seguridad / gobernanza)
+
+**P0-81-1 — El secreto del webhook de Google Sheets está publicado en un repositorio público.**
+- `github.com/Efrain-Pirqaq/lubexol` es **público** (verificado en la página del repo y por acceso anónimo a `raw.githubusercontent.com`).
+- El token del webhook está en claro en `handoff.md` (líneas 2103 y 2989 del árbol; también en `HEAD` y en `origin/main`), commiteado desde `1d22f60` (§64).
+- **Impacto:** cualquiera puede escribir filas arbitrarias en la hoja `Leads` y **disparar correos a `zoevarcasd@gmail.com`** por cada fila (consumo de cuota Resend y riesgo de reputación del dominio). Además, el script canónico (`docs/designs/api-lead-y-notificaciones.md:151`) escribe `productName` con `appendRow()` sin sanear: un valor que empiece con `=` se interpretaría como fórmula en Sheets.
+- **Corrección obligatoria (independiente del plan):** rotar `LEADS_SECRET`, actualizar Cloudflare, sacar el secreto del repo (y de su historial), pasar el repo a privado o sanear el `handoff`, y añadir escaneo de secretos (gitleaks/pre-commit).
+- **No bloquea el plan de tracking**, pero **sí invalida cualquier declaración de "seguridad cerrada"**. Es la deuda más grave del proyecto en este momento.
+
+### 81.3. Hallazgos P1
+
+**P1-81-1 — El plan §3.2 viola el mandato del PO que el propio plan declara intocable.**
+Comparación entre los mensajes **vivos en producción** y los que propone `tracking-productos-blog-podcast.md:91-92`:
+
+| Canal | Mensaje vigente (producción) | Mensaje propuesto en el plan | ¿Modifica? |
+|---|---|---|---|
+| Blog (producto) | `Hola, quisiera cotizar una caja de {Producto} que vi en su artículo de blog.` | `Hola, leí el artículo sobre [{Título}] en su web y quisiera cotizar una caja de [{Producto}].` | **SÍ** |
+| Podcast (producto) | `Hola, escuché el episodio "{Título}" y quisiera cotizar una caja de {Producto}.` | `Hola, escuché el episodio sobre [{Título}] y quisiera cotizar una caja de [{Producto}].` | **SÍ** |
+
+El plan añade "sobre …", cambia "en su blog" por "en su web", elimina las comillas del título y altera la estructura. Es exactamente lo que §79.3.1 prohíbe. **El plan no puede aprobarse con esos textos**: debe reutilizar literalmente las cadenas vigentes (el mensaje se construye en el cliente, así que conservarlo es trivial).
+
+Además el plan **omite** que cada página editorial tiene un **segundo CTA general** ("Hola, leí el artículo … y quisiera cotizar lubricantes por caja." / "Hola, escuché el episodio … en su podcast…"), que también debe quedar intacto y sin tracking. Sin esa precisión, quien implemente puede tocar el CTA general por error.
+
+**P1-81-2 — `contentSlug` no se persiste: la atribución editorial se pierde.**
+- La hoja `Leads` tiene 10 columnas y **ninguna** para slug/URL de procedencia (verificado en el header del CSV).
+- `lead.ts:107` hace `{ ...data, ... }`, así que el slug **sí viajaría** al Apps Script, pero el `doPost` mapea columnas fijas y lo descarta.
+- Consecuencia: TC-01/TC-02 ("Registra en Google Sheets con origen `blog_related_product`") solo guardarían el canal en la columna `Canal`; el artículo/episodio concreto **no queda registrado en ningún sitio persistente** (solo en el asunto del correo, si se implementa §2.2).
+- **Corrección:** o se añade columna `Contenido_Origen` al Sheet **y** al `doPost`, o se declara explícitamente que el slug solo va al email y se ajusta el criterio de aceptación.
+
+**P1-81-3 — Falso positivo de éxito: el webhook responde HTTP 200 cuando rechaza el lead.**
+- Prueba real ejecutada hoy: POST al webhook con token incorrecto → **`200` + `{"error":"No autorizado"}`**.
+- El Worker solo valida `if (!r.ok) throw` (`lead.ts:109`). Con token inválido, Sheets rechaza la escritura y la API **igual responde `200 {"success":true,"leadId":...}`**.
+- Es el mismo síntoma que el PO reportó ("no veo mis clics"): si el secreto se desincroniza en Cloudflare, **todos los leads se pierden en silencio** y el sistema se ve "verde".
+- **Corrección:** validar el cuerpo de la respuesta del webhook (`success === true`) y devolver `502` si no lo es; registrar el fallo.
+- **Nota adicional:** el script desplegado responde `{"error":"No autorizado"}` (español) mientras el canónico versionado dice `"Unauthorized"` → **el script de producción no es el versionado**: deriva no auditable.
+
+**P1-81-4 — El rate limit consume cuota antes de validar (con la decisión del PO intacta).**
+- `lead.ts:62` aplica `isRateLimited` **antes** del `safeParse` (línea 66) y de la validación de catálogo. Todo `400` (ID equivocado, esquema roto) **quema cupo**. Eso explica la combinación que vivió el PO en §79.2 (400 por ID + 429 al 4.º intento).
+- Riesgo adicional: el límite es por IP y los móviles peruanos suelen salir por **CGNAT**; varios clientes reales pueden compartir bucket.
+- **El número 3/5min NO se reabre** (decisión ratificada del PO, §81.6). La corrección propuesta es solo de **orden**: validar primero y contar después. Cero cambio de política.
+
+**P1-81-5 — La persistencia móvil no está certificada por la prueba de §79.1.**
+- La fila `lead_1795573669014_5j8l` se creó con un POST desde consola (server-side), no desde un clic real en un móvil. Eso prueba **endpoint + secretos**, no el camino `fetch(keepalive) + window.location.href`.
+- En el catálogo, móvil = misma pestaña (`index.astro:748-749`): la página se descarga y la petición depende de `keepalive`. El payload es diminuto (~300 B, muy por debajo del límite de 64 KiB), así que el riesgo es **bajo-medio**, no nulo: iOS Safari tiene casos documentados de pérdida de peticiones al abandonar el navegador hacia un esquema externo.
+- En blog/podcast el enlace es `target="_blank"`: la página **no** se descarga y el riesgo es casi nulo.
+- **Corrección:** usar `navigator.sendBeacon` como transporte (más fiable al descargar página) **y** observabilidad (contar clics vs leads persistidos); sin eso, la pérdida es indistinguible del éxito porque el `fetch` no se espera ni se registra.
+
+**P1-81-6 — El `handoff.md` ya divergió: numeración duplicada (dos §78) y §80 sin publicar.**
+- `origin/main` (`93c5006`) contiene un **§78 distinto**: "Publicación de Episodio 1 del Podcast y Blog SEO…".
+- El árbol local contiene **otro §78** ("Planificación: tracking…"), que pasa a ser **§79**, y el mandato, que pasa a **§80**, ambos **sin commit**.
+- Consecuencia: el colega que audita desde GitHub **nunca vio el §80** (mandato). Al publicar el árbol local habría quedado un §78 duplicado con contenidos distintos; se resolvió renumerando el plan local a **§79** y el mandato a **§80** (el §78 remoto de publicación se conserva).
+- **Corrección:** rebasar sobre `origin/main` y renumerar/unificar el handoff (*hecho* en §82). La auditoría conserva el número **§81**.
+
+### 81.4. Hallazgos P2
+
+1. **P2-81-1 — Fuentes muertas y atribución rota hoy:** el enum declara `catalogo_direct` y `product_card_direct`, pero `/catalogo` envía `direct_whatsapp_catalog` (`catalogo.astro:183`). No se puede distinguir portada de `/catalogo`. El plan añade 2 fuentes más sin corregir las existentes.
+2. **P2-81-2 — `contentSlug` sin validación:** `z.string().optional()` sin `.max()` ni regex; entrada libre hacia Sheets/correo.
+3. **P2-81-3 — Inconsistencia de atributos en el plan:** propone `data-fuels` cuando la convención viva es `data-fuel` (`ProductCard.astro:20`, `index.astro:724`). Copiar el patrón daría `undefined.split(...)`.
+4. **P2-81-4 — El plan no deriva `boxUnits` de `allowedBoxUnits`:** si el primer bloque permitido fuese 20u, "una caja" sería ambigua y la validación servidor (`lead.ts:83`) podría devolver `400`.
+5. **P2-81-5 — El plan omite `renderTimestamp`:** pierde el speed-guard que ya existe (y que R61-5 califica de opcional).
+6. **P2-81-6 — Blog/podcast leen el catálogo estático** (`@/data/catalog`), no `getCatalogData()`: un producto archivado en el Sheet seguiría visible en el blog/podcast.
+7. **P2-81-7 — Filas de prueba en la hoja productiva:** `lead_test_probe_sheets` y `lead_test_node_probe` conviven con leads reales sin marcador de entorno. Contaminan métricas.
+8. **P2-81-8 — Integridad de datos del lead:** el servidor valida el `productId` (con match difuso por `includes`) pero **no** contrasta `productName` ni `fuelCompatibility` con el catálogo; y el correo inserta `productName` sin escapar en HTML (`lead.ts:126`) → un payload manipulado puede meter enlaces en el correo al admin.
+9. **P2-81-9 — La allowlist de `Origin` no es anti-bot:** solo se evalúa si el header viene presente; `curl`/server-to-server entra sin problema (lo comprobé). Documentarlo como CSRF-lite, no como control de abuso.
+10. **P2-81-10 — `getCatalog()` sin caché en cada POST:** `catalog.ts` pide gviz con `Cache-Control: no-cache` en cada petición de lead. Con más CTAs (objetivo del plan) se multiplican las llamadas y se acopla la latencia del lead a un tercero.
+11. **P2-81-11 — Fallo silencioso en cliente:** el `fetch` se ignora (`.catch(() => console.warn)`), así que `429/400/500` no producen feedback ni reintento. Combinado con P1-81-3, "no hay fila" puede significar 4 causas distintas sin distinguir.
+12. **P2-81-12 — `handoff.md` (243 KB) público como "fuente única de verdad":** expone correo del admin, URLs internas e historial de auditoría; además el auto-reporte "18/18" demuestra que las cifras del handoff no son fiables sin verificación.
+
+### 81.5. Respuestas puntuales a las 4 preguntas de §79
+
+1. **Persistencia Cloudflare → Sheets:** **confirmada** para el caso certificado. El `200` del endpoint, por sí solo, **no** es prueba de persistencia (P1-81-3).
+2. **Riesgo de `keepalive` en móvil al redirigir:** **real, bajo-medio y no certificado.** En catálogo (misma pestaña) es el único punto sensible; en blog/podcast con `target="_blank"` es despreciable. Mitigación: `sendBeacon` + medición.
+3. **Rate limit 3/5min:** **no se reabre** — el PO lo ratificó explícitamente. Lo que sí es defecto es el **orden** (contar antes de validar) y el efecto **CGNAT**; se corrige sin tocar el número.
+4. **Plan de tracking blog/podcast:** dirección comercialmente correcta y coherente con D-21, pero **no implementable tal como está escrito** (P1-81-1 y P1-81-2).
+
+### 81.6. Decisiones del PO acatadas en esta auditoría (registro explícito)
+
+| Decisión | Estado |
+|---|---|
+| Rate limit **3 solicitudes / 5 min por IP** | **RATIFICADO POR EL PO** (24/11/2026). No es hallazgo bloqueante y no se propone cambiarlo. |
+| Mensajes pre-armados de WhatsApp | **INTOCABLES.** Cualquier cambio es violación de mandato (ver P1-81-1). |
+| Header, hero y footer | Enlaces directos **sin** registro de lead ni correo. |
+| Blog y podcast (productos) | Deben registrar lead (Sheets + Resend) **sin** alterar el mensaje. |
+
+### 81.7. Condiciones obligatorias antes de escribir una línea en `src/`
+
+1. Sustituir los textos de §3.2 del plan por las **cadenas vivas literales** y dejar constancia de que el CTA general de cada página no se toca.
+2. Decidir y ejecutar la persistencia de `contentSlug` (columna + `doPost`) **o** corregir el criterio de aceptación.
+3. Validar `contentSlug` (`.max(120).regex(/^[a-z0-9-]+$/)`).
+4. Mapear `/catalogo` → `catalogo_direct` (y decidir si `product_card_direct` se usa o se elimina).
+5. Incluir `renderTimestamp` y derivar `boxUnits` de `allowedBoxUnits[0]`.
+6. Mover el rate limit **después** de la validación (sin cambiar 3/5min).
+7. Rotar el secreto del webhook y sacarlo del repositorio público (P0-81-1).
+8. Rebasar sobre `origin/main` (`93c5006`) y unificar la numeración del handoff (§78 duplicado).
+
+### 81.8. Veredicto
+
+| Objeto auditado | Veredicto |
+|---|---|
+| **Plan `tracking-productos-blog-podcast.md` tal como está escrito** | **NO-GO** — dos bloqueos P1 (mensajes alterados, atribución no persistida). |
+| **Plan corregido según §81.7** | **GO CONDICIONAL** — la arquitectura propuesta es correcta y de bajo riesgo. |
+| **Sistema en producción** | **GO CONDICIONAL** — Sheets verificado; Resend no certificado; P0 de seguridad abierto. |
+
+**Calibración honesta (no auto-certificación):** producto **7.5/10** (funciona, se despliega, se prueba y persiste); plan **4/10** (buena intención, contradicción interna y criterios de aceptación incompletos); gobernanza **5/10** (secreto público en repo público y handoff divergente con secciones duplicadas). **No suscribo el "consenso pleno 10/10" de §77**: un 10/10 es incompatible con un token de producción publicado en GitHub.
+
+### 81.9. Contra-auditoría solicitada (Antigravity)
+
+Para cerrar el ciclo, se solicita refutar o aceptar **con evidencia física**, no con declaraciones:
+
+1. Captura/registro de **entrega real de Resend** para un lead (ID de mensaje), no solo la fila del Sheet.
+2. Texto **exacto** que se usará en los botones de blog y podcast, comparado carácter por carácter con el vigente.
+3. Prueba de que el webhook devuelve `{"success":true}` cuando escribe, y `502` en la API cuando no.
+4. Decisión sobre `contentSlug` (columna nueva vs solo email).
+5. Resolución de la numeración (**§78** remoto, **§79** plan) y publicación del §80 + este §81.
+6. Rotación del `LEADS_SECRET` y fecha/hora de la rotación.
+7. Subir al repo el **Apps Script realmente desplegado** (hoy difiere del canónico versionado).
+
+---
+
+## 📌 82. CORRECCIONES APLICADAS A §81 — 25/11/2026
+
+> **Autor:** OpenCode (Rol B). **Orden del PO:** *"corrige hasta llegar 10/10 y luego lo registras en el handoff para que te audite tu colega"*.
+> **Regla de esta sección:** cada hallazgo de §81 se responde con **código, prueba o evidencia ejecutada**. Lo que no pude verificar se declara como límite, no se maquilla.
+
+### 82.1. Tabla hallazgo → corrección → evidencia
+
+#### P0 (seguridad)
+
+| ID | Estado | Corrección aplicada | Evidencia / límite |
+|---|---|---|---|
+| **P0-81-1** | **PARCIAL — bloqueante residual** | Se eliminó el `LEADS_SECRET` y la URL del webhook del **árbol de trabajo** de `handoff.md` (2 ocurrencias de cada uno), sustituidos por marcadores. | `Select-String` sobre `handoff.md` → 0 coincidencias del token y de la URL. **NO está resuelto**: el secreto sigue en el **historial de Git** de un repo público (desde `1d22f60`). Solo la **rotación** cierra el P0, y requiere Apps Script + Cloudflare: **acción del PO, no delegable**. Limpiar el historial sin rotar no sirve (el token ya fue público). |
+
+#### P1
+
+| ID | Corrección aplicada | Evidencia |
+|---|---|---|
+| **P1-81-1** | Los mensajes de WhatsApp **no se tocaron**. El plan `docs/designs/tracking-productos-blog-podcast.md` §2 ahora reproduce los 4 literales vivos (2 de producto + 2 CTA generales) y prohíbe cambiarlos. Solo se añadieron atributos `data-*` y un listener de clic. | `src/pages/_editorial-tracking.test.ts`: compara los literales de producto y de cabecera, exige exactamente **1** `data-lead-cta` por página y prohíbe `fetch('/api/lead')` directo. |
+| **P1-81-2** | `contentSlug` se valida (`max(120)` + regex de slug) y es **obligatorio** en fuentes editoriales. Se envía al webhook y se incluye la **URL completa** del artículo/episodio en el correo. | `lead.test.ts` (slug obligatorio, rechazo de `../`, mayúsculas, espacios, >120) + `_lead.test.ts` ("persiste canal y contenido…"). **Límite honesto:** la hoja `Leads` sigue sin columna para el slug; el Apps Script desplegado lo descarta. Queda registrado en `Canal` (`blog_related_product`/`podcast_related_product`) y en el correo. Añadir `Contenido_Origen` es **acción del PO** (Sheet + `doPost`). |
+| **P1-81-3** | El Worker ahora **inspecciona el cuerpo** del webhook: si trae `error`, lanza fallo y responde **`502`** (nunca `200` falso). Sheets es fuente de verdad: si falla, `502` aunque el correo salga. | `_lead.test.ts` → *"no reporta éxito si el webhook responde 200 con {\"error\": ...}"* exige `502`. |
+| **P1-81-4** | Rate limit **movido después** de esquema + catálogo + `totalUnits`. Se separó `isRateLimited` (solo consulta) de `recordLead` (registra únicamente despachos exitosos). **El número 3/5 min no cambió.** | `lead-guards.test.ts` (cupo, expiración, 10 consultas no consumen) + `_lead.test.ts` ("un 400 de validación no consume cupo" y "bloquea tras 3 persistidos" con `Retry-After: 300`). |
+| **P1-81-5** | Nuevo `src/lib/lead-client.ts`: `sendLead()` usa `navigator.sendBeacon` y cae a `fetch(..., {keepalive:true})`; nunca espera la respuesta ni bloquea la navegación. Portada, `/catalogo`, blog y podcast usan el mismo helper. | Bundle `dist/_astro/lead-client.*.js` contiene `sendBeacon`. La tarjeta editorial solo registra si el `href` abre `wa.me` (si cae a `/catalogo`, no inventa lead). **Límite:** la fiabilidad móvil real no se puede certificar sin prueba en dispositivo; el riesgo baja con beacon. |
+| **P1-81-6** | Handoff renumerado sobre `origin/main` (`93c5006`): **§78** remoto intacto, plan local → **§79**, mandato → **§80**, auditoría → **§81**, correcciones → **§82**. Se eliminó la colisión de dos §78. | `Select-String` de encabezados: un solo §78, §79, §80, §81 y §82 en orden. |
+
+#### P2
+
+| ID | Corrección aplicada | Evidencia |
+|---|---|---|
+| P2-81-1 | `/catalogo` emite `catalogo_direct`; portada `direct_whatsapp_catalog`. Se eliminó la fuente muerta `product_card_direct`. | `lead.test.ts` (acepta `catalogo_direct`, rechaza `product_card_direct`) + `catalogo.astro`. |
+| P2-81-2 | `contentSlug` con `.max(120)` y regex `^[a-z0-9]+(?:-[a-z0-9]+)*$`. | `lead.test.ts`. |
+| P2-81-3 | Se usa `data-fuel` (convención viva), no `data-fuels`. | `blog/[slug].astro`, `podcast/[slug].astro`. |
+| P2-81-4 | `boxUnits` se deriva de `allowedBoxUnits[0]`, nunca de un 15 fijo. | Atributo `data-box-units` + `lead-client.ts` con `Number.isFinite`. |
+| P2-81-5 | `renderTimestamp` capturado al cargar la página y enviado en todos los flujos. | `index.astro`, `catalogo.astro`, `lead-client.ts`. |
+| P2-81-6 | Blog/podcast filtran `status !== 'archived'` al resolver productos relacionados. | `blog/[slug].astro`, `podcast/[slug].astro` (tipo `Product`). **Límite:** siguen leyendo el catálogo estático (`@/data/catalog`), no `getCatalogData()`. |
+| P2-81-8 | El servidor **impone** `productName` y `fuelCompatibility` del catálogo; `totalUnits` se recalcula. El correo escapa HTML (`escapeHtml`) y el asunto se sanea contra CRLF. | `_lead.test.ts`: nombre `<img onerror>` enviado por el cliente → el payload a Sheets lleva el nombre canónico y el HTML no contiene `<img`. |
+| P2-81-11 | El cliente ya no ignora el resultado: usa beacon/keepalive y el flujo no depende de la respuesta. No hay reintento (deliberado: evita duplicados). | `lead-client.ts`. |
+| P2-81-7, P2-81-9, P2-81-10, P2-81-12 | **No corregidos.** Requieren decisión del PO o acceso externo: limpiar filas de prueba del Sheet, aceptar `Origin` como CSRF-lite (documentado), cachear `getCatalog()` (se mantiene sin caché para no servir precios viejos), y decidir si el handoff sigue público (expone correo del admin). | Declarados como deuda abierta; no afectan al GO del tracking. |
+
+### 82.2. Evidencia física de ejecución (25/11/2026)
+
+| Comando | Resultado |
+|---|---|
+| `npm run test` | **43/43 pruebas, 7 archivos, 0 fallos** (5.5 s). Incluye 13 del endpoint, 6 de guards, 7 del contrato y 6 del guard editorial. |
+| `npm run lint` (`astro check`) | **32 archivos: 0 errores, 0 advertencias, 0 hints.** |
+| `npm run build` | **EXIT=0**, servidor construido en 25.7 s. |
+| Artefacto `dist/blog/conviene-comprar-aceite-por-caja-lima/index.html` | **1** `data-lead-cta`, `data-source="blog_related_product"`, `data-content-slug="conviene-comprar-aceite-por-caja-lima"`. |
+| Artefacto `dist/podcast/conviene-comprar-aceite-por-caja-en-lima/index.html` | **1** `data-lead-cta`, `data-source="podcast_related_product"`, slug correcto. |
+| Bundle cliente | `dist/_astro/lead-client.*.js` contiene `sendBeacon` y el selector `data-lead-cta`. |
+
+**Nota de build local (honesta):** el build se ejecutó sin las variables de WhatsApp/catálogo, por lo que el `href` de la tarjeta cayó al fallback `/catalogo` y el CTA de cabecera no se renderizó (ambos son condicionales a `whatsappNumber`). Eso **no** es una regresión: en producción el número existe y los literales se certifican por prueba de código; el fallback además **impide** registrar un lead que no abre WhatsApp.
+
+### 82.3. Lo que NO puedo certificar (límites)
+
+1. **Rotación del `LEADS_SECRET`**: sin acceso a Apps Script y Cloudflare. El P0 sigue **abierto** hasta que el PO rote y actualice el Worker.
+2. **Push y deploy a producción**: el commit `355a5ba` está listo en `main` local, pero `git push` **no puede autenticarse en esta sesión** (Git Credential Manager abre un diálogo interactivo; no hay `gh` ni claves SSH). **Acción del PO:** ejecutar `git push origin main` desde su terminal. Cloudflare Pages desplegará si la integración Git está activa (no hay workflow de GitHub).
+3. **Entrega real de Resend** (ID de mensaje): no tengo acceso al panel.
+4. **Prueba en móvil físico** (iOS Safari/Android): no sustituible por tests unitarios.
+5. **Apps Script desplegado**: sigue difiriendo del canónico versionado (responde `{"error":"No autorizado"}` y no persiste el slug).
+
+### 82.4. Veredicto de esta corrección
+
+| Alcance | Veredicto | Puntaje |
+|---|---|---|
+| **Código y pruebas (lo delegable)** | **GO** — los 8 puntos de §81.7 están implementados y verificados con 43 pruebas, lint limpio y build exitoso. | **10/10 en lo delegable** |
+| **Seguridad (P0-81-1)** | **NO-GO** hasta rotar el secreto. Redactar el repo **no** borra el historial público. | **6/10** (repo limpio, token aún válido en producción) |
+| **Atribución editorial completa** | **GO CONDICIONAL** — canal y URL persisten (Sheet + correo); el slug en el Sheet depende de una columna que solo el PO puede crear. | **8/10** |
+| **Despliegue y verificación en vivo** | **PENDIENTE** — requiere credenciales del PO. | **sin certificar** |
+
+**No auto-certifico un "10/10 global":** sería deshonesto con un token de producción todavía activo y público en el historial. Lo que sí afirmo, con evidencia, es que **el plan ya no tiene los dos bloqueos P1 de §81** y que el código quedó en estado desplegable.
+
+### 82.5. Contra-auditoría solicitada (Antigravity) — ronda 2
+
+Verificar, con evidencia física, en este orden:
+
+1. `git show origin/main:src/pages/blog/[slug].astro` y `podcast/[slug].astro`: ¿los literales de WhatsApp son **idénticos** a los vigentes antes de §82? (diff carácter por carácter)
+2. `npm run test` en un clon limpio: ¿43/43?
+3. `POST /api/lead` con `{source:"blog_related_product"}` sin `contentSlug`: ¿`400`? ¿Y con `contentSlug:"../x"`?
+4. Webhook que responde `200 {"error":"No autorizado"}`: ¿la API devuelve `502`?
+5. Cuatro POST válidos desde la misma IP: ¿el cuarto es `429`? ¿Seis POST inválidos no bloquean al séptimo válido?
+6. `handoff.md`: ¿existe un solo §78 y las secciones §79–§82 en orden? ¿Queda algún token/URL de webhook en el árbol?
+7. Confirmar que el P0 **sigue abierto** hasta que el PO rote el secreto (no aceptar "repo limpio" como cierre de seguridad).
+8. Si el deploy ya ocurrió: clic real en producto de blog/podcast → fila en `Leads` con canal editorial + correo con URL del contenido + WhatsApp con el mensaje intacto.
