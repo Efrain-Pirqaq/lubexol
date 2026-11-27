@@ -19,7 +19,7 @@ const related = post.data.relatedProducts
   .filter((p): p is Product => Boolean(p));
 
 const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
-const canonicalUrl = `https://aceitedemotorlima.com/blog/${post.slug}`;
+const canonicalUrl = `https://aceitedemotorlima.com/blog/${post.slug}/`;
 
 const schemaArticle = {
   '@context': 'https://schema.org',

@@ -3337,3 +3337,33 @@ Verificar, con evidencia física, en este orden:
 1. **Publicación del Código:** Ejecutar en terminal `git push origin main` para sincronizar el commit `355a5ba` (y el commit de renombrado de tests) con GitHub y disparar el despliegue automático en Cloudflare Pages.
 2. **Rotación de Seguridad (P0):** Modificar la variable `LEADS_SECRET` en el script de Google Sheets y en el panel de Cloudflare Pages para invalidar el token antiguo expuesto.
 
+---
+
+## 📌 84. RESOLUCIÓN DE HALLAZGOS GSC: CANONICALS CON TRAILING SLASH, ROBOTS.TXT Y FAVICON — 26/11/2026
+
+> **Fecha:** 26/11/2026 21:15  
+> **Participantes:** Product Owner (Efraín), Antigravity (Arquitecto Principal / SEO Specialist).  
+> **Objetivo:** Resolver los 4 hallazgos reportados en Google Search Console (404, 308 redirect y páginas sin indexar).  
+
+### 84.1. Diagnóstico Forense de URLs Reportadas en GSC
+
+1. **`https://aceitedemotorlima.com/api/lead` (404 en GSC):**
+   - *Causa:* Es una ruta de API que solo admite método `POST`. Googlebot intentó hacerle `GET` al leer la ruta en los scripts del cliente.
+   - *Solución:* Se agregó `Disallow: /api/` a `public/robots.txt`. Googlebot ya no rastreará rutas internas de API.
+2. **`https://aceitedemotorlima.com/blog/conviene-comprar-aceite-por-caja-lima` (Página con redirección 308):**
+   - *Causa:* La URL sin barra final sufría un `HTTP 308 Permanent Redirect` hacia la versión con barra `/`. La etiqueta canónica de la página apuntaba erróneamente a la versión sin barra, generando un bucle de señales contradictorias en GSC.
+   - *Solución:* Se corrigieron todas las etiquetas `<link rel="canonical">` y `og:url` para incluir la barra final `/`, alineándolas al 100% con Cloudflare Pages y el `sitemap-0.xml`.
+3. **`https://aceitedemotorlima.com/podcast/conviene-comprar-aceite-por-caja-en-lima/` (Rastreada: actualmente sin indexar):**
+   - *Causa:* Discrepancia canónica (declaraba URL sin barra mientras el sitemap tenía barra) sumado a la juventud del dominio.
+   - *Solución:* Con la etiqueta canónica alineada con barra final, la señal técnica queda limpia para su indexación automática.
+4. **`https://aceitedemotorlima.com/sitemap-0.xml` (Rastreada: actualmente sin indexar):**
+   - *Diagnóstico:* Es un archivo técnico XML. Google Search Console lo rastrea pero nunca lo indexa en resultados de búsqueda. Comportamiento 100% normal.
+5. **Recurso `public/favicon.ico`:**
+   - Creado en `public/favicon.ico` para responder `200 OK` a peticiones estándar de favicon de rastreadores web.
+
+### 84.2. Verificación Física
+- **`npm run test`:** 43/43 tests pasando.
+- **`npm run build`:** Compilación exitosa en 11.71s con EXIT=0.
+- **Artefactos en `dist/`:** Verificado que los archivos HTML en `dist/blog/.../index.html` y `dist/podcast/.../index.html` portan `<link rel="canonical" href=".../">` con barra final.
+
+

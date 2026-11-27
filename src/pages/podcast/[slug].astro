@@ -18,7 +18,7 @@ const related = (ep.data.relatedProducts || [])
   .filter((p): p is Product => Boolean(p));
 
 const whatsappNumber = import.meta.env.PUBLIC_WHATSAPP_NUMBER || '';
-const canonicalUrl = `https://aceitedemotorlima.com/podcast/${ep.slug}`;
+const canonicalUrl = `https://aceitedemotorlima.com/podcast/${ep.slug}/`;
 
 // Extraer ID de YouTube si existe
 let youtubeEmbedUrl = '';
